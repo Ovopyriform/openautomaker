@@ -3,8 +3,9 @@ package celtech.coreUI.controllers.panels;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.GuiceContext;
 import org.openautomaker.ui.component.graphic_button.GraphicButtonWithLabel;
+import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
+import org.openautomaker.ui.component.menu_panel.MenuInnerPanel.OperationButton;
 
-import celtech.coreUI.controllers.panels.MenuInnerPanel.OperationButton;
 import jakarta.inject.Inject;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyObjectProperty;

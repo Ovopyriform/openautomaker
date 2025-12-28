@@ -52,6 +52,6 @@ public class ChoiceLinkButtonTest {
 			choiceLinkButton.setMessage(TEST_TEXT_1);
 		});
 
-		Thread.sleep(1000);
+		//Thread.sleep(1000);
 	}
 }

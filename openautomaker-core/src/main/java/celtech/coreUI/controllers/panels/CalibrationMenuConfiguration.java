@@ -4,6 +4,7 @@ package celtech.coreUI.controllers.panels;
 import org.openautomaker.base.printerControl.model.Head;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.environment.I18N;
+import org.openautomaker.ui.component.calibration_panel.CalibrationInsetPanelController;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import com.google.inject.assistedinject.Assisted;

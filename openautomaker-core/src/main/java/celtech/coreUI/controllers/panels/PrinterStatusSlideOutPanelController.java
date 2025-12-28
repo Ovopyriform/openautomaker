@@ -5,8 +5,8 @@ import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openautomaker.ui.SlidablePanel;
 
-import celtech.coreUI.controllers.SlidablePanel;
 import celtech.coreUI.controllers.SlideOutHandleController;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
+@Deprecated
 public class PrinterStatusSlideOutPanelController implements Initializable, SlidablePanel {
 
 	private static final Logger LOGGER = LogManager.getLogger(

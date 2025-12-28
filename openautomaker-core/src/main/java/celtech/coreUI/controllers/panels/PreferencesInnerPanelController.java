@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
+
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

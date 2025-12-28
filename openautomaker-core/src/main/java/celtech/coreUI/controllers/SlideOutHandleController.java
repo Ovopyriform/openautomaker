@@ -19,6 +19,7 @@ import javafx.util.Duration;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
+@Deprecated
 public class SlideOutHandleController implements Initializable {
 
 	@FXML

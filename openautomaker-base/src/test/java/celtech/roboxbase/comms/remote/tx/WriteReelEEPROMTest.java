@@ -1,11 +1,11 @@
 
 package celtech.roboxbase.comms.remote.tx;
 
+import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 import org.openautomaker.base.MaterialType;
-import org.openautomaker.base.utils.ColourStringConverter;
 
 import celtech.roboxbase.comms.tx.WriteReel0EEPROM;
 import javafx.scene.paint.Color;
@@ -32,7 +32,7 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, ColourStringConverter.colourToString(displayColour));
+				materialType, formatHexString(displayColour).substring(1));
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);
@@ -59,7 +59,7 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, ColourStringConverter.colourToString(displayColour));
+				materialType, formatHexString(displayColour).substring(1));
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);

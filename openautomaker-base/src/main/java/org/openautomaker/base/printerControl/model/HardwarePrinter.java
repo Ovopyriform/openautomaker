@@ -1,5 +1,7 @@
 package org.openautomaker.base.printerControl.model;
 
+import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -76,7 +78,6 @@ import org.openautomaker.base.task_executor.TaskExecutor;
 import org.openautomaker.base.task_executor.TaskResponder;
 import org.openautomaker.base.task_executor.TaskResponse;
 import org.openautomaker.base.utils.AxisSpecifier;
-import org.openautomaker.base.utils.ColourStringConverter;
 import org.openautomaker.base.utils.PrinterUtils;
 import org.openautomaker.base.utils.RectangularBounds;
 import org.openautomaker.base.utils.SystemUtils;
@@ -1534,14 +1535,14 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 				writePacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.WRITE_REEL_0_EEPROM);
 				((WriteReel0EEPROM) writePacket).populateEEPROM(reelToWrite.filamentID.get(), reelToWrite.firstLayerNozzleTemperature.get(), reelToWrite.nozzleTemperature.get(), reelToWrite.firstLayerBedTemperature.get(),
 						reelToWrite.bedTemperature.get(), reelToWrite.ambientTemperature.get(), reelToWrite.diameter.get(), reelToWrite.filamentMultiplier.get(), reelToWrite.feedRateMultiplier.get(), reelToWrite.remainingFilament.get(),
-						reelToWrite.friendlyFilamentName.get(), reelToWrite.material.get(), ColourStringConverter.colourToString(reelToWrite.displayColour.get()));
+						reelToWrite.friendlyFilamentName.get(), reelToWrite.material.get(), formatHexString(reelToWrite.displayColour.get()).substring(1));
 				break;
 			case 1:
 				readPacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.READ_REEL_1_EEPROM);
 				writePacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.WRITE_REEL_1_EEPROM);
 				((WriteReel1EEPROM) writePacket).populateEEPROM(reelToWrite.filamentID.get(), reelToWrite.firstLayerNozzleTemperature.get(), reelToWrite.nozzleTemperature.get(), reelToWrite.firstLayerBedTemperature.get(),
 						reelToWrite.bedTemperature.get(), reelToWrite.ambientTemperature.get(), reelToWrite.diameter.get(), reelToWrite.filamentMultiplier.get(), reelToWrite.feedRateMultiplier.get(), reelToWrite.remainingFilament.get(),
-						reelToWrite.friendlyFilamentName.get(), reelToWrite.material.get(), ColourStringConverter.colourToString(reelToWrite.displayColour.get()));
+						reelToWrite.friendlyFilamentName.get(), reelToWrite.material.get(), formatHexString(reelToWrite.displayColour.get()).substring(1));
 				break;
 		}
 
@@ -1571,7 +1572,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 				((WriteReel0EEPROM) writePacket).populateEEPROM(filament.getFilamentID(), filament.getFirstLayerNozzleTemperature(), filament.getNozzleTemperature(), filament.getFirstLayerBedTemperature(), filament.getBedTemperature(),
 						filament.getAmbientTemperature(), filament.getDiameter(), filament.getFilamentMultiplier(), filament.getFeedRateMultiplier(), filament.getRemainingFilament(), filament.getFriendlyFilamentName(),
 						filament.getMaterial(),
-						ColourStringConverter.colourToString(filament.getDisplayColour()));
+						formatHexString(filament.getDisplayColour()).substring(1));
 				break;
 			case 1:
 				readPacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.READ_REEL_1_EEPROM);
@@ -1579,7 +1580,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 				((WriteReel1EEPROM) writePacket).populateEEPROM(filament.getFilamentID(), filament.getFirstLayerNozzleTemperature(), filament.getNozzleTemperature(), filament.getFirstLayerBedTemperature(), filament.getBedTemperature(),
 						filament.getAmbientTemperature(), filament.getDiameter(), filament.getFilamentMultiplier(), filament.getFeedRateMultiplier(), filament.getRemainingFilament(), filament.getFriendlyFilamentName(),
 						filament.getMaterial(),
-						ColourStringConverter.colourToString(filament.getDisplayColour()));
+						formatHexString(filament.getDisplayColour()).substring(1));
 				break;
 			default:
 				LOGGER.warn("Using default reel - was asked to read reel number " + reelNumber);
@@ -1608,13 +1609,13 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 				readPacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.READ_REEL_0_EEPROM);
 				writePacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.WRITE_REEL_0_EEPROM);
 				((WriteReel0EEPROM) writePacket).populateEEPROM(filamentID, reelFirstLayerNozzleTemperature, reelNozzleTemperature, reelFirstLayerBedTemperature, reelBedTemperature, reelAmbientTemperature, reelFilamentDiameter,
-						reelFilamentMultiplier, reelFeedRateMultiplier, reelRemainingFilament, friendlyName, materialType, ColourStringConverter.colourToString(displayColour));
+						reelFilamentMultiplier, reelFeedRateMultiplier, reelRemainingFilament, friendlyName, materialType, formatHexString(displayColour).substring(1));
 				break;
 			case 1:
 				readPacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.READ_REEL_1_EEPROM);
 				writePacket = RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.WRITE_REEL_1_EEPROM);
 				((WriteReel1EEPROM) writePacket).populateEEPROM(filamentID, reelFirstLayerNozzleTemperature, reelNozzleTemperature, reelFirstLayerBedTemperature, reelBedTemperature, reelAmbientTemperature, reelFilamentDiameter,
-						reelFilamentMultiplier, reelFeedRateMultiplier, reelRemainingFilament, friendlyName, materialType, ColourStringConverter.colourToString(displayColour));
+						reelFilamentMultiplier, reelFeedRateMultiplier, reelRemainingFilament, friendlyName, materialType, formatHexString(displayColour).substring(1));
 				break;
 			default:
 				LOGGER.warn("Using default reel - was asked to read reel number " + reelNumber);
@@ -2032,7 +2033,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printerFriendlyName.set(chosenPrinterName);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
 			PrinterIDResponse idResponse = (PrinterIDResponse) commandInterface.writeToPrinter(RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.READ_PRINTER_ID));
@@ -2052,7 +2053,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printerColour.set(printerColourMap.displayToPrinterColour(displayColour));
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2074,7 +2075,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printeredition.set(printerEdition.getTypeCode());
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2094,7 +2095,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printerweekOfManufacture.set(weekIdentifier);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2114,7 +2115,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printeryearOfManufacture.set(yearIdentifier);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2134,7 +2135,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printerpoNumber.set(poIdentifier);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2154,7 +2155,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printerserialNumber.set(serialIdentifier);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2174,7 +2175,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		newIdentity.printercheckByte.set(checksum);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2193,7 +2194,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		PrinterIdentity newIdentity = identity.clone();
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
-				ColourStringConverter.colourToString(newIdentity.printerColour.get()), newIdentity.firmwareVersion.get());
+				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
 
 		try {
 			AckResponse response = (AckResponse) commandInterface.writeToPrinter(writeIDCmd);
@@ -2750,7 +2751,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 	public void setAmbientLEDColour(Color colour) throws PrinterException {
 		SetAmbientLEDColour ledColour = (SetAmbientLEDColour) RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.SET_AMBIENT_LED_COLOUR);
 
-		ledColour.setLEDColour(ColourStringConverter.colourToString(colour));
+		ledColour.setLEDColour(formatHexString(colour).substring(1));
 
 		try {
 			commandInterface.writeToPrinter(ledColour, true);
@@ -2763,7 +2764,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 	@Override
 	public void setReelLEDColour(Color colour) throws PrinterException {
 		SetReelLEDColour ledColour = (SetReelLEDColour) RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.SET_REEL_LED_COLOUR);
-		ledColour.setLEDColour(ColourStringConverter.colourToString(colour));
+		ledColour.setLEDColour(formatHexString(colour).substring(1));
 		try {
 			commandInterface.writeToPrinter(ledColour);
 		}

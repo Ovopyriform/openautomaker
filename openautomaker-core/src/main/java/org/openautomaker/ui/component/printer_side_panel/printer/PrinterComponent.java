@@ -2,7 +2,7 @@
 package org.openautomaker.ui.component.printer_side_panel.printer;
 
 import static celtech.utils.StringMetrics.getWidthOfString;
-import static org.openautomaker.base.utils.ColourStringConverter.colourToString;
+import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
 
 import java.io.IOException;
 import java.net.URL;
@@ -282,7 +282,7 @@ public class PrinterComponent extends Pane {
 		}
 		else {
 			nameText = i18n.t("sidePanel_printerStatus.notConnected");
-			String style = "-fx-background-color: #" + colourToString(StandardColours.LIGHT_GREY) + ";";
+			String style = "-fx-background-color: " + formatHexString(StandardColours.LIGHT_GREY) + ";";
 			innerPane.setStyle(style);
 			setStatus(Status.NO_INDICATOR);
 		}
@@ -325,7 +325,7 @@ public class PrinterComponent extends Pane {
 
 	public void setColour(Color color) {
 		Color displayColour = printerColourMap.printerToDisplayColour(color);
-		String colourHexString = "#" + colourToString(displayColour);
+		String colourHexString = formatHexString(displayColour);
 		String style = "-fx-background-color: " + colourHexString + ";";
 		innerPane.setStyle(style);
 	}

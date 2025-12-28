@@ -3,7 +3,6 @@ package celtech.roboxbase.comms.rx;
 import static celtech.roboxbase.comms.tx.WriteReel0EEPROM.FRIENDLY_NAME_LENGTH;
 import static celtech.roboxbase.comms.tx.WriteReel0EEPROM.MATERIAL_TYPE_LENGTH;
 import static celtech.roboxbase.comms.tx.WriteReel0EEPROM.REEL_EEPROM_PADDING_LENGTH;
-import static org.openautomaker.base.utils.ColourStringConverter.stringToColor;
 
 import java.io.UnsupportedEncodingException;
 import java.text.ParseException;
@@ -19,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import celtech.roboxbase.comms.remote.EnumStringConverter;
 import celtech.roboxbase.comms.remote.FixedDecimalFloatFormat;
 import celtech.roboxbase.comms.remote.StringToBase64Encoder;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -85,7 +85,7 @@ public abstract class ReelEEPROMDataResponse extends RoboxRxPacket
             byteOffset += materialTypeCodeBytes;
 
             String displayColourString = new String(byteData, byteOffset, colourBytes, charsetToUse);
-            this.displayColourString = stringToColor(displayColourString).toString();
+			this.displayColourString = Color.web("#" + displayColourString).toString();
 
             byteOffset += uniqueIDBytes;
 

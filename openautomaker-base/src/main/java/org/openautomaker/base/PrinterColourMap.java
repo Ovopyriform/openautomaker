@@ -13,7 +13,6 @@ import javafx.scene.paint.Color;
 @Singleton
 public class PrinterColourMap {
 
-	private static PrinterColourMap instance = null;
 	private final Map<Color, Color> colourMap;
 	private final List<Color> printerColours;
 	private final List<Color> displayColours;

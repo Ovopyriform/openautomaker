@@ -1,6 +1,6 @@
 package org.openautomaker.base.printerControl.model;
 
-import static org.openautomaker.base.utils.ColourStringConverter.colourToString;
+import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -287,7 +287,7 @@ public class Reel {
 				result = RepairResult.REPAIRED_WRITE_ONLY;
 			}
 
-			if (!colourToString(displayColour.get()).equals(colourToString(referenceFilamentData.getDisplayColour()))) {
+			if (!formatHexString(displayColour.get()).equals(formatHexString(referenceFilamentData.getDisplayColour()))) {
 				displayColour.set(referenceFilamentData.getDisplayColour());
 				result = RepairResult.REPAIRED_WRITE_ONLY;
 			}

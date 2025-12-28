@@ -19,10 +19,10 @@ import org.openautomaker.base.printerControl.model.PrinterIdentity;
 import org.openautomaker.base.printerControl.model.PrinterListChangesListener;
 import org.openautomaker.base.printerControl.model.Reel;
 import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialog;
 import org.openautomaker.ui.component.printer_side_panel.printer.PrinterComponent;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.coreUI.components.PrinterIDDialog;
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleListProperty;
 import javafx.collections.ObservableList;

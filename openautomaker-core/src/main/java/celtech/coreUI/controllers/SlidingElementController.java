@@ -12,6 +12,7 @@ import javafx.util.Duration;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
+@Deprecated
 public class SlidingElementController {
 
 	private Animation hideSidebar = null;

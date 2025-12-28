@@ -28,12 +28,12 @@ import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
 import org.openautomaker.guice.FXMLLoaderFactory;
 import org.openautomaker.ui.StageManager;
 import org.openautomaker.ui.component.choice_link_button.ChoiceLinkButton;
+import org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox;
+import org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox.PrinterDisconnectedException;
+import org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialog;
+import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
 
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.ChoiceLinkDialogBox;
-import celtech.coreUI.components.ChoiceLinkDialogBox.PrinterDisconnectedException;
-import celtech.coreUI.components.PrinterIDDialog;
-import celtech.coreUI.components.ProgressDialog;
 import celtech.coreUI.components.Notifications.NotificationDisplay;
 import celtech.coreUI.controllers.popups.ResetPrinterIDController;
 import celtech.roboxbase.comms.RoboxResetIDResult;

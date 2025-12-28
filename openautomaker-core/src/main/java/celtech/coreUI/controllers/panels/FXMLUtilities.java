@@ -1,6 +1,3 @@
-/*
- * Copyright 2015 CEL UK
- */
 package celtech.coreUI.controllers.panels;
 
 import javafx.scene.Node;
@@ -11,10 +8,7 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.text.Text;
 
-/**
- *
- * @author tony
- */
+//TODO: Why is this needed?
 public class FXMLUtilities {
 
 	/**

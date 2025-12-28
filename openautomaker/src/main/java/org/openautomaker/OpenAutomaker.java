@@ -20,11 +20,11 @@ import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
 import org.openautomaker.guice.GuiceContext;
 import org.openautomaker.inject.OpenAutomakerModule;
 import org.openautomaker.javafx.inject.JavaFXModule;
+import org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox;
+import org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox.PrinterDisconnectedException;
 import org.openautomaker.ui.inject.UIModule;
 
 import celtech.coreUI.DisplayManager;
-import celtech.coreUI.components.ChoiceLinkDialogBox;
-import celtech.coreUI.components.ChoiceLinkDialogBox.PrinterDisconnectedException;
 import celtech.roboxbase.comms.RoboxCommsManager;
 import celtech.roboxbase.comms.interapp.AbstractInterAppRequest;
 import celtech.roboxbase.comms.interapp.InterAppCommsConsumer;

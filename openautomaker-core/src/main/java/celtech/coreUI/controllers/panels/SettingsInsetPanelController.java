@@ -28,6 +28,7 @@ import org.openautomaker.base.printerControl.model.PrinterListChangesListener;
 import org.openautomaker.base.services.slicer.PrintQualityEnumeration;
 import org.openautomaker.environment.Slicer;
 import org.openautomaker.environment.preference.slicer.SlicerPreference;
+import org.openautomaker.ui.ProjectAwareController;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
@@ -38,7 +39,6 @@ import celtech.appManager.TimelapseSettingsData;
 import celtech.coreUI.DisplayManager;
 import celtech.coreUI.components.RestrictedNumberField;
 import celtech.coreUI.components.Notifications.ConditionalNotificationBar;
-import celtech.coreUI.controllers.ProjectAwareController;
 import celtech.modelcontrol.ProjectifiableThing;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;

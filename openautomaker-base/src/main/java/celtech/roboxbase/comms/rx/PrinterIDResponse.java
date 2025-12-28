@@ -1,7 +1,5 @@
 package celtech.roboxbase.comms.rx;
 
-import static org.openautomaker.base.utils.ColourStringConverter.stringToColor;
-
 import java.io.UnsupportedEncodingException;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
@@ -111,7 +109,7 @@ public class PrinterIDResponse extends RoboxRxPacket
                     PrinterIDDataStructure.colourBytes, charsetToUse);
             byteOffset += PrinterIDDataStructure.colourBytes;
 
-            printerColour = stringToColor(colourDigits).toString();
+			printerColour = Color.web("#" + colourDigits).toString();
 
             success = true;
 

@@ -25,8 +25,13 @@ import org.openautomaker.environment.preference.modeling.ModelsPathPreference;
 import org.openautomaker.environment.preference.modeling.ProjectsPathPreference;
 import org.openautomaker.guice.FXMLLoaderFactory;
 import org.openautomaker.ui.StageManager;
+import org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController;
 import org.openautomaker.ui.component.layout_status_menu_strip.LayoutStatusMenuStrip;
+import org.openautomaker.ui.component.menu_panel.library.LibraryMenuPanelController;
 import org.openautomaker.ui.component.printer_side_panel.PrinterSidePanel;
+import org.openautomaker.ui.component.printer_status_page.PrinterStatusPageController;
+import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
+import org.openautomaker.ui.component.purge_panel.PurgeInsetPanelController;
 import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 import org.openautomaker.ui.state.ProjectGUIStates;
@@ -44,16 +49,11 @@ import celtech.appManager.ProjectManager;
 import celtech.appManager.undo.CommandStack;
 import celtech.appManager.undo.UndoableProject;
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.ProgressDialog;
 import celtech.coreUI.components.ProjectTab;
 import celtech.coreUI.components.Spinner;
 import celtech.coreUI.components.TopMenuStrip;
 import celtech.coreUI.components.Notifications.NotificationArea;
-import celtech.coreUI.controllers.InfoScreenIndicatorController;
-import celtech.coreUI.controllers.PrinterStatusPageController;
-import celtech.coreUI.controllers.panels.LibraryMenuPanelController;
 import celtech.coreUI.controllers.panels.PreviewManagerController;
-import celtech.coreUI.controllers.panels.PurgeInsetPanelController;
 import celtech.coreUI.keycommands.HiddenKey;
 import celtech.coreUI.keycommands.KeyCommandListener;
 import celtech.coreUI.keycommands.UnhandledKeyListener;
@@ -503,17 +503,14 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		// The printer status tab will always be visible - the page is static
 		try {
 
-			FXMLLoader printerStatusPageLoader = fxmlLoaderFactory.create(getClass().getResource(
-					ApplicationConfiguration.fxmlResourcePath
-							+ "PrinterStatusPage.fxml"));
+			FXMLLoader printerStatusPageLoader = fxmlLoaderFactory.create(getClass().getResource("/org/openautomaker/ui/component/printer_status_page/PrinterStatusPage.fxml"));
 			AnchorPane printerStatusPage = printerStatusPageLoader.load();
 			PrinterStatusPageController printerStatusPageController = printerStatusPageLoader.getController();
 			printerStatusPageController.configure(projectTabPaneHolder);
 
 			printerStatusTab = new Tab();
-			FXMLLoader printerStatusPageLabelLoader = fxmlLoaderFactory.create(getClass().getResource(
-					ApplicationConfiguration.fxmlResourcePath
-							+ "infoScreenIndicator.fxml"));
+
+			FXMLLoader printerStatusPageLabelLoader = fxmlLoaderFactory.create(getClass().getResource("/org/openautomaker/ui/component/info_screen_indicator/InfoScreenIndicator.fxml"));
 			VBox printerStatusLabelGroup = printerStatusPageLabelLoader.load();
 			infoScreenIndicatorController = printerStatusPageLabelLoader.getController();
 			printerStatusTab.setGraphic(printerStatusLabelGroup);
@@ -707,6 +704,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 			FXMLLoader insetPanelLoader = fxmlLoaderFactory.create(fxmlFileName);
 
 			//TODO: nope.  These all need a common interface.  Create a factory for mode Controllers
+			//TODO: Double Nope.,  Could just load the files and get the controller from the FXML loader.
 			insetPanelLoader.setController(injector.getInstance(mode.getControllerClass()));
 
 			Pane insetPanel = (Pane) insetPanelLoader.load();

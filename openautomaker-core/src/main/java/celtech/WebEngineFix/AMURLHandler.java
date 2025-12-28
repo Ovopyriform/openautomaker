@@ -13,8 +13,8 @@ import java.time.Duration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.environment.preference.application.NamePreference;
+import org.openautomaker.ui.component.menu_panel.extras.RootScannerPanelController;
 
-import celtech.coreUI.controllers.panels.RootScannerPanelController;
 import celtech.roboxbase.comms.remote.StringToBase64Encoder;
 import sun.net.www.protocol.http.HttpURLConnection;
 

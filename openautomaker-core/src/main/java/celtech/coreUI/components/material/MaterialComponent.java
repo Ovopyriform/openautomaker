@@ -1,7 +1,7 @@
 
 package celtech.coreUI.components.material;
 
-import static org.openautomaker.base.utils.ColourStringConverter.colourToString;
+import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
 
 import java.io.IOException;
 
@@ -275,7 +275,7 @@ public class MaterialComponent extends VBox implements PrinterListChangesListene
 
 		reelNumberMaterial.setText(numberMaterial);
 		materialRemaining.setText(materialRemainingString);
-		String colourString = colourToString(colour);
+		String colourString = formatHexString(colour).substring(1);
 		materialColourContainer.setStyle("-fx-background-color: #" + colourString + ";");
 
 		if (extruderNumber == 0) {

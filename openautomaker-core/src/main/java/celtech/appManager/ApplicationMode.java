@@ -1,20 +1,22 @@
 package celtech.appManager;
 
+import org.openautomaker.ui.component.about_panel.AboutPanelController;
+import org.openautomaker.ui.component.calibration_panel.CalibrationInsetPanelController;
+import org.openautomaker.ui.component.load_model_panel.LoadModelInsetPanelController;
+import org.openautomaker.ui.component.menu_panel.extras.ExtrasMenuPanelController;
+import org.openautomaker.ui.component.menu_panel.extras.MaintenanceInsetPanelController;
+import org.openautomaker.ui.component.menu_panel.library.LibraryMenuPanelController;
+import org.openautomaker.ui.component.purge_panel.PurgeInsetPanelController;
+import org.openautomaker.ui.component.registration_panel.RegistrationInsetPanelController;
+import org.openautomaker.ui.component.welcome_panel.WelcomeInsetPanelController;
+
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.controllers.panels.AboutPanelController;
-import celtech.coreUI.controllers.panels.CalibrationInsetPanelController;
-import celtech.coreUI.controllers.panels.ExtrasMenuPanelController;
-import celtech.coreUI.controllers.panels.LibraryMenuPanelController;
-import celtech.coreUI.controllers.panels.LoadModelInsetPanelController;
-import celtech.coreUI.controllers.panels.MaintenanceInsetPanelController;
-import celtech.coreUI.controllers.panels.PurgeInsetPanelController;
-import celtech.coreUI.controllers.panels.RegistrationInsetPanelController;
-import celtech.coreUI.controllers.panels.WelcomeInsetPanelController;
 
 /**
  *
  * @author ianhudson
  */
+//TODO: Refactor this.  Hold the FXML file names here and use the file to load the controller
 public enum ApplicationMode {
 
 	WELCOME("Welcome", WelcomeInsetPanelController.class),
@@ -53,6 +55,7 @@ public enum ApplicationMode {
 	 *
 	 * @return
 	 */
+	// This doesn't make any sense.  Store the filei nthe enum and put the controller in the file.
 	public String getInsetPanelFXMLName() {
 		return ApplicationConfiguration.fxmlPanelResourcePath + insetPanelFXMLPrefix + "InsetPanel" + ".fxml";
 	}

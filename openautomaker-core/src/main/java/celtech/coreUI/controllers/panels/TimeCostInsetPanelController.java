@@ -20,6 +20,7 @@ import org.openautomaker.base.task_executor.SimpleCancellable;
 import org.openautomaker.base.task_executor.TaskExecutor;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.slicer.SlicerPreference;
+import org.openautomaker.ui.ProjectAwareController;
 import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;
 
@@ -28,7 +29,6 @@ import celtech.appManager.ApplicationStatus;
 import celtech.appManager.GCodeGeneratorManager;
 import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
-import celtech.coreUI.controllers.ProjectAwareController;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
 import jakarta.inject.Inject;

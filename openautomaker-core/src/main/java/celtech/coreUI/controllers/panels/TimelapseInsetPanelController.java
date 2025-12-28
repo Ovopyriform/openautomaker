@@ -12,6 +12,7 @@ import org.openautomaker.base.configuration.fileRepresentation.PrinterSettingsOv
 import org.openautomaker.base.device.CameraManager;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.task_executor.TaskExecutor;
+import org.openautomaker.ui.ProjectAwareController;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
@@ -20,7 +21,6 @@ import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import celtech.appManager.TimelapseSettingsData;
 import celtech.coreUI.DisplayManager;
-import celtech.coreUI.controllers.ProjectAwareController;
 import celtech.coreUI.controllers.utilityPanels.SnapshotController;
 import celtech.modelcontrol.ProjectifiableThing;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
