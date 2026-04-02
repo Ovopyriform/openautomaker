@@ -32,7 +32,7 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, formatHexString(displayColour).substring(1));
+				materialType, formatHexString(displayColour).substring(1).toUpperCase());
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);
@@ -59,7 +59,7 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, formatHexString(displayColour).substring(1));
+				materialType, formatHexString(displayColour).substring(1).toUpperCase());
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);

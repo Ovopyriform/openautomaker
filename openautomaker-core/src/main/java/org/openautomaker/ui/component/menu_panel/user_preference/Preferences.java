@@ -1,7 +1,7 @@
 /*
  * Copyright 2015 CEL UK
  */
-package celtech.coreUI.controllers.panels.userpreferences;
+package org.openautomaker.ui.component.menu_panel.user_preference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +20,8 @@ import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
 import org.openautomaker.environment.preference.slicer.ShowGCodePreviewPreference;
 import org.openautomaker.environment.preference.virtual_printer.VirtualPrinterEnabledPreference;
 import org.openautomaker.javafx.FXProperty;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController.Preference;
 import org.openautomaker.ui.inject.controller.AdvancedModePreferenceControllerFactory;
 import org.openautomaker.ui.inject.controller.CurrencySymbolPreferenceControllerFactory;
 import org.openautomaker.ui.inject.controller.CustomPrinterHeadPreferenceControllerFactory;
@@ -30,8 +32,6 @@ import org.openautomaker.ui.inject.controller.LogLevelPreferenceControllerFactor
 import org.openautomaker.ui.inject.controller.SlicerTypePreferenceControllerFactory;
 import org.openautomaker.ui.inject.controller.TickBoxPreferenceFactory;
 
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController.Preference;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 

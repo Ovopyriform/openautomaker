@@ -1,13 +1,13 @@
-package celtech.coreUI.controllers.panels.userpreferences;
+package org.openautomaker.ui.component.menu_panel.user_preference;
 
 import org.openautomaker.base.configuration.datafileaccessors.HeadContainer;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.virtual_printer.VirtualPrinterHeadPreference;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
 import jakarta.inject.Inject;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.ComboBox;

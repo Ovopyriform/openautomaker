@@ -45,13 +45,10 @@ public class ChoiceLinkButtonTest {
 			choiceLinkButton.setMessage(TEST_TEXT_0);
 		});
 
-		Thread.sleep(2000);
-
 		FXUtils.runAndWait(() -> {
 			choiceLinkButton.setTitle(TEST_TEXT_1);
 			choiceLinkButton.setMessage(TEST_TEXT_1);
 		});
 
-		//Thread.sleep(1000);
 	}
 }

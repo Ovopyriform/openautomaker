@@ -1,9 +1,9 @@
 package org.openautomaker.ui.component.menu_panel.extras;
 
 import org.openautomaker.ui.component.menu_panel.MenuPanelController;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
+import org.openautomaker.ui.component.menu_panel.user_preference.Preferences;
 
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
-import celtech.coreUI.controllers.panels.userpreferences.Preferences;
 import jakarta.inject.Inject;
 
 //TODO: Look at this binding of FXML to classes

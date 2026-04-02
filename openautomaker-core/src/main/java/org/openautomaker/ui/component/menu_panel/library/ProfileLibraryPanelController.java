@@ -29,7 +29,6 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.Slicer;
 import org.openautomaker.environment.preference.slicer.SlicerPreference;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
-import org.openautomaker.ui.component.menu_panel.MenuInnerPanel.OperationButton;
 import org.openautomaker.ui.inject.utils.settings_generation.ProfileDetailsGeneratorFactory;
 import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;

@@ -50,6 +50,7 @@ public class PrinterComponentTest {
 			PrinterStatus.REMOVING_HEAD, Status.READY,
 			PrinterStatus.OPENING_DOOR, Status.READY,
 			PrinterStatus.RUNNING_MACRO_FILE, Status.PRINTING,
+			PrinterStatus.RUNNING_TEST, Status.READY,
 			PrinterStatus.PRINTING_PROJECT, Status.PRINTING,
 			PrinterStatus.CALIBRATING_NOZZLE_ALIGNMENT, Status.PRINTING,
 			PrinterStatus.CALIBRATING_NOZZLE_OPENING, Status.PRINTING,

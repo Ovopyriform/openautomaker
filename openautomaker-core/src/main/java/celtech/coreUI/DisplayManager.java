@@ -100,10 +100,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-/**
- *
- * @author Ian Hudson @ Liberty Systems Limited
- */
 @Singleton
 public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListener, UnhandledKeyListener, SpinnerControl,
 		ProjectCallback {

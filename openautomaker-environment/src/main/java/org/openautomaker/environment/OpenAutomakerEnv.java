@@ -92,7 +92,7 @@ public class OpenAutomakerEnv {
 	 *  	|	+- cura4 (do I need Cura any more.  Why choose the older one)
 	 *  	|	+- serial ??  [What is the name of the lib]
 	 *  	+- language - these can be bundled.  There's no reason to have them separately.
-	 *  	|	+- all language resources [current splitting of language resources is a bit mental and prevents use of vanilla PropertiesResourceBundle, requires custom code]
+	 *  	|	+- all language resources [current splitting of language resources is a bit odd and prevents use of vanilla PropertiesResourceBundle, requires custom code]
 	 *  	+- key
 	 *  	|	+- ssh key
 	 *  	+- camera-profiles

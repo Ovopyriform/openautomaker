@@ -1,6 +1,6 @@
 package org.openautomaker.ui.inject.controller;
 
-import celtech.coreUI.controllers.panels.userpreferences.LogLevelPreferenceController;
+import org.openautomaker.ui.component.menu_panel.user_preference.LogLevelPreferenceController;
 
 public interface LogLevelPreferenceControllerFactory {
 

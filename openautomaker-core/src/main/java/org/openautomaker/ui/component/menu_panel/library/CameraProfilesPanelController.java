@@ -15,7 +15,6 @@ import org.openautomaker.base.configuration.fileRepresentation.CameraProfile;
 import org.openautomaker.base.device.CameraManager;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
-import org.openautomaker.ui.component.menu_panel.MenuInnerPanel.OperationButton;
 
 import celtech.coreUI.DisplayManager;
 import celtech.coreUI.components.RestrictedComboBox;

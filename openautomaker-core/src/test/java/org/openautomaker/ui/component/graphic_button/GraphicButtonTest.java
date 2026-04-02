@@ -56,7 +56,6 @@ public class GraphicButtonTest {
 		assertEquals(PREFERENCES_BUTTON, graphicButton.getFxmlFileName());
 		assertEquals(PREFERENCES_BUTTON, graphicButton.getFxmlFileNameProperty().get());
 
-		Thread.sleep(1000);
 	}
 
 	@Test

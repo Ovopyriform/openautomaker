@@ -2,8 +2,6 @@
 package org.openautomaker.base.utils;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoMoreInteractions;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -17,14 +15,9 @@ import org.openautomaker.mock.printer_control.model.MockPrinterFactory;
 import org.openautomaker.test_library.GuiceExtension;
 
 import jakarta.inject.Inject;
-import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-/**
- *
- * @author tony
- */
 @ExtendWith({GuiceExtension.class, MockitoExtension.class})
 public class PrinterListChangesNotifierTest {
 

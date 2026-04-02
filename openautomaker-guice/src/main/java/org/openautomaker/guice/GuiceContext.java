@@ -13,7 +13,10 @@ import com.google.inject.Injector;
 import com.google.inject.Module;
 import com.google.inject.Provides;
 
+import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
 
 public class GuiceContext {
 
@@ -80,7 +83,7 @@ public class GuiceContext {
 
 	}
 
-	//Allows injection of this GuiceContrext
+	//Allows injection of this GuiceContext
 	private class GuiceContextModule extends AbstractModule {
 
 		@Provides
@@ -90,6 +93,22 @@ public class GuiceContext {
 	}
 
 	private class FXModule extends AbstractModule {
+
+		@Provides
+		HostServices provideHostServices() {
+
+			if (contextRoot instanceof Application)
+				return ((Application) contextRoot).getHostServices();
+
+			return (new Application() {
+
+				@Override
+				public void start(Stage primaryStage) throws Exception {
+					// TODO Auto-generated method stub
+				}
+
+			}).getHostServices();
+		}
 
 		@Override
 		protected void configure() {

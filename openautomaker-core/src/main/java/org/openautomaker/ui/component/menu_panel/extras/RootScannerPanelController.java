@@ -8,8 +8,8 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.comms.print_server.PrintServerConnection;
-import org.openautomaker.base.comms.print_server.PrintServerConnectionManager;
 import org.openautomaker.base.comms.print_server.PrintServerConnection.ServerStatus;
+import org.openautomaker.base.comms.print_server.PrintServerConnectionManager;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
 

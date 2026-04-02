@@ -1,9 +1,9 @@
-package celtech.coreUI.controllers.panels.userpreferences;
+package org.openautomaker.ui.component.menu_panel.user_preference;
 
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
 
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
 import jakarta.inject.Inject;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableValue;
