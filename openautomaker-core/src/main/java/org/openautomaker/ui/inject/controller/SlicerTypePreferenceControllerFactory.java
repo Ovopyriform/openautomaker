@@ -1,6 +1,6 @@
 package org.openautomaker.ui.inject.controller;
 
-import celtech.coreUI.controllers.panels.userpreferences.SlicerTypePreferenceController;
+import org.openautomaker.ui.component.menu_panel.user_preference.SlicerTypePreferenceController;
 
 public interface SlicerTypePreferenceControllerFactory {
 

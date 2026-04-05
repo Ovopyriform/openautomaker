@@ -11,11 +11,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.environment.MachineType;
 import org.openautomaker.environment.OpenAutomakerEnv;
-import org.openautomaker.environment.properties.NativeProperties;
 import org.openautomaker.guice.GuiceContext;
 
 import jakarta.inject.Inject;
-import javafx.application.Application;
+import javafx.application.HostServices;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.event.ActionEvent;
@@ -23,32 +22,17 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
-import javafx.stage.Stage;
 
-/**
- *
- * @author Ian
- */
 public class HyperlinkedLabel extends TextFlow {
-
-	private class Browser extends Application {
-
-		public void browseTo(String url) {
-			getHostServices().showDocument(url);
-		}
-
-		@Override
-		public void start(Stage primaryStage) throws Exception {
-			// nothing to do here.  Never running this app.
-		}
-
-	}
 
 	@Inject
 	private OpenAutomakerEnv environment;
 
+	//@Inject
+	//private NativeProperties nativeProperties;
+
 	@Inject
-	private NativeProperties nativeProperties;
+	HostServices hostServices;
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -93,7 +77,7 @@ public class HyperlinkedLabel extends TextFlow {
 
 						final String clickedLinkText = newhyperlink == null ? "" : newhyperlink.getText();
 						if (hyperlinkMap.containsKey(clickedLinkText)) {
-							new Browser().browseTo(hyperlinkMap.get(clickedLinkText).toString());
+							hostServices.showDocument(hyperlinkMap.get(clickedLinkText).toString());
 						}
 
 					});

@@ -90,8 +90,6 @@ public class ModelContainerProject extends Project {
 	private BooleanProperty modelColourChanged;
 	private BooleanBinding hasInvalidMeshes;
 
-
-
 	//Changed to make this list always include both extruders
 	private ObservableList<Boolean> lastCalculatedUsedExtruders;
 
@@ -159,9 +157,13 @@ public class ModelContainerProject extends Project {
 
 	public Set<ModelContainer> getModelContainersWithInvalidMesh() {
 		Set<ModelContainer> invalidModelContainers = new HashSet<>();
-		getAllModels().stream().map(ModelContainer.class::cast).filter((modelContainer) -> (modelContainer.isInvalidMesh())).forEach((modelContainer) -> {
-			invalidModelContainers.add(modelContainer);
-		});
+		getAllModels().stream()
+				.map(ModelContainer.class::cast)
+				.filter((modelContainer) -> (modelContainer.isInvalidMesh()))
+				.forEach((modelContainer) -> {
+					invalidModelContainers.add(modelContainer);
+				});
+
 		return invalidModelContainers;
 	}
 
@@ -236,7 +238,6 @@ public class ModelContainerProject extends Project {
 		// Legacy in case we've been passed a path without the project file name
 		if (!filePath.toString().endsWith(ApplicationConfiguration.projectFileExtension))
 			filePath = filePath.resolveSibling(filePath.getFileName().toString() + ApplicationConfiguration.projectFileExtension);
-		
 
 		//Change the type of the file to the model type
 		filePath = filePath.resolveSibling(

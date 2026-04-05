@@ -17,7 +17,6 @@ import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
 import org.openautomaker.javafx.FXProperty;
 import org.openautomaker.ui.StageManager;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
-import org.openautomaker.ui.component.menu_panel.MenuInnerPanel.OperationButton;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.coreUI.DisplayManager;

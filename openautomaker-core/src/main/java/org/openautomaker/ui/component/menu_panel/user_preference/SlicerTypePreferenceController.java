@@ -1,10 +1,10 @@
-package celtech.coreUI.controllers.panels.userpreferences;
+package org.openautomaker.ui.component.menu_panel.user_preference;
 
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.Slicer;
 import org.openautomaker.environment.preference.slicer.SlicerPreference;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
 
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
 import jakarta.inject.Inject;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;

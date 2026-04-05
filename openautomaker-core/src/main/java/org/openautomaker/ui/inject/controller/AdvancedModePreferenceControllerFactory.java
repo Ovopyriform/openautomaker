@@ -1,6 +1,6 @@
 package org.openautomaker.ui.inject.controller;
 
-import celtech.coreUI.controllers.panels.userpreferences.AdvancedModePreferenceController;
+import org.openautomaker.ui.component.menu_panel.user_preference.AdvancedModePreferenceController;
 
 public interface AdvancedModePreferenceControllerFactory {
 

@@ -1,6 +1,6 @@
 package org.openautomaker.ui.inject.controller;
 
-import celtech.coreUI.controllers.panels.userpreferences.CustomPrinterTypePreferenceController;
+import org.openautomaker.ui.component.menu_panel.user_preference.CustomPrinterTypePreferenceController;
 
 public interface CustomPrinterTypePreferenceControllerFactory {
 

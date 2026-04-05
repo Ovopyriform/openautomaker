@@ -1,11 +1,11 @@
-package celtech.coreUI.controllers.panels.userpreferences;
+package org.openautomaker.ui.component.menu_panel.user_preference;
 
 import org.openautomaker.environment.I18N;
+import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
 
 import com.google.inject.assistedinject.Assisted;
 
 import celtech.coreUI.components.RestrictedNumberField;
-import celtech.coreUI.controllers.panels.PreferencesInnerPanelController;
 import jakarta.inject.Inject;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.value.ObservableValue;

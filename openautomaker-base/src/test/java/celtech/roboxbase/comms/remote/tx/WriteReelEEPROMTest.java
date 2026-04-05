@@ -32,11 +32,11 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, formatHexString(displayColour).substring(1));
+				materialType, formatHexString(displayColour).substring(1).toUpperCase());
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);
-		assertEquals("ABCDEF          ff0000                        11      22      33      44      55      66      77      88TkFNRTE=                                A                                             99", bufferString);
+		assertEquals("ABCDEF          FF0000                        11      22      33      44      55      66      77      88TkFNRTE=                                A                                             99", bufferString);
 	}
 
 	@Test
@@ -59,11 +59,11 @@ public class WriteReelEEPROMTest {
 				reelFirstLayerBedTemperature, reelBedTemperature,
 				reelAmbientTemperature, reelFilamentDiameter, reelFilamentMultiplier,
 				reelFeedRateMultiplier, reelRemainingFilament, friendlyName,
-				materialType, formatHexString(displayColour).substring(1));
+				materialType, formatHexString(displayColour).substring(1).toUpperCase());
 		String bufferString = instance.getMessagePayload();
 		assertEquals(192, bufferString.length());
 		System.out.println(bufferString);
-		assertEquals("ABCABC          0000ff                        11      22      33      44      55      66      77      882LPZhNin2YU=                            G                                             99", bufferString);
+		assertEquals("ABCABC          0000FF                        11      22      33      44      55      66      77      882LPZhNin2YU=                            G                                             99", bufferString);
 	}
 
 }
