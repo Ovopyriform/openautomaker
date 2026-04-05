@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import javafx.beans.value.ObservableObjectValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
 /**
  * PrinterListChangesNotifier listens to a list of printers and notifies registered listeners about the following events: - Printer added - Printer removed - Head added to printer - Head removed from printer - Reel added to printer (with reel index)
@@ -54,17 +56,26 @@ public class PrinterListChangesNotifier {
 
 	private void fireWhenPrinterRemoved(Printer printer) {
 		for (PrinterListChangesListener listener : new ArrayList<>(listeners)) {
-			for (Entry<Integer, Reel> mappedReel : printer.reelsProperty().entrySet()) {
-				listener.whenReelRemoved(printer, mappedReel.getValue(), mappedReel.getKey());
+
+			ObservableMap<Integer, Reel> reels = printer.reelsProperty();
+			if (reels != null) {
+				for (Entry<Integer, Reel> reel : reels.entrySet()) {
+					listener.whenReelRemoved(printer, reel.getValue(), reel.getKey());
+				}
 			}
 
-			if (printer.headProperty().get() != null) {
-				listener.whenHeadRemoved(printer, printer.headProperty().get());
+			ObservableObjectValue<Head> head = printer.headProperty();
+			if (head != null && head.get() != null) {
+				listener.whenHeadRemoved(printer, head.get());
 			}
 
-			for (int extruderIndex = 0; extruderIndex < printer.extrudersProperty().size(); extruderIndex++) {
-				if (printer.extrudersProperty().get(extruderIndex).isFittedProperty().get()) {
-					listener.whenExtruderRemoved(printer, extruderIndex);
+			ObservableList<Extruder> extruders = printer.extrudersProperty();
+			if (extruders != null) {
+				for (Extruder extruder : extruders) {
+					if (extruder.isFittedProperty().get()) {
+						int extruderIndex = extruders.indexOf(extruder);
+						listener.whenExtruderRemoved(printer, extruderIndex);
+					}
 				}
 			}
 

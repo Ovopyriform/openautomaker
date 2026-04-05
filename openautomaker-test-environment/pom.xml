@@ -16,27 +16,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-install-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>guiceberry</id>
-						<phase>clean</phase>
-						<configuration>
-							<groupId>local.guiceberry</groupId>
-							<artifactId>guiceberry</artifactId>
-							<version>${local.guiceberry.version}</version>
-							<file>
-								${project.basedir}/non-mvn-libs/guiceberry-4.2.0.jar</file>
-							<packaging>jar</packaging>
-							<generatePom>true</generatePom>
-						</configuration>
-						<goals>
-							<goal>install-file</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<executions>
 					<execution>
@@ -104,11 +83,6 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>local.guiceberry</groupId>
-			<artifactId>guiceberry</artifactId>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

@@ -14,11 +14,11 @@
 		<artifactId>openautomaker-parent</artifactId>
 		<version>1.0</version>
 		<relativePath>../openautomaker-parent</relativePath>
-		<groupId>xyz.openautomaker</groupId>
+		<groupId>org.openautomaker</groupId>
 	</parent>
 
 	<properties>
-		<mainClass>xyz.openautomaker.root.Root</mainClass>
+		<mainClass>org.openautomaker.root.Root</mainClass>
 	</properties>
 
 	<build>
@@ -142,7 +142,7 @@
 			</exclusions>
 		</dependency>
 		<dependency>
-			<groupId>xyz.openautomaker</groupId>
+			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-base</artifactId>
 		</dependency>
 		<dependency>
@@ -156,7 +156,7 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<groupId>xyz.openautomaker</groupId>
+			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-environment</artifactId>
 		</dependency>
 		<dependency>

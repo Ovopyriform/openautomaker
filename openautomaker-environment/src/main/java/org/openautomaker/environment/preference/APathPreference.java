@@ -60,9 +60,15 @@ public abstract class APathPreference extends APreference<Path> {
 	protected Path getPath() {
 		Path defaultPath = getDefault();
 
-		Path path = Path.of(getNode().get(getKey(), null));
+		String pathStr = getNode().get(getKey(), null);
+		if (pathStr == null) {
+			remove();
+			return defaultPath;
+		}
 
-		if (path == null || !pathExists(path)) {
+		Path path = Path.of(pathStr);
+
+		if (!pathExists(path)) {
 			remove();
 			return defaultPath;
 		}

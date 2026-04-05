@@ -23,7 +23,7 @@
 		<runtime.modules></runtime.modules>
 		<windows.upgrade.uuid>ddfc953a-1dbc-44fd-b1db-346547702d3a</windows.upgrade.uuid>
 		<windows.vendor>openautomaker.org</windows.vendor>
-		<macos.sign></macos.sign>
+		<macos.sign.prefix></macos.sign.prefix>
 		<macos.sign.identity></macos.sign.identity>
 	</properties>
 
@@ -184,7 +184,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
+			<!-- plugin>
 				<groupId>io.github.wiverson</groupId>
 				<artifactId>jtoolprovider-plugin</artifactId>
 				<executions>
@@ -219,7 +219,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin -->
 		</plugins>
 	</build>
 	<dependencies>
@@ -341,7 +341,7 @@
 							</execution>
 						</executions>
 					</plugin>
-					<plugin>
+					<!-- plugin>
 						<groupId>io.github.wiverson</groupId>
 						<artifactId>jtoolprovider-plugin</artifactId>
 						<executions>
@@ -361,7 +361,7 @@
 								</configuration>
 							</execution>
 						</executions>
-					</plugin>
+					</plugin -->
 				</plugins>
 			</build>
 		</profile>

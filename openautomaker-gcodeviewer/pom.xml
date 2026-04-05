@@ -12,7 +12,7 @@
 
 	<parent>
 		<artifactId>openautomaker-parent</artifactId>
-		<groupId>xyz.openautomaker</groupId>
+		<groupId>org.openautomaker</groupId>
 		<version>1.0</version>
 		<relativePath>../openautomaker-parent</relativePath>
 	</parent>
@@ -49,7 +49,7 @@
 					</archive>
 				</configuration>
 			</plugin>
-			<plugin>
+			<!-- plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
 				<executions>
@@ -65,7 +65,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin>
+			</plugin -->
 		</plugins>
 	</build>
 
@@ -91,7 +91,7 @@
 			<artifactId>log4j-api</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>xyz.openautomaker</groupId>
+			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-environment</artifactId>
 		</dependency>
 		<dependency>
@@ -269,7 +269,7 @@
 			<artifactId>commons-collections</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>xyz.openautomaker</groupId>
+			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-i18n</artifactId>
 		</dependency>
 	</dependencies>

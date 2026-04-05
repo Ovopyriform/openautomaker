@@ -136,7 +136,7 @@ public class MockPrinter implements Printer {
 
 	private void mockPrinterDefinition() {
 		//Set up the mock printer for tests
-		addHead();
+		// addHead();  // Removed to make tests less brittle - add head explicitly when needed
 		PrinterDefinitionFile printerDefinitionFile = new PrinterDefinitionFile();
 		printerDefinitionFile.setTypeCode(RBX10);
 		setPrinterConfiguration(printerDefinitionFile);

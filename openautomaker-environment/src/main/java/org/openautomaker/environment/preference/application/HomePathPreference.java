@@ -26,11 +26,21 @@ public class HomePathPreference extends APairedPathPreference {
 		super();
 	}
 
+	private Path resolveTestEnvPath() {
+		// We have two options, working directory is either in the project root (running from IDE) or the workspace root (parent of project root).  Check for the project root first, then the workspace root.
+		Path projectRoot = Path.of(System.getProperty("user.dir")).getParent().resolve(OPENAUTOMAKER_TEST_ENVIRONMENT);
+		if (projectRoot.toFile().exists())
+			return projectRoot;
+
+		// Assume it's the workspace root
+		return Path.of(System.getProperty("user.dir")).resolve(OPENAUTOMAKER_TEST_ENVIRONMENT);
+	}
+
 	@Override
 	public Path getAppValue() {
 		// If it's not packaged, use the test environment
 		if (!isPackaged())
-			return Path.of(System.getProperty("user.dir")).getParent().resolve(OPENAUTOMAKER_TEST_ENVIRONMENT).resolve(ENV).resolve(APP);
+			return resolveTestEnvPath().resolve(ENV).resolve(APP);
 
 		// Evaluate the packaged path.
 		String osName = System.getProperty("os.name");
@@ -47,7 +57,7 @@ public class HomePathPreference extends APairedPathPreference {
 	@Override
 	public Path getUserValue() {
 		if (!isPackaged())
-			return Path.of(System.getProperty("user.dir")).getParent().resolve(OPENAUTOMAKER_TEST_ENVIRONMENT).resolve(ENV).resolve(USR).resolve(OPENAUTOMAKER);
+			return resolveTestEnvPath().resolve(ENV).resolve(USR).resolve(OPENAUTOMAKER);
 
 		Path userPath = Path.of(System.getProperty("user.home"), OPENAUTOMAKER);
 

@@ -103,7 +103,7 @@ public class ModelLoader {
 			int numExtruders = 1;
 
 			Printer selPrinter = selectedPrinter.get();
-			if (selectedPrinter != null) {
+			if (selectedPrinter != null && selectedPrinter.getValue() != null) {
 				numExtruders = selPrinter.extrudersProperty().size();
 			}
 

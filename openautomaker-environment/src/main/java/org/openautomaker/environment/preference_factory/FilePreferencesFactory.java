@@ -1,6 +1,7 @@
 package org.openautomaker.environment.preference_factory;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.prefs.Preferences;
 import java.util.prefs.PreferencesFactory;
@@ -34,13 +35,24 @@ public class FilePreferencesFactory implements PreferencesFactory {
 
 	private static File preferencesFile;
 
-	public static File getPreferencesFile() {
-		if (preferencesFile == null) {
-			String prefsFile = Paths.get(System.getProperty("user.dir"), BACK, OPENAUTOMAKER_TEST_ENVIRONMENT, ENV, "testenv.prefs").toString();
+	private static Path resolveTestEnvPath() {
+		// We have two options, working directory is either in the project root (running from IDE) or the workspace root (parent of project root).  Check for the project root first, then the workspace root.
+		Path projectRoot = Path.of(System.getProperty("user.dir")).getParent().resolve(OPENAUTOMAKER_TEST_ENVIRONMENT);
+		if (projectRoot.toFile().exists())
+			return projectRoot;
 
-			preferencesFile = new File(prefsFile).getAbsoluteFile();
-			log.info("Preferences file is " + preferencesFile);
-		}
+		// Assume it's the workspace root
+		return Path.of(System.getProperty("user.dir")).resolve(OPENAUTOMAKER_TEST_ENVIRONMENT);
+	}
+
+	public static File getPreferencesFile() {
+		if (preferencesFile != null)
+			return preferencesFile;
+
+		Path testEnvPath = resolveTestEnvPath().resolve(ENV).resolve("testenv.prefs");
+		preferencesFile = testEnvPath.toFile().getAbsoluteFile();
+		log.info("Preferences file is " + preferencesFile);
+		
 		return preferencesFile;
 	}
 }

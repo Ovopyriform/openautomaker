@@ -158,8 +158,10 @@ public class OpenAutomakerEnv {
 		configureLogging();
 
 		if (LOGGER.isDebugEnabled())
-			dumpEnvironment();
+			dumpAppProps();
 
+		if (LOGGER.isTraceEnabled())
+			dumpSysProps();
 	}
 
 	private static boolean isPackaged() {
@@ -202,12 +204,7 @@ public class OpenAutomakerEnv {
 	/**
 	 * Dump all the properties to the log
 	 */
-	private void dumpEnvironment() {
-		LOGGER.debug("System Properties -----------------------------------------");
-		System.getProperties().stringPropertyNames().forEach((key) -> {
-			LOGGER.debug(key + ": " + System.getProperty(key));
-		});
-		
+	private void dumpAppProps() {
 		LOGGER.debug("Application Properties ------------------------------------");
 		applicationProperties.getPropertyNames().forEach((key) -> {
 			LOGGER.debug(key + ": " + applicationProperties.get(key));
@@ -218,6 +215,13 @@ public class OpenAutomakerEnv {
 			LOGGER.debug(key + ": " + nativeProperties.get(key).toString());
 		});
 		
+	}
+
+	private void dumpSysProps() {
+		LOGGER.debug("System Properties -----------------------------------------");
+		System.getProperties().stringPropertyNames().forEach((key) -> {
+			LOGGER.debug(key + ": " + System.getProperty(key));
+		});
 	}
 	
 	/**

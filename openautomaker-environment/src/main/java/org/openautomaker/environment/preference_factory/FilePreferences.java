@@ -26,7 +26,7 @@ public class FilePreferences extends AbstractPreferences {
 	public FilePreferences(AbstractPreferences parent, String name) {
 		super(parent, name);
 
-		log.debug("Instantiating node " + name);
+		log.trace("Instantiating node " + name);
 
 		root = new TreeMap<String, String>();
 		children = new TreeMap<String, FilePreferences>();

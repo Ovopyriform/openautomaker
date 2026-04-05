@@ -78,7 +78,6 @@ import celtech.coreUI.components.ReprintPanel;
 import celtech.coreUI.components.Notifications.ConditionalNotificationBar;
 import celtech.coreUI.controllers.panels.PreviewManagerController;
 import celtech.coreUI.controllers.panels.TimeCostThreadManager;
-import celtech.coreUI.controllers.panels.PreviewManagerController.PreviewState;
 import celtech.coreUI.visualisation.ModelLoader;
 import celtech.coreUI.visualisation.ProjectSelection;
 import celtech.modelcontrol.Groupable;
@@ -114,10 +113,6 @@ import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-/**
- *
- * @author Ian
- */
 public class LayoutStatusMenuStripController implements PrinterListChangesListener {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -1348,7 +1343,9 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 
 	private void unbindProject(Project project) {
 		selectedPrinter.removeListener(printerSettingsListener);
-		layoutSubmode.removeListener(layoutSubmodeListener);
+		if (layoutSubmode != null) {
+			layoutSubmode.removeListener(layoutSubmodeListener);
+		}
 		project.removeProjectChangesListener(projectChangesListener);
 		if (previewManagerController != null) {
 			previewManagerController.setProjectAndPrinter(null, currentPrinter);
@@ -1492,7 +1489,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	 * @param project
 	 */
 	public void whenProjectChanges(Project project) {
-		if (selectedProject != null) {
+		if (selectedProject != null && selectedProject.getValue() != null) {
 			unbindProject(selectedProject.get());
 			selectedProject.set(null);
 		}

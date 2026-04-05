@@ -2,5 +2,6 @@
 --app-image "${project.build.directory}/${project.name}.app"
 --app-version ${project.version}
 --temp "${project.build.directory}/installer-work"
-${macos.sign}
-${macos.sign.identity}
+--mac-sign
+--mac-package-signing-prefix ${macos.sign.prefix}
+--mac-signing-key-user-name "${macos.sign.identity}"
