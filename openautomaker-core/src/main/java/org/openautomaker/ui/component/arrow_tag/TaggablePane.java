@@ -1,6 +1,6 @@
 package org.openautomaker.ui.component.arrow_tag;
 
-import celtech.coreUI.components.Orientation;
+import org.openautomaker.ui.component.controls.Orientation;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

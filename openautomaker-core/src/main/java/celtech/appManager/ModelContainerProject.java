@@ -237,12 +237,10 @@ public class ModelContainerProject extends Project {
 
 		// Legacy in case we've been passed a path without the project file name
 		if (!filePath.toString().endsWith(ApplicationConfiguration.projectFileExtension))
-			filePath = filePath.resolveSibling(filePath.getFileName().toString() + ApplicationConfiguration.projectFileExtension);
+			filePath = filePath.resolve(filePath.getFileName().toString() + ApplicationConfiguration.projectFileExtension);
 
 		//Change the type of the file to the model type
-		filePath = filePath.resolveSibling(
-				filePath.getFileName().toString()
-						.replace(ApplicationConfiguration.projectFileExtension, ApplicationConfiguration.projectModelsFileExtension));
+		filePath = filePath.resolveSibling(filePath.getFileName().toString().replace(ApplicationConfiguration.projectFileExtension, ApplicationConfiguration.projectModelsFileExtension));
 
 		FileInputStream fileInputStream = new FileInputStream(filePath.toFile());
 		BufferedInputStream bufferedInputStream = new BufferedInputStream(fileInputStream);
@@ -302,9 +300,10 @@ public class ModelContainerProject extends Project {
 			return;
 		}
 
-		//Legacy incase we're not given the project file name
+
+		//We could be given the project path with or without the project file name, so we need to check and add the file name if it's not there.
 		if (!filePath.toString().endsWith(ApplicationConfiguration.projectFileExtension))
-			filePath = filePath.resolveSibling(filePath.getFileName().toString() + ApplicationConfiguration.projectFileExtension);
+			filePath = filePath.resolve(filePath.getFileName().toString() + ApplicationConfiguration.projectFileExtension);
 
 		Path modelsPath = filePath.resolveSibling(filePath.getFileName().toString().replace(ApplicationConfiguration.projectFileExtension, ApplicationConfiguration.projectModelsFileExtension));
 

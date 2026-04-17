@@ -4,7 +4,7 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.GuiceContext;
 import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController;
 
-import celtech.coreUI.components.RestrictedNumberField;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import jakarta.inject.Inject;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.value.ObservableValue;

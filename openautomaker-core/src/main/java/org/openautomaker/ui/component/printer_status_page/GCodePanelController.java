@@ -16,7 +16,7 @@ import org.openautomaker.javafx.FXProperty;
 import org.openautomaker.ui.StatusInsetController;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.coreUI.components.RestrictedTextField;
+import org.openautomaker.ui.component.controls.RestrictedTextField;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ChangeListener;

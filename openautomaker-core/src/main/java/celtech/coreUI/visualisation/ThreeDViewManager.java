@@ -33,8 +33,8 @@ import celtech.appManager.TimelapseSettingsData;
 import celtech.appManager.undo.UndoableProject;
 import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.LayoutSubmode;
-import celtech.coreUI.ProjectGUIState;
-import celtech.coreUI.StandardColours;
+import org.openautomaker.ui.ProjectGUIState;
+import org.openautomaker.ui.StandardColours;
 import celtech.coreUI.visualisation.collision.CollisionManager;
 import celtech.coreUI.visualisation.metaparts.ModelLoadResult;
 import celtech.coreUI.visualisation.modelDisplay.SelectionHighlighter;
@@ -944,26 +944,20 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		double peiDrop;
 		bed.getChildren().clear();
 		if (brobox) {
-			bedOuterURL = getClass().getResource(ApplicationConfiguration.modelResourcePath + "bed_frame_210x300.obj");
-			peiSheetURL = getClass().getResource(ApplicationConfiguration.modelResourcePath
-					+ "bed_glass_210x300.obj");
+			bedOuterURL = getClass().getResource("/org/openautomaker/ui/models/bed_frame_210x300.obj");
+			peiSheetURL = getClass().getResource("/org/openautomaker/ui/models/bed_glass_210x300.obj");
 			bedClipsURL = null;
-			bedGraphicURL = getClass().getResource(ApplicationConfiguration.imageResourcePath
-					+ "Bed Graphic - RoboxPro.png");
+			bedGraphicURL = getClass().getResource("/org/openautomaker/ui/images/Bed Graphic - RoboxPro.png");
 			bedZOffset = 210;
 			bedYOffset = 0;
 			bedXOffset = 0;
 			peiDrop = 0.5;
 		}
 		else {
-			bedOuterURL = getClass()
-					.getResource(ApplicationConfiguration.modelResourcePath + "bedBase.obj");
-			peiSheetURL = getClass().getResource(ApplicationConfiguration.modelResourcePath
-					+ "pei.obj");
-			bedClipsURL = getClass().getResource(ApplicationConfiguration.modelResourcePath
-					+ "clips.obj");
-			bedGraphicURL = getClass().getResource(ApplicationConfiguration.imageResourcePath
-					+ "Bed Graphic - Robox.png");
+			bedOuterURL = getClass().getResource("/org/openautomaker/ui/models/bedBase.obj");
+			peiSheetURL = getClass().getResource("/org/openautomaker/ui/models/pei.obj");
+			bedClipsURL = getClass().getResource("/org/openautomaker/ui/models/clips.obj");
+			bedGraphicURL = getClass().getResource("/org/openautomaker/ui/images/Bed Graphic - Robox.png");
 			bedZOffset = 150;
 			bedYOffset = 0;
 			bedXOffset = 0;
@@ -1028,8 +1022,8 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 
 	private Node createBoundingBox(double printVolumeWidth, double printVolumeDepth, double printVolumeHeight) {
 		PhongMaterial boundsBoxMaterial = new PhongMaterial(Color.BLUE);
-		Image illuminationMap = new Image(SelectionHighlighter.class.getResource(
-				ApplicationConfiguration.imageResourcePath + "blueIlluminationMap.png").toExternalForm());
+		Image illuminationMap = new Image(getClass().getResourceAsStream("/org/openautomaker/ui/images/blueIlluminationMap.png"));
+		
 		boundsBoxMaterial.setSelfIlluminationMap(illuminationMap);
 
 		Group boxGroup = new Group();
@@ -1231,7 +1225,7 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 				Filament filament0 = null;
 				Filament filament1 = null;
 
-				if (selectedPrinter != null) {
+				if (selPrinter != null) {
 					filament0 = selPrinter.effectiveFilamentsProperty().get(0);
 					filament1 = selPrinter.effectiveFilamentsProperty().get(1);
 				}
@@ -1239,18 +1233,21 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 				PhongMaterial materialToUseForExtruder1 = null;
 
 				if (applicationStatus.getMode() == ApplicationMode.SETTINGS) {
-					if (selectedPrinter != null
+					if (selPrinter != null
 							&& selPrinter.headProperty().get() != null) {
 						if (filament0 != FilamentContainer.UNKNOWN_FILAMENT) {
 							materialToUseForExtruder0 = loaded1Material;
-							Color dispColour = filament0.getDisplayColour();
-							if (dispColour.getBlue() == 0
+							if (filament0 != null) {
+								Color dispColour = filament0.getDisplayColour();
+							
+								if (dispColour.getBlue() == 0
 									&& dispColour.getRed() == 0
 									&& dispColour.getGreen() == 0) {
-								dispColour = dispColour.brighter().brighter();
-							}
+									dispColour = dispColour.brighter().brighter();
+								}
 
-							loaded1Material.setDiffuseColor(dispColour);
+								loaded1Material.setDiffuseColor(dispColour);
+							}
 						}
 						else {
 							materialToUseForExtruder0 = greyExcludedMaterial;
@@ -1293,7 +1290,7 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 					materialToUseForExtruder1 = extruder2Material;
 				}
 
-				if (selectedPrinter != null &&
+				if (selPrinter != null &&
 						selPrinter.printerConnectionProperty().isEqualTo(PrinterConnection.OFFLINE).get()) {
 					materialToUseForExtruder0 = extruder1Material;
 					materialToUseForExtruder1 = extruder2Material;

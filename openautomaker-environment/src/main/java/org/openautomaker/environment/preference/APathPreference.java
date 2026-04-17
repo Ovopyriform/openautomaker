@@ -28,7 +28,7 @@ public abstract class APathPreference extends APreference<Path> {
 	 * @param path - The path to check
 	 * @return boolean - true if the path exists
 	 */
-	protected static boolean pathExists(Path path) {
+	public static boolean pathExists(Path path) {
 		return path.toFile().exists();
 	}
 
@@ -38,7 +38,7 @@ public abstract class APathPreference extends APreference<Path> {
 	 * @param path - The path to check/create
 	 * @return boolean - true if the path is available
 	 */
-	protected static boolean ensurePath(Path path) {
+	public static boolean ensurePath(Path path) {
 		if (pathExists(path))
 			return true;
 

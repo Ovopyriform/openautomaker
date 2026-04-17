@@ -21,6 +21,13 @@ import org.openautomaker.ui.inject.visualisation.ThreeDViewManagerFactory;
 import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedProject;
 
+import org.openautomaker.ui.component.model_edit_inset_panel.ModelEditInsetPanelController;
+import org.openautomaker.ui.component.settings_inset_panel.SettingsInsetPanelController;
+import org.openautomaker.ui.component.time_cost_inset_panel.TimeCostInsetPanelController;
+import org.openautomaker.ui.component.timelapse_inset_panel.TimelapseInsetPanelController;
+
+import org.openautomaker.ui.component.controls.RestrictedTextField;
+
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
 import celtech.appManager.ModelContainerProject;
@@ -64,6 +71,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import org.openautomaker.ui.component.z_cut_entry_box.ZCutEntryBox;
 
 public class ProjectTab extends Tab implements ProjectCallback {
 
@@ -205,17 +213,17 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			}
 			else {
 				if (timeCostInsetPanelData == null) {
-					timeCostInsetPanelData = loadInsetPanel("timeCostInsetPanel.fxml", project);
+					timeCostInsetPanelData = loadInsetPanel(TimeCostInsetPanelController.class.getResource("timeCostInsetPanel.fxml"), project);
 					timeCostInsetPanelData.getNode().setVisible(false);
 					rhInsetContainer.getChildren().add(timeCostInsetPanelData.getNode());
 				}
 				if (settingsInsetPanelData == null) {
-					settingsInsetPanelData = loadInsetPanel("settingsInsetPanel.fxml", project);
+					settingsInsetPanelData = loadInsetPanel(SettingsInsetPanelController.class.getResource("settingsInsetPanel.fxml"), project);
 					settingsInsetPanelData.getNode().setVisible(false);
 					rhInsetContainer.getChildren().add(settingsInsetPanelData.getNode());
 				}
 				if (timelapseInsetPanelData == null) {
-					timelapseInsetPanelData = loadInsetPanel("timelapseInsetPanel.fxml", project);
+					timelapseInsetPanelData = loadInsetPanel(TimelapseInsetPanelController.class.getResource("timelapseInsetPanel.fxml"), project);
 					timelapseInsetPanelData.getNode().setVisible(false);
 					rhInsetContainer.getChildren().add(timelapseInsetPanelData.getNode());
 				}
@@ -228,7 +236,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			LOGGER.debug("Beginning project save");
 			saveAndCloseProject();
 			LOGGER.debug("Completed project save");
-			projectManager.saveState();
+			projectManager.rememberOpenProjects();
 		});
 
 		setOnSelectionChanged((Event t) -> {
@@ -285,7 +293,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		//        AnchorPane.setRightAnchor(dimensionContainer, 0.0);
 		//        AnchorPane.setLeftAnchor(dimensionContainer, 0.0);
 
-		modelActionsInsetPanelData = loadInsetPanel("modelEditInsetPanel.fxml", project);
+		modelActionsInsetPanelData = loadInsetPanel(ModelEditInsetPanelController.class.getResource("modelEditInsetPanel.fxml"), project);
 		AnchorPane.setTopAnchor(modelActionsInsetPanelData.getNode(), 30.0);
 		AnchorPane.setLeftAnchor(modelActionsInsetPanelData.getNode(), 30.0);
 		basePane.getChildren().add(modelActionsInsetPanelData.getNode());
@@ -327,7 +335,6 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		fireProjectSelected();
 
 		projectManager.projectOpened(project);
-		projectManager.saveState();
 
 		if (!loadingAtStartup) {
 			primeTabInsetPanels(true);
@@ -367,10 +374,8 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		basePane.getChildren().add(0, svgViewManager);
 	}
 
-	private LoadedPanelData loadInsetPanel(String innerPanelFXMLName, Project project) {
-		URL settingsInsetPanelURL = getClass().getResource(
-				ApplicationConfiguration.fxmlPanelResourcePath + innerPanelFXMLName);
-		FXMLLoader loader = fxmlLoaderFactroy.create(settingsInsetPanelURL);
+	private LoadedPanelData loadInsetPanel(URL fxmlUrl, Project project) {
+		FXMLLoader loader = fxmlLoaderFactroy.create(fxmlUrl);
 		Node insetPanel = null;
 		try {
 			insetPanel = loader.load();
@@ -378,7 +383,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			projectAwareController.setProject(project);
 		}
 		catch (IOException ex) {
-			LOGGER.error("Unable to load inset panel: " + innerPanelFXMLName + "  " + ex);
+			LOGGER.error("Unable to load inset panel: " + fxmlUrl + "  " + ex);
 		}
 		return new LoadedPanelData(insetPanel, projectAwareController);
 	}

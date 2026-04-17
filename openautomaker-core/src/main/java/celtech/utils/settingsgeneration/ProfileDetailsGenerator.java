@@ -22,9 +22,9 @@ import org.openautomaker.environment.preference.slicer.SlicerPreference;
 
 import com.google.inject.assistedinject.Assisted;
 
-import celtech.coreUI.components.GraphicTab;
-import celtech.coreUI.components.HideableTooltip;
-import celtech.coreUI.components.RestrictedNumberField;
+import org.openautomaker.ui.component.graphic_tab.GraphicTab;
+import org.openautomaker.ui.component.controls.HideableTooltip;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.WritableBooleanValue;

@@ -21,12 +21,12 @@ import org.openautomaker.javafx.FXProperty;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.coreUI.components.RestrictedNumberField;
-import celtech.coreUI.components.RestrictedTextField;
-import celtech.coreUI.components.material.FilamentMenuButton;
-import celtech.coreUI.components.material.FilamentSelectionListener;
-import celtech.coreUI.components.material.SpecialItemSelectionListener;
-import celtech.coreUI.controllers.panels.FXMLUtilities;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
+import org.openautomaker.ui.component.controls.RestrictedTextField;
+import org.openautomaker.ui.component.material.FilamentMenuButton;
+import org.openautomaker.ui.component.material.FilamentSelectionListener;
+import org.openautomaker.ui.component.material.SpecialItemSelectionListener;
+import org.openautomaker.ui.utils.FXMLUtilities;
 import celtech.roboxbase.comms.exceptions.RoboxCommsException;
 import celtech.roboxbase.comms.remote.EEPROMState;
 import jakarta.inject.Inject;

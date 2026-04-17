@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.textfield.*?>
 
-<VBox fx:id="container" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" styleClass="hovering-panel" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.TweakPanelController">
+<VBox fx:id="container" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0" styleClass="hovering-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.TweakPanelController">
     <children>
       <VBox fx:id="material1VBox" style="-fx-border-color: robox_blue; -fx-border-insets: 4  4 0 4;">
          <VBox.margin>

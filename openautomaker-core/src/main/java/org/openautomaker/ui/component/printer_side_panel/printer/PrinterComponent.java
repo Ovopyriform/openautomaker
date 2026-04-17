@@ -22,8 +22,8 @@ import org.openautomaker.ui.component.printer_side_panel.printer.white_progress_
 import com.sun.javafx.tk.FontMetrics;
 import com.sun.javafx.tk.Toolkit;
 
-import celtech.coreUI.StandardColours;
-import celtech.coreUI.components.HideableTooltip;
+import org.openautomaker.ui.StandardColours;
+import org.openautomaker.ui.component.controls.HideableTooltip;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.remote.PauseStatus;
 import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;

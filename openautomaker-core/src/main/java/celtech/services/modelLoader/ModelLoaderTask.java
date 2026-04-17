@@ -35,6 +35,7 @@ import javafx.concurrent.Task;
  *
  * @author ianhudson
  */
+//TODO: This should be refactored to be a service that can be called by the task, and then the task just handles the progress and message updates.  This would make it easier to test the loading code without needing to run a task.
 public class ModelLoaderTask extends Task<ModelLoadResults> {
 
 	private static final Logger LOGGER = LogManager.getLogger();

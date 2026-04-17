@@ -6,8 +6,8 @@ import org.openautomaker.base.PrinterColourMap;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterException;
 
-import celtech.coreUI.components.ColourChooserButton;
-import celtech.coreUI.components.RestrictedTextField;
+import org.openautomaker.ui.component.controls.ColourChooserButton;
+import org.openautomaker.ui.component.controls.RestrictedTextField;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

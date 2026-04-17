@@ -4,18 +4,15 @@ import static org.openautomaker.OpenAutomaker.AUTOMAKER_ICON_256;
 import static org.openautomaker.OpenAutomaker.AUTOMAKER_ICON_32;
 import static org.openautomaker.OpenAutomaker.AUTOMAKER_ICON_64;
 
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.openautomaker.environment.OpenAutomakerEnv;
 import org.openautomaker.environment.inject.EnvironmentModule;
 import org.openautomaker.environment.preference.application.VersionPreference;
 
 import com.gluonhq.ignite.guice.GuiceContext;
 
-import celtech.configuration.ApplicationConfiguration;
 import jakarta.inject.Inject;
 import javafx.animation.FadeTransition;
 import javafx.animation.PauseTransition;
@@ -34,10 +31,6 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
-/**
- *
- * @author Ian
- */
 public class OpenAutomakerPreloader extends Preloader {
 
 	private Stage preloaderStage;
@@ -46,9 +39,6 @@ public class OpenAutomakerPreloader extends Preloader {
 	private double splashHeight;
 
 	private static final Logger LOGGER = LogManager.getLogger();
-
-	@Inject
-	private OpenAutomakerEnv env;
 
 	@Inject
 	private VersionPreference fVersionPreference;
@@ -69,23 +59,14 @@ public class OpenAutomakerPreloader extends Preloader {
 				new Image(getClass().getResourceAsStream(AUTOMAKER_ICON_64)),
 				new Image(getClass().getResourceAsStream(AUTOMAKER_ICON_32)));
 
-		String splashImageName = "Splash_AutoMakerPro.png";
-		Image splashImage = new Image(getClass().getResourceAsStream(
-				ApplicationConfiguration.imageResourcePath + splashImageName));
+		//String splashImageName = "Splash_AutoMakerPro.png";
+		Image splashImage = new Image(getClass().getResourceAsStream("/org/openautomaker/ui/images/Splash_AutoMakerPro.png"));
 
 		ImageView splash = new ImageView(splashImage);
 
 		splashWidth = splashImage.getWidth();
 		splashHeight = splashImage.getHeight();
 		splashLayout = new AnchorPane();
-
-		SimpleDateFormat yearFormatter = new SimpleDateFormat("YYYY");
-		//String yearString = yearFormatter.format(new Date());
-		//		Text copyrightLabel = new Text("© " + yearString
-		//				+ " C Enterprise (UK) Ltd. All Rights Reserved.");
-		//		copyrightLabel.getStyleClass().add("splashCopyright");
-		//		AnchorPane.setBottomAnchor(copyrightLabel, 38.0);
-		//		AnchorPane.setLeftAnchor(copyrightLabel, 21.0);
 
 		Text versionLabel = new Text("Version " + fVersionPreference.getValue().getValue());
 		versionLabel.getStyleClass().add("splashVersion");
@@ -96,7 +77,8 @@ public class OpenAutomakerPreloader extends Preloader {
 		splashLayout.getChildren().addAll(splash, versionLabel);
 
 		Scene splashScene = new Scene(splashLayout, Color.TRANSPARENT);
-		splashScene.getStylesheets().add(ApplicationConfiguration.getMainCSSFile());
+		splashScene.getStylesheets().add(getClass().getResource("/org/openautomaker/ui/css/JMetroDarkTheme.css").toExternalForm());
+
 		preloaderStage.initStyle(StageStyle.TRANSPARENT);
 
 		final Rectangle2D bounds = Screen.getPrimary().getBounds();

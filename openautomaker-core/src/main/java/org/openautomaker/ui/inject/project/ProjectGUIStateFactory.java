@@ -1,7 +1,7 @@
 package org.openautomaker.ui.inject.project;
 
 import celtech.appManager.Project;
-import celtech.coreUI.ProjectGUIState;
+import org.openautomaker.ui.ProjectGUIState;
 
 public interface ProjectGUIStateFactory {
 

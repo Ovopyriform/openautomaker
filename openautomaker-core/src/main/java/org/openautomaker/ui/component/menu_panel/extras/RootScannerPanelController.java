@@ -14,9 +14,9 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
 
 import celtech.WebEngineFix.AMURLStreamHandlerFactory;
-import celtech.coreUI.components.RootCameraTableCell;
-import celtech.coreUI.components.RootConnectionButtonTableCell;
-import celtech.coreUI.components.RootTableCell;
+import org.openautomaker.ui.component.root_table_cell.RootCameraTableCell;
+import org.openautomaker.ui.component.root_connection_button_table_cell.RootConnectionButtonTableCell;
+import org.openautomaker.ui.component.root_table_cell.RootTableCell;
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.value.ChangeListener;

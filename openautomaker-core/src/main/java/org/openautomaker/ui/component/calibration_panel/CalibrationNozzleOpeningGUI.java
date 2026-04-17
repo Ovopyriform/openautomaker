@@ -14,7 +14,6 @@ import org.openautomaker.base.printerControl.model.statetransitions.calibration.
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.GuiceContext;
 
-import celtech.configuration.ApplicationConfiguration;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -72,9 +71,7 @@ public class CalibrationNozzleOpeningGUI {
 		controller.calibrationStatus.replaceText(i18n.t(state.getKey()));
 		showAppropriateButtons(state);
 		if (state.getDiagramName().isPresent()) {
-			URL fxmlURL = getClass().getResource(
-					ApplicationConfiguration.fxmlDiagramsResourcePath
-							+ "nozzleopening" + "/" + state.getDiagramName().get());
+			URL fxmlURL = getClass().getResource("diagrams/nozzleopening/" + state.getDiagramName().get());
 
 			controller.showDiagram(fxmlURL);
 		}

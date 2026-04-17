@@ -41,10 +41,6 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
-/**
- *
- * @author Ian Hudson @ Liberty Systems Limited
- */
 public class OpenAutomaker extends Application implements /* AutoUpdateCompletionListener, */ InterAppCommsConsumer {
 
 	public static final String AUTOMAKER_ICON_256 = "/org/openautomaker/images/AutoMakerIcon_256x256.png";

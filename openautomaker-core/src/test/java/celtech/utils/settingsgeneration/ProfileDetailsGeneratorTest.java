@@ -25,7 +25,7 @@ import org.openautomaker.ui.inject.utils.settings_generation.ProfileDetailsGener
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 
-import celtech.coreUI.components.RestrictedNumberField;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;

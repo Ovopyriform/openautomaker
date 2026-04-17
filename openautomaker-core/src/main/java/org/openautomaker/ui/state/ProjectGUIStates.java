@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.openautomaker.ui.inject.project.ProjectGUIStateFactory;
 
 import celtech.appManager.Project;
-import celtech.coreUI.ProjectGUIState;
+import org.openautomaker.ui.ProjectGUIState;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 

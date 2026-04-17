@@ -1,6 +1,6 @@
 package org.openautomaker.ui.component.menu_panel.extras;
 
-import static celtech.coreUI.controllers.panels.FXMLUtilities.addColonsToLabels;
+import static org.openautomaker.ui.utils.FXMLUtilities.addColonsToLabels;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ import org.openautomaker.ui.component.modal_dialog.ModalDialog;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.RestrictedTextField;
+import org.openautomaker.ui.component.controls.RestrictedTextField;
 import celtech.roboxbase.comms.exceptions.RoboxCommsException;
 import celtech.roboxbase.comms.remote.EEPROMState;
 import celtech.roboxbase.comms.rx.HeadEEPROMDataResponse;
@@ -284,10 +284,8 @@ public class HeadEEPROMController implements PrinterListChangesListener, MenuInn
 			rightNozzleYOffset.textProperty().addListener(offsetsChangedListener);
 			rightNozzleZOverrun.textProperty().addListener(offsetsChangedListener);
 
-			serialInvalidImage.setImage(new Image(getClass().getResource(
-					ApplicationConfiguration.imageResourcePath + "CrossIcon.png").toExternalForm()));
-			serialValidImage.setImage(new Image(getClass().getResource(
-					ApplicationConfiguration.imageResourcePath + "TickIcon.png").toExternalForm()));
+			serialInvalidImage.setImage(new Image(getClass().getResourceAsStream("/org/openautomaker/ui/images/CrossIcon.png")));
+			serialValidImage.setImage(new Image(getClass().getResourceAsStream("/org/openautomaker/ui/images/TickIcon.png")));
 
 			serialValidProperty.addListener((observable, oldValue, newValue) -> {
 				serialValidImage.setVisible(newValue);

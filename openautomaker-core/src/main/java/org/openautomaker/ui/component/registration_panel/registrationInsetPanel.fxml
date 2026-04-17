@@ -3,12 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import org.openautomaker.ui.component.graphic_button.GraphicButton?>
 <?import org.openautomaker.ui.component.graphic_button.GraphicButtonWithLabel?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="container" style="-fx-background-color: black;" stylesheets="@../../css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="container" style="-fx-background-color: black;" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.registration_panel.RegistrationInsetPanelController">
     <children>
         <HBox styleClass="blue-inset-panel" VBox.vgrow="ALWAYS">
             <children>

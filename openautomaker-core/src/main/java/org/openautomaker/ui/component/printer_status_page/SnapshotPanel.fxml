@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5.0" styleClass="inset-panel" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.SnapshotPanelController">
+<VBox alignment="CENTER" maxWidth="1.7976931348623157E308" spacing="5.0" styleClass="inset-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.SnapshotPanelController">
    <children>
       <HBox spacing="5.0">
          <children>

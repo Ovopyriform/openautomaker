@@ -13,7 +13,7 @@ import org.openautomaker.base.printerControl.model.PrinterAncillarySystems;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.GuiceContext;
 
-import celtech.coreUI.controllers.panels.NozzleChartData;
+import org.openautomaker.ui.component.printer_side_panel.NozzleChartData;
 import jakarta.inject.Inject;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;

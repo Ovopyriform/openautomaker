@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -10,7 +11,7 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 
-<VBox fx:id="container" pickOnBounds="false" style="-fx-background-color: black;" styleClass="inset-panel" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="container" pickOnBounds="false" style="-fx-background-color: black;" styleClass="inset-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.purge_panel.PurgeInsetPanelController">
     <children>
         <BorderPane maxHeight="1E308" maxWidth="1E308" pickOnBounds="false" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
             <VBox.margin>

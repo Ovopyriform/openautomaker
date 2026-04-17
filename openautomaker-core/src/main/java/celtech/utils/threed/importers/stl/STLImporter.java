@@ -38,6 +38,7 @@ import javafx.scene.shape.TriangleMesh;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
+//TODO: Revisit how this is used.  Models appear to be loaded for a serialised java object but it should use this eaxch time.
 public class STLImporter {
 
 	private static final Logger LOGGER = LogManager.getLogger();

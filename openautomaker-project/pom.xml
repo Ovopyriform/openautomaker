@@ -8,6 +8,7 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<name>OpenAutomaker Project</name>
+	<description>Handles loading of project files for OpenAutomaker</description>
 
 	<parent>
 		<artifactId>openautomaker-parent</artifactId>
@@ -34,6 +35,10 @@
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
 			<artifactId>log4j-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
 		</dependency>
 	</dependencies>
 </project>

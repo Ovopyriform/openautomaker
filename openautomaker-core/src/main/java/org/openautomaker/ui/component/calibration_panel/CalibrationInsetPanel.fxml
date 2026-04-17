@@ -9,9 +9,10 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import celtech.coreUI.components.*?>
-<?import celtech.coreUI.components.buttons.* ?>
+<?import org.openautomaker.ui.component.controls.*?>
+<?import org.openautomaker.ui.component.vertical_menu.*?>
 
-<VBox fx:id="topPane" pickOnBounds="false" style="-fx-background-color: black;" styleClass="inset-panel" stylesheets="@../../css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="topPane" pickOnBounds="false" style="-fx-background-color: black;" styleClass="inset-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.calibration_panel.CalibrationInsetPanelController">
     <children>
         <BorderPane fx:id="topBorderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: black;">
             <center>

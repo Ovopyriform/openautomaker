@@ -72,12 +72,12 @@ import celtech.appManager.undo.UndoableProject;
 import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.DisplayManager;
 import celtech.coreUI.LayoutSubmode;
-import celtech.coreUI.ProjectGUIRules;
-import celtech.coreUI.ProjectGUIState;
-import celtech.coreUI.components.ReprintPanel;
-import celtech.coreUI.components.Notifications.ConditionalNotificationBar;
-import celtech.coreUI.controllers.panels.PreviewManagerController;
-import celtech.coreUI.controllers.panels.TimeCostThreadManager;
+import org.openautomaker.ui.ProjectGUIRules;
+import org.openautomaker.ui.ProjectGUIState;
+import org.openautomaker.ui.component.controls.ReprintPanel;
+import org.openautomaker.ui.component.notification.ConditionalNotificationBar;
+import org.openautomaker.ui.component.preview_panel.PreviewManagerController;
+import org.openautomaker.ui.component.time_cost_inset_panel.TimeCostThreadManager;
 import celtech.coreUI.visualisation.ModelLoader;
 import celtech.coreUI.visualisation.ProjectSelection;
 import celtech.modelcontrol.Groupable;
@@ -1491,11 +1491,11 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	public void whenProjectChanges(Project project) {
 		if (selectedProject != null && selectedProject.getValue() != null) {
 			unbindProject(selectedProject.get());
-			selectedProject.set(null);
+			//selectedProject.set(null);
 		}
 
 		if (project != null) {
-			selectedProject.set(project);
+			//selectedProject.set(project);
 			undoableSelectedProject = undoableProjectFactory.create(project);
 			printerSettings = project.getPrinterSettings();
 			currentPrinter = selectedPrinter.get();

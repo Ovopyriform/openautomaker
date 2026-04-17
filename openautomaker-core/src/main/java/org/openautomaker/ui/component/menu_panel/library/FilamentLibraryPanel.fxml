@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
-<?import celtech.coreUI.components.buttons.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.*?>
@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.textfield.*?>
-<?import celtech.coreUI.components.material.*?>
+<?import org.openautomaker.ui.component.material.*?>
 
-<GridPane id="materialsGridPane" fx:id="filamentsGridPane" styleClass="inset-panel" stylesheets="@../../css/JMetroDarkTheme.css" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.library.FilamentLibraryPanelController">
+<GridPane id="materialsGridPane" fx:id="filamentsGridPane" styleClass="inset-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" vgap="5.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.library.FilamentLibraryPanelController">
     <columnConstraints>
         <ColumnConstraints halignment="LEFT" hgrow="NEVER" percentWidth="45.0" />
         <ColumnConstraints halignment="LEFT" hgrow="NEVER" percentWidth="55.0" />

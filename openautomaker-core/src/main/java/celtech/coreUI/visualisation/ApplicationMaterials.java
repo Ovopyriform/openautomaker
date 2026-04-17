@@ -2,7 +2,7 @@
 package celtech.coreUI.visualisation;
 
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.StandardColours;
+import org.openautomaker.ui.StandardColours;
 import celtech.coreUI.visualisation.modelDisplay.SelectionHighlighter;
 import celtech.utils.gcode.representation.MovementType;
 import javafx.scene.image.Image;
@@ -82,7 +82,7 @@ public class ApplicationMaterials {
 	public static PhongMaterial getSelectionBoxMaterial() {
 		if (selectionBoxMaterial == null) {
 			selectionBoxMaterial = new PhongMaterial(StandardColours.SELECTION_HIGHLIGHTER_GREEN);
-			Image illuminationMap = new Image(SelectionHighlighter.class.getResource(ApplicationConfiguration.imageResourcePath + "greenIlluminationMap.png").toExternalForm());
+			Image illuminationMap = new Image(ApplicationMaterials.class.getResourceAsStream("/org/openautomaker/ui/images/greenIlluminationMap.png"));
 			selectionBoxMaterial.setSelfIlluminationMap(illuminationMap);
 		}
 		return selectionBoxMaterial;

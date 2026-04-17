@@ -11,6 +11,8 @@ import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.utils.FXUtils;
 
+import org.openautomaker.ui.component.controls.HyperlinkedLabel;
+
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.layout.StackPane;

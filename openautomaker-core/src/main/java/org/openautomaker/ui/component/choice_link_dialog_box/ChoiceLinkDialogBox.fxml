@@ -4,6 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 
 <fx:root type="org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox" styleClass="transparent" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <Pane id="dropShadowPane" styleClass="dialog_drop_shadow"></Pane>

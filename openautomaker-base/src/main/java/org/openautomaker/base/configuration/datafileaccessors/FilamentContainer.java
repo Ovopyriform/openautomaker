@@ -172,9 +172,12 @@ public class FilamentContainer {
 	private ArrayList<Filament> ingestFilaments(File[] filamentFiles, boolean filamentsAreMutable) {
 		ArrayList<Filament> filamentList = new ArrayList<>();
 
+		int filamentCounter = 0;
+
 		for (File filamentFile : filamentFiles) {
-			if (LOGGER.isDebugEnabled())
-				LOGGER.debug("Loading filament " + filamentFile.getAbsolutePath());
+			filamentCounter++;
+			if (LOGGER.isTraceEnabled())
+				LOGGER.trace("Loading filament " + filamentFile.getAbsolutePath());
 
 			try {
 				Properties filamentProperties = new Properties();
@@ -316,6 +319,9 @@ public class FilamentContainer {
 				LOGGER.error("Error loading filament " + filamentFile.getAbsolutePath() + " " + ex);
 			}
 		}
+
+		if (LOGGER.isDebugEnabled())
+			LOGGER.debug("Loaded " + filamentCounter + " filaments.");
 
 		return filamentList;
 	}

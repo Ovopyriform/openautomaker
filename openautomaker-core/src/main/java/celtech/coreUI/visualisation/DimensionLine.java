@@ -11,7 +11,7 @@ import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 
 import celtech.appManager.Project;
 import celtech.appManager.undo.UndoableProject;
-import celtech.coreUI.components.RestrictedNumberField;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import celtech.modelcontrol.ResizeableThreeD;
 import celtech.modelcontrol.ResizeableTwoD;
 import jakarta.inject.Inject;

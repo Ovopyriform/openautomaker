@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
+<?import org.openautomaker.ui.component.vertical_menu.*?>
 <?import org.openautomaker.ui.component.graphic_button.GraphicButton?>
 <?import org.openautomaker.ui.component.graphic_button.GraphicButtonWithLabel?>
 <?import java.lang.*?>
@@ -12,7 +14,7 @@
 <?import javafx.scene.text.*?>
 <?import org.controlsfx.control.textfield.*?>
 
-<VBox styleClass="inset-panel-background-redux" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<VBox styleClass="inset-panel-background-redux" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.extras.ExtrasMenuPanelController">
     <children>
         <VBox VBox.vgrow="ALWAYS">
             <children>

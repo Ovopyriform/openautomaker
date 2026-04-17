@@ -180,7 +180,7 @@ public abstract class Project {
 	public final Path getAbsolutePath() {
 		//TODO: It looks like this should just enumerate all the .robox files in the project directory and load those.  Not sure of the point of the open projects data.
 		//return AutoMakerEnvironment.get().getUserPath(PROJECTS).resolve(getProjectName()).resolve(projectNameProperty.get() + ApplicationConfiguration.projectFileExtension);
-		return projectsPathPreference.getValue().resolve(getProjectName() + ApplicationConfiguration.projectFileExtension);
+		return projectsPathPreference.getValue().resolve(getProjectName()).resolve(getProjectName() + ApplicationConfiguration.projectFileExtension);
 	}
 
 	protected abstract void load(ProjectFile projectFile, Path filePath) throws ProjectLoadException;

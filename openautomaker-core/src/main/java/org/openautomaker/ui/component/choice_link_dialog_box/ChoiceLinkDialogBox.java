@@ -10,7 +10,7 @@ import org.openautomaker.ui.StageManager;
 import org.openautomaker.ui.component.choice_link_button.ChoiceLinkButton;
 
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.HyperlinkedLabel;
+import org.openautomaker.ui.component.controls.HyperlinkedLabel;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

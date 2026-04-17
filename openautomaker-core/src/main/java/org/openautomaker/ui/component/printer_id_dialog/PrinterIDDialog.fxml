@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -8,7 +9,7 @@
 <?scenebuilder-preview-i18n-resource ../i18n/LanguageData.properties?>
 <?scenebuilder-stylesheet ../css/AutoMaker.css?>
 
-<VBox fx:id="container" alignment="TOP_CENTER" fillWidth="false" layoutX="0.0" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" styleClass="sidePanel" stylesheets="@../css/JMetroDarkTheme.css" AnchorPane.bottomAnchor="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialogController">
+<VBox fx:id="container" alignment="TOP_CENTER" fillWidth="false" layoutX="0.0" prefHeight="-1.0" prefWidth="-1.0" spacing="5.0" styleClass="sidePanel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" AnchorPane.bottomAnchor="10.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialogController">
     <children>
         <Label fx:id="dialogTitle" alignment="CENTER" style="-fx-font-size: 24;" text="%printerIDDialog.title" />
         <Label id="dialogMessage" alignment="CENTER" prefHeight="17.0" prefWidth="349.0" styleClass="labelText" text="%printerIDDialog.NameMessage" textAlignment="CENTER" wrapText="true" />

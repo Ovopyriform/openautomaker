@@ -5,7 +5,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.shape.*?>
 
-<fx:root type="org.openautomaker.ui.component.graphic_button.GraphicButton" stylesheets="@../../css/JMetroDarkTheme.css" text="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="org.openautomaker.ui.component.graphic_button.GraphicButton" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" text="" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <Group>
 <SVGPath content="M-206.328,280.527c-9.643-0.475-18.859,5.164-22.953,13.881c-4.172,8.883-2.334,19.521,4.436,26.604  c6.766,7.076,17.268,9.484,26.357,5.723c8.873-3.674,14.988-12.613,14.988-22.244C-183.5,292.004-193.84,281.141-206.328,280.527z   M-197.125,323.666c-8.408,4.627-18.947,2.971-25.734-3.758c-6.969-6.906-8.436-17.873-3.44-26.328  c4.941-8.359,15.166-12.672,24.58-10.035c9.307,2.613,16.012,11.293,16.012,20.979  C-185.707,312.447-190.197,319.852-197.125,323.666z" fill="#FFFFFF" />

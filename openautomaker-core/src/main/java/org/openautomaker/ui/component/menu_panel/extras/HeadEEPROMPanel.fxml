@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import celtech.coreUI.components.RestrictedTextField?>
+<?import org.openautomaker.ui.component.controls.RestrictedTextField?>
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox fx:id="headFullContainer" alignment="TOP_CENTER" spacing="30.0" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.extras.HeadEEPROMController">
+<VBox fx:id="headFullContainer" alignment="TOP_CENTER" spacing="30.0" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.extras.HeadEEPROMController">
     <children>
         <GridPane fx:id="headEEPROMControls" maxWidth="-Infinity" prefWidth="550" vgap="2.0">
             <columnConstraints>

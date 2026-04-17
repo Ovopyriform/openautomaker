@@ -1,6 +1,6 @@
 package org.openautomaker.ui.inject.project;
 
-import celtech.coreUI.ProjectGUIRules;
+import org.openautomaker.ui.ProjectGUIRules;
 import celtech.coreUI.visualisation.ProjectSelection;
 import celtech.modelcontrol.ModelContainer;
 import javafx.collections.ObservableSet;

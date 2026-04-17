@@ -3,12 +3,13 @@
 <?import javafx.scene.*?>
 <?import javafx.scene.shape.*?>
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox id="printProfileInnerPanel" fx:id="container" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="600.0" spacing="5.0" styleClass="inset-panel" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.library.ProfileLibraryPanelController">
+<VBox id="printProfileInnerPanel" fx:id="container" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="600.0" spacing="5.0" styleClass="inset-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.library.ProfileLibraryPanelController">
     <children>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <Label fx:id="slicerInUseLabel" text="" />

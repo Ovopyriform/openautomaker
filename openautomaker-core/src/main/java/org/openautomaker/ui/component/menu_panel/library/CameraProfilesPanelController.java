@@ -17,9 +17,9 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
 
 import celtech.coreUI.DisplayManager;
-import celtech.coreUI.components.RestrictedComboBox;
-import celtech.coreUI.components.RestrictedNumberField;
-import celtech.coreUI.controllers.panels.CameraProfilesControlSettingsManager;
+import org.openautomaker.ui.component.controls.RestrictedComboBox;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
+import org.openautomaker.ui.component.menu_panel.library.CameraProfilesControlSettingsManager;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;

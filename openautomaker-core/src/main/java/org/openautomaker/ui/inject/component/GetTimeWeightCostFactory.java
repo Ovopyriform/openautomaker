@@ -5,7 +5,7 @@ import org.openautomaker.base.task_executor.Cancellable;
 import com.google.inject.assistedinject.Assisted;
 
 import celtech.appManager.ModelContainerProject;
-import celtech.coreUI.controllers.panels.GetTimeWeightCost;
+import org.openautomaker.ui.component.time_cost_inset_panel.GetTimeWeightCost;
 import javafx.scene.control.Label;
 
 public interface GetTimeWeightCostFactory {

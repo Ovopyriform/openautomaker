@@ -12,7 +12,7 @@ import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.coreUI.controllers.utilityPanels.SnapshotController;
+import org.openautomaker.ui.component.snapshot.SnapshotController;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
 import jakarta.inject.Inject;

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
 <?import org.openautomaker.ui.component.graphic_button.GraphicButton?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="container" stylesheets="@../../css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="container" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.load_model_panel.LoadModelInsetPanelController">
     <children>        
         <HBox styleClass="inset-panel" VBox.vgrow="ALWAYS">
             <children>
-                <celtech.coreUI.components.InsetPanelMenu fx:id="menu" VBox.vgrow="ALWAYS" />
+                <org.openautomaker.ui.component.inset_panel_menu.InsetPanelMenu fx:id="menu" VBox.vgrow="ALWAYS" />
                 <VBox fx:id="webContentContainer" HBox.hgrow="ALWAYS" />
             </children>
         </HBox>

@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import org.openautomaker.guice.GuiceContext;
 
-import celtech.coreUI.components.HyperlinkedLabel;
+import org.openautomaker.ui.component.controls.HyperlinkedLabel;
 import jakarta.inject.Inject;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;

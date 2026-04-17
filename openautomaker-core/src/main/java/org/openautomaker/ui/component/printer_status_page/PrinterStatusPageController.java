@@ -36,8 +36,8 @@ import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.DisplayManager;
-import celtech.coreUI.components.HyperlinkedLabel;
-import celtech.coreUI.components.JogButton;
+import org.openautomaker.ui.component.controls.HyperlinkedLabel;
+import org.openautomaker.ui.component.controls.JogButton;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.remote.PauseStatus;
 import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;

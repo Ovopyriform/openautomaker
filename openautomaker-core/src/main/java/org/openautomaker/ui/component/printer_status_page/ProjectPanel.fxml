@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="projectPanel" maxHeight="1.7976931348623157E308" maxWidth="370.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="slideOutPanel" stylesheets="@../../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.ProjectPanelController">
+<VBox fx:id="projectPanel" maxHeight="1.7976931348623157E308" maxWidth="370.0" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="slideOutPanel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.ProjectPanelController">
     <children>
         <HBox alignment="CENTER_LEFT" spacing="10.0">
             <children>

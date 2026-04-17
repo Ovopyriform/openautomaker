@@ -6,7 +6,9 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<VBox stylesheets="@../css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController">
+
+
+<VBox stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController">
     <children>
         <Group>
             <children>

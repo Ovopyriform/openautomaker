@@ -2,7 +2,7 @@ package org.openautomaker.ui.state;
 
 import com.google.inject.Singleton;
 
-import celtech.coreUI.SpinnerControl;
+import org.openautomaker.ui.SpinnerControl;
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleObjectProperty;
 

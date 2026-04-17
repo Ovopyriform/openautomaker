@@ -6,7 +6,7 @@ import org.openautomaker.base.utils.Math.MathUtils;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.coreUI.StandardColours;
+import org.openautomaker.ui.StandardColours;
 import javafx.geometry.Point2D;
 import javafx.scene.Camera;
 import javafx.scene.layout.Pane;

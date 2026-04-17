@@ -24,6 +24,7 @@ import org.openautomaker.environment.preference.application.VersionPreference;
 import org.openautomaker.environment.preference.modeling.ModelsPathPreference;
 import org.openautomaker.environment.preference.modeling.ProjectsPathPreference;
 import org.openautomaker.guice.FXMLLoaderFactory;
+import org.openautomaker.ui.SpinnerControl;
 import org.openautomaker.ui.StageManager;
 import org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController;
 import org.openautomaker.ui.component.layout_status_menu_strip.LayoutStatusMenuStrip;
@@ -39,7 +40,6 @@ import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;
 import org.openautomaker.ui.state.SelectedSpinnerControl;
 
-import com.google.inject.Injector;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
@@ -50,10 +50,10 @@ import celtech.appManager.undo.CommandStack;
 import celtech.appManager.undo.UndoableProject;
 import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.components.ProjectTab;
-import celtech.coreUI.components.Spinner;
-import celtech.coreUI.components.TopMenuStrip;
-import celtech.coreUI.components.Notifications.NotificationArea;
-import celtech.coreUI.controllers.panels.PreviewManagerController;
+import org.openautomaker.ui.component.spinner.Spinner;
+import org.openautomaker.ui.component.top_menu_strip.TopMenuStrip;
+import org.openautomaker.ui.component.notification.NotificationArea;
+import org.openautomaker.ui.component.preview_panel.PreviewManagerController;
 import celtech.coreUI.keycommands.HiddenKey;
 import celtech.coreUI.keycommands.KeyCommandListener;
 import celtech.coreUI.keycommands.UnhandledKeyListener;
@@ -186,7 +186,6 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 	//		//		 LOGGER.debug("Starting AutoMaker - machine type is " + BaseConfiguration.getMachineType());
 	//	}
 
-	private final Injector injector;
 	private final AdvancedModePreference advancedModePreference;
 	private final ShowGCodeConsolePreference showGCodeConsolePreference;
 	private final ModelsPathPreference modelsPathPreference;
@@ -213,7 +212,6 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 
 	@Inject
 	protected DisplayManager(
-			Injector injector,
 			AdvancedModePreference advancedModePreference,
 			ShowGCodeConsolePreference showGCodeConsolePreference,
 			ModelsPathPreference modelsPathPreference,
@@ -236,8 +234,6 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 			StageManager stageManager,
 			ProjectsPathPreference projectsPathPreference) {
 
-		this.injector = injector;
-		
 		this.advancedModePreference = advancedModePreference;
 		this.showGCodeConsolePreference = showGCodeConsolePreference;
 		this.modelsPathPreference = modelsPathPreference;
@@ -689,7 +685,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 
 	private void setupPanelsForMode(ApplicationMode mode) {
 
-		URL fxmlFileName = getClass().getResource(mode.getInsetPanelFXMLName());
+		URL fxmlFileName = mode.getInsetPanelFXMLURL();
 		if (fxmlFileName == null)
 			return;
 
@@ -698,11 +694,6 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 
 		try {
 			FXMLLoader insetPanelLoader = fxmlLoaderFactory.create(fxmlFileName);
-
-			//TODO: nope.  These all need a common interface.  Create a factory for mode Controllers
-			//TODO: Double Nope.,  Could just load the files and get the controller from the FXML loader.
-			insetPanelLoader.setController(injector.getInstance(mode.getControllerClass()));
-
 			Pane insetPanel = (Pane) insetPanelLoader.load();
 			Object insetPanelController = insetPanelLoader.getController();
 			insetPanel.setId(mode.name());
@@ -761,7 +752,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		}
 
 		if (projectManager != null) {
-			projectManager.saveState();
+			projectManager.rememberOpenProjects();
 		}
 
 		if (tabDisplay != null) {

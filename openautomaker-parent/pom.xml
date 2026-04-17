@@ -203,6 +203,11 @@
 			</dependency>
 			<dependency>
 				<groupId>org.jfxtras</groupId>
+				<artifactId>jmetro</artifactId>
+				<version>11.6.16</version>
+			</dependency>
+			<dependency>
+				<groupId>org.jfxtras</groupId>
 				<artifactId>jfxtras-controls</artifactId>
 				<version>17-r1</version>
 			</dependency>

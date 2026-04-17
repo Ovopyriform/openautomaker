@@ -14,8 +14,8 @@ import org.openautomaker.base.printerControl.model.Reel;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.coreUI.components.material.MaterialComponent;
-import celtech.coreUI.controllers.panels.SidePanelManager;
+import org.openautomaker.ui.component.material.MaterialComponent;
+import org.openautomaker.ui.component.printer_side_panel.SidePanelManager;
 import jakarta.inject.Inject;
 import javafx.beans.binding.Bindings;
 import javafx.beans.value.ChangeListener;

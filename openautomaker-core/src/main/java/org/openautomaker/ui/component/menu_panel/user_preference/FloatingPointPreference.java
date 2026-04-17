@@ -5,7 +5,7 @@ import org.openautomaker.ui.component.menu_panel.PreferencesInnerPanelController
 
 import com.google.inject.assistedinject.Assisted;
 
-import celtech.coreUI.components.RestrictedNumberField;
+import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import jakarta.inject.Inject;
 import javafx.beans.property.FloatProperty;
 import javafx.beans.value.ObservableValue;

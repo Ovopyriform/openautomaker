@@ -34,8 +34,9 @@ import org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialog;
 import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
 
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.Notifications.NotificationDisplay;
-import celtech.coreUI.controllers.popups.ResetPrinterIDController;
+import org.openautomaker.ui.component.notification.NotificationDisplay;
+import org.openautomaker.ui.component.reset_head_dialog.ResetHeadController;
+import org.openautomaker.ui.component.reset_printer_id_dialog.ResetPrinterIDController;
 import celtech.roboxbase.comms.RoboxResetIDResult;
 import celtech.roboxbase.comms.rx.FirmwareError;
 import celtech.roboxbase.comms.rx.PrinterIDResponse;
@@ -569,7 +570,7 @@ public class SystemNotificationManagerJavaFX implements SystemNotificationManage
 				Stage resetPrinterIDStage = null;
 				ResetPrinterIDController controller = null;
 				try {
-					URL fxmlFileName = getClass().getResource(ApplicationConfiguration.fxmlPopupResourcePath + "resetPrinterIDDialog.fxml");
+					URL fxmlFileName = ResetPrinterIDController.class.getResource("resetPrinterIDDialog.fxml");
 					FXMLLoader resetDialogLoader = fxmlLoaderFactory.create(fxmlFileName);
 
 					VBox resetVBox = (VBox) resetDialogLoader.load();
@@ -918,7 +919,7 @@ public class SystemNotificationManagerJavaFX implements SystemNotificationManage
 		if (programInvalidHeadStage == null) {
 			taskExecutor.runOnGUIThread(() -> {
 				try {
-					URL fxmlFileName = getClass().getResource(ApplicationConfiguration.fxmlPopupResourcePath + "resetHeadDialog.fxml");
+					URL fxmlFileName = ResetHeadController.class.getResource("resetHeadDialog.fxml");
 					FXMLLoader resetDialogLoader = fxmlLoaderFactory.create(fxmlFileName);
 
 					VBox resetDialog = (VBox) resetDialogLoader.load();

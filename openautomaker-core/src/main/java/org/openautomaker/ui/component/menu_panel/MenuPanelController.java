@@ -10,8 +10,8 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.FXMLLoaderFactory;
 
 import celtech.appManager.ApplicationStatus;
-import celtech.coreUI.components.VerticalMenu;
-import celtech.coreUI.controllers.panels.ButtonBox;
+import org.openautomaker.ui.component.vertical_menu.VerticalMenu;
+import org.openautomaker.ui.component.menu_panel.ButtonBox;
 import jakarta.inject.Inject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;

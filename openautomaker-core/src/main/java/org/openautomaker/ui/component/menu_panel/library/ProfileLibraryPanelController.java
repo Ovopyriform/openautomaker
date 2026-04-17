@@ -35,8 +35,8 @@ import org.openautomaker.ui.state.SelectedProject;
 
 import celtech.appManager.Project;
 import celtech.coreUI.DisplayManager;
-import celtech.coreUI.components.RestrictedComboBox;
-import celtech.coreUI.controllers.panels.FXMLUtilities;
+import org.openautomaker.ui.component.controls.RestrictedComboBox;
+import org.openautomaker.ui.utils.FXMLUtilities;
 import celtech.utils.settingsgeneration.ProfileDetailsGenerator;
 import celtech.utils.settingsgeneration.ProfileDetailsGenerator.ProfileDetailsGenerationException;
 import jakarta.inject.Inject;
