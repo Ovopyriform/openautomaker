@@ -4,12 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 import org.junit.Test;
+import org.openautomaker.gcodeviewer.gcode.GCodeLine;
+import org.openautomaker.gcodeviewer.gcode.GCodeLineParser;
 import org.parboiled.Parboiled;
 import org.parboiled.parserunners.ReportingParseRunner;
 import org.parboiled.support.ParsingResult;
-
-import xyz.openautomaker.gcodeviewer.gcode.GCodeLine;
-import xyz.openautomaker.gcodeviewer.gcode.GCodeLineParser;
 
 /**
  *

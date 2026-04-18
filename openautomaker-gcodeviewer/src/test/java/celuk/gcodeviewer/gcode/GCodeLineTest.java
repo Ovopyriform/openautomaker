@@ -3,11 +3,10 @@ package celuk.gcodeviewer.gcode;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static xyz.openautomaker.gcodeviewer.gcode.GCodeLine.NULL_NUMBER;
+import static org.openautomaker.gcodeviewer.gcode.GCodeLine.NULL_NUMBER;
 
 import org.junit.Test;
-
-import xyz.openautomaker.gcodeviewer.gcode.GCodeLine;
+import org.openautomaker.gcodeviewer.gcode.GCodeLine;
 
 /**
  *

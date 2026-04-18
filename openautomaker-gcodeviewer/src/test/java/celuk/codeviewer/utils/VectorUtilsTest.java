@@ -5,8 +5,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.joml.Vector3f;
 import org.junit.Test;
-
-import xyz.openautomaker.gcodeviewer.utils.VectorUtils;
+import org.openautomaker.gcodeviewer.utils.VectorUtils;
 
 /**
  *

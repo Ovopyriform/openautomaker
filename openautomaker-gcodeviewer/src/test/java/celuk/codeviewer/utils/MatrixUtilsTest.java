@@ -6,8 +6,7 @@ import static org.junit.Assert.assertEquals;
 import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.junit.Test;
-
-import xyz.openautomaker.gcodeviewer.utils.MatrixUtils;
+import org.openautomaker.gcodeviewer.utils.MatrixUtils;
 
 /**
  *

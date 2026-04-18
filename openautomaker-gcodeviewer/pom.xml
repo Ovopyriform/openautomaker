@@ -8,7 +8,7 @@
 	<version>4.03.00</version>
 	<packaging>jar</packaging>
 
-	<name>OpenAutoMaker-GCodeViewer</name>
+	<name>OpenAutoMaker GCode Viewer</name>
 
 	<parent>
 		<artifactId>openautomaker-parent</artifactId>
@@ -16,10 +16,6 @@
 		<version>1.0</version>
 		<relativePath>../openautomaker-parent</relativePath>
 	</parent>
-
-	<properties>
-		<lwjgl.version>3.2.3</lwjgl.version>
-	</properties>
 
 	<build>
 		<plugins>
@@ -44,7 +40,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib</classpathPrefix>
-							<mainClass>xyz.openautomaker.gcodeviewer.engine.GCodeViewer</mainClass>
+							<mainClass>org.openautomaker.gcodeviewer.engine.GCodeViewer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -68,6 +64,130 @@
 			</plugin -->
 		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>osx-specific</id>
+			<activation>
+				<os>
+					<family>mac</family>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-glfw</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nfd</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nuklear</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-opengl</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-stb</artifactId>
+					<classifier>natives-macos</classifier>
+				</dependency>
+			</dependencies>
+		</profile>
+		<profile>
+			<id>windows-specific</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-glfw</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nfd</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nuklear</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-opengl</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-stb</artifactId>
+					<classifier>natives-windows</classifier>
+				</dependency>
+			</dependencies>
+
+		</profile>
+		<profile>
+			<id>linux-specific</id>
+			<activation>
+				<os>
+					<family>unix</family>
+					<name>Linux</name>
+				</os>
+			</activation>
+			<dependencies>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-glfw</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nfd</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-nuklear</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-opengl</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+				<dependency>
+					<groupId>org.lwjgl</groupId>
+					<artifactId>lwjgl-stb</artifactId>
+					<classifier>natives-linux</classifier>
+				</dependency>
+			</dependencies>
+		</profile>
+	</profiles>
 
 	<dependencies>
 		<dependency>
@@ -102,146 +222,30 @@
 		<dependency>
 			<groupId>org.parboiled</groupId>
 			<artifactId>parboiled-java</artifactId>
-			</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nfd</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nuklear</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-			<version>${lwjgl.version}</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nfd</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nuklear</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-windows</classifier>
-		</dependency>
-
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-glfw</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nfd</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-nuklear</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-opengl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.lwjgl</groupId>
-			<artifactId>lwjgl-stb</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-linux</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-glfw</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-nfd</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-nuklear</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-opengl</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<dependency>
 			<groupId>org.lwjgl</groupId>
 			<artifactId>lwjgl-stb</artifactId>
-			<version>${lwjgl.version}</version>
-			<classifier>natives-macos</classifier>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.joml/joml -->
 		<dependency>
@@ -272,6 +276,17 @@
 			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-i18n</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.openautomaker</groupId>
+			<artifactId>openautomaker-environment</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openautomaker</groupId>
+			<artifactId>openautomaker-guice</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.openautomaker</groupId>
+			<artifactId>openautomaker-javafx</artifactId>
+		</dependency>
 	</dependencies>
-
 </project>
