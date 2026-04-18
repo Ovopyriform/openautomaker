@@ -4,7 +4,8 @@ package org.openautomaker.ui.component.printer_side_panel.printer.svg;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedPane;
+import javafx.scene.layout.Pane;
 //import org.openautomaker.ui.component.printer_side_panel.printer.PrinterComponent;
 import org.openautomaker.ui.component.printer_side_panel.printer.PrinterComponent.Size;
 import org.openautomaker.ui.component.printer_side_panel.printer.PrinterComponent.Status;
@@ -13,10 +14,9 @@ import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.layout.Pane;
 import javafx.scene.transform.Scale;
 
-public class PrinterSVG extends Pane {
+public class PrinterSVG extends GuicedPane {
 	private final String printerIconSuffix = "PrinterIcon";
 	private final String defaultPrinterTypeCode = "RBX01";
 	Pane printerIcon = null;
@@ -45,7 +45,6 @@ public class PrinterSVG extends Pane {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public PrinterSVG() {
-		GuiceContext.get().injectMembers(this);
 
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("PrinterSVG.fxml"));
 		fxmlLoader.setRoot(this);

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import org.openautomaker.base.utils.TimeUtils;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 import org.openautomaker.ui.state.SelectedSpinnerControl;
 
@@ -32,10 +32,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
-public class ZCutEntryBox extends HBox implements ScreenExtentsListener {
+public class ZCutEntryBox extends GuicedHBox implements ScreenExtentsListener {
 
 	private final Pane paneInWhichControlResides;
 	private final ObjectProperty<LayoutSubmode> layoutSubmodeProperty;
@@ -125,7 +124,6 @@ public class ZCutEntryBox extends HBox implements ScreenExtentsListener {
 	FXMLLoader fxmlLoader;
 
 	public ZCutEntryBox() {
-		GuiceContext.get().injectMembers(this);
 
 		paneInWhichControlResides = null;
 		layoutSubmodeProperty = null;
@@ -136,7 +134,6 @@ public class ZCutEntryBox extends HBox implements ScreenExtentsListener {
 	}
 
 	public ZCutEntryBox(Pane paneInWhichControlResides, ObjectProperty<LayoutSubmode> layoutSubmodeProperty, ThreeDViewManager viewManager, ModelContainerProject project) {
-		GuiceContext.get().injectMembers(this);
 
 		this.paneInWhichControlResides = paneInWhichControlResides;
 		this.layoutSubmodeProperty = layoutSubmodeProperty;

@@ -14,7 +14,8 @@ import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.task_executor.TaskExecutor;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedPane;
+import javafx.scene.layout.Pane;
 import org.openautomaker.ui.component.printer_side_panel.ComponentIsolationInterface;
 import org.openautomaker.ui.component.printer_side_panel.printer.svg.PrinterSVG;
 import org.openautomaker.ui.component.printer_side_panel.printer.white_progress_bar.WhiteProgressBar;
@@ -40,12 +41,11 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class PrinterComponent extends Pane {
+public class PrinterComponent extends GuicedPane {
 
 	private boolean selected = false;
 	private Size currentSize;
@@ -176,7 +176,6 @@ public class PrinterComponent extends Pane {
 
 	public PrinterComponent(Printer printer, ComponentIsolationInterface isolationInterface) {
 
-		GuiceContext.get().injectMembers(this);
 
 		this.printer = printer;
 		this.isolationInterface = isolationInterface;

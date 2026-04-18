@@ -1,7 +1,7 @@
 package org.openautomaker.ui.component.menu_panel;
 
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 import org.openautomaker.ui.component.graphic_button.GraphicButtonWithLabel;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel;
 import org.openautomaker.ui.component.menu_panel.MenuInnerPanel.OperationButton;
@@ -12,20 +12,18 @@ import javafx.beans.property.ReadOnlyObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
-import javafx.scene.layout.HBox;
 
 /**
  * The ButtonBox class is a JavaFX HBox that displays a set of operation buttons as defined by a {@code List<OperationButton>}. This list can change according to the active panel that it is tied to.
  *
  * @author tony
  */
-public class ButtonBox extends HBox {
+public class ButtonBox extends GuicedHBox {
 
 	@Inject
 	private I18N i18n;
 
 	public ButtonBox(ReadOnlyObjectProperty<MenuInnerPanel> extrasMenuInnerPanelProperty) {
-		GuiceContext.get().injectMembers(this);
 		setAlignment(Pos.CENTER);
 		extrasMenuInnerPanelProperty.addListener(
 				(ObservableValue<? extends MenuInnerPanel> observable, MenuInnerPanel oldValue, MenuInnerPanel newValue) -> {

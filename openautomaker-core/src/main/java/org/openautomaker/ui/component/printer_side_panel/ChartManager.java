@@ -96,7 +96,7 @@ public class ChartManager {
 	I18N i18n;
 
 	public ChartManager(LineChart<Number, Number> chart) {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.chart = chart;
 		ambientTargetTemperatureSeries.getData().add(ambientTargetPoint);

@@ -47,7 +47,7 @@ public class PrinterGrid extends FlowPane implements PrinterListChangesListener,
 
 	public PrinterGrid() {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		final int width = 260;
 		this.setPrefWidth(width);

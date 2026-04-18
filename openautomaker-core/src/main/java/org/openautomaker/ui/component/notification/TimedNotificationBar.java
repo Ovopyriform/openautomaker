@@ -4,8 +4,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import org.openautomaker.base.task_executor.TaskExecutor;
-import org.openautomaker.guice.GuiceContext;
-
 import jakarta.inject.Inject;
 
 public class TimedNotificationBar extends AppearingNotificationBar {
@@ -20,11 +18,7 @@ public class TimedNotificationBar extends AppearingNotificationBar {
 	private TaskExecutor taskExecutor;
 
 	protected TimedNotificationBar(NotificationDisplay notificationDisplay) {
-
-		GuiceContext.get().injectMembers(this);
-
 		this.notificationDisplay = notificationDisplay;
-
 	}
 
 	@Override

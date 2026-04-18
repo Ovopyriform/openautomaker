@@ -3,15 +3,14 @@ package org.openautomaker.ui.component.graphic_button;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedButton;
 
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 
-public class GraphicButton extends Button {
+public class GraphicButton extends GuicedButton {
 
 	private final StringProperty fxmlFileNameProp = new SimpleStringProperty("");
 	private final StringProperty styleClassOverride = new SimpleStringProperty("");
@@ -20,12 +19,10 @@ public class GraphicButton extends Button {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public GraphicButton() {
-		GuiceContext.get().injectMembers(this);
 		init();
 	}
 
 	public GraphicButton(String fxmlFileName) {
-		GuiceContext.get().injectMembers(this);
 		fxmlFileNameProp.set(fxmlFileName);
 		init();
 	}

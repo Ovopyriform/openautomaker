@@ -3,13 +3,12 @@ package org.openautomaker.ui.component.printer_side_panel;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.VBox;
 
-public class PrinterSidePanel extends VBox {
+public class PrinterSidePanel extends GuicedVBox {
 
 	private PrinterSidePanelController controller = null;
 
@@ -18,7 +17,6 @@ public class PrinterSidePanel extends VBox {
 
 	public PrinterSidePanel() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		init();
 	}
 

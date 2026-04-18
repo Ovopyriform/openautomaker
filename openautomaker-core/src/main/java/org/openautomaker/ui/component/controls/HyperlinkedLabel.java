@@ -42,7 +42,7 @@ public class HyperlinkedLabel extends TextFlow {
 
 	public HyperlinkedLabel() {
 		super();
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 	}
 
 	public void replaceText(String newText) {

@@ -3,15 +3,14 @@ package org.openautomaker.ui.component.graphic_toggle_button;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedToggleButton;
 
 import jakarta.inject.Inject;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ToggleButton;
 
-public class GraphicToggleButton extends ToggleButton {
+public class GraphicToggleButton extends GuicedToggleButton {
 
 	private final StringProperty fxmlFileNameProp = new SimpleStringProperty("");
 
@@ -19,13 +18,11 @@ public class GraphicToggleButton extends ToggleButton {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public GraphicToggleButton() {
-		GuiceContext.get().injectMembers(this);
 		getStyleClass().add("graphic-button");
 		loadFXML();
 	}
 
 	public GraphicToggleButton(String fxmlFileName) {
-		GuiceContext.get().injectMembers(this);
 		fxmlFileNameProp.set(fxmlFileName);
 		getStyleClass().add("graphic-button");
 		loadFXML();

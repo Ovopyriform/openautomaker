@@ -71,7 +71,7 @@ public class GetTimeWeightCost {
 			Cancellable cancellable) {
 
 		//TODO: Issue with creating this with a factory  Causes JavaFX init exception.  Look into later.
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.project = project;
 		this.lblTime = lblTime;

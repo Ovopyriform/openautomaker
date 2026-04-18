@@ -5,7 +5,7 @@ import java.util.List;
 import org.controlsfx.control.MasterDetailPane;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 import org.openautomaker.ui.StageManager;
 
 import celtech.configuration.ApplicationConfiguration;
@@ -24,14 +24,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ReprintPanel extends VBox {
+public class ReprintPanel extends GuicedVBox {
 
 	private Stage dialogStage = new Stage(StageStyle.UNDECORATED);
 	private final MasterDetailPane masterDetailsPane = new MasterDetailPane(Side.RIGHT);
@@ -61,7 +60,6 @@ public class ReprintPanel extends VBox {
 	private I18N i18n;
 
 	public ReprintPanel() {
-		GuiceContext.get().injectMembers(this);
 
 		masterDetailsPane.setMasterNode(tableView);
 		masterDetailsPane.setDetailNode(detailsPanel);

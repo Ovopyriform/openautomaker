@@ -37,7 +37,7 @@ public class CalibrationNozzleOpeningGUI {
 	public CalibrationNozzleOpeningGUI(CalibrationInsetPanelController controller,
 			StateTransitionManager<NozzleOpeningCalibrationState> stateManager) {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.controller = controller;
 		this.stateManager = stateManager;

@@ -53,6 +53,10 @@ public class GuiceContext {
 		injector.injectMembers(obj);
 	}
 
+	public static void inject(Object obj) {
+		get().injectMembers(obj);
+	}
+
 	/**
 	 * Create instance of given class
 	 * 

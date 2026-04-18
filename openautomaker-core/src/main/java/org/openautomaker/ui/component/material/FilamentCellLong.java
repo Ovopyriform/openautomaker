@@ -6,7 +6,7 @@ package org.openautomaker.ui.component.material;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedListCell;
 
 import jakarta.inject.Inject;
 
@@ -22,7 +22,6 @@ public class FilamentCellLong extends FilamentCell {
 	public FilamentCellLong() {
 		super();
 
-		GuiceContext.get().injectMembers(this);
 	}
 
 	@Override

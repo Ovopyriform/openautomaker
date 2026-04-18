@@ -27,7 +27,7 @@ public class PasswordPreference implements PreferencesInnerPanelController.Prefe
 	public PasswordPreference(StringProperty stringProperty, String caption) {
 
 		//TODO: Seems incorrect to use GuiceContext here.  Look into
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.stringProperty = stringProperty;
 		this.caption = caption;

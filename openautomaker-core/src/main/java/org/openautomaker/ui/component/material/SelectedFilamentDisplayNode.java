@@ -3,19 +3,18 @@ package org.openautomaker.ui.component.material;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 
 import jakarta.inject.Inject;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.shape.Rectangle;
 
 /**
  *
  * @author Ian
  */
-public class SelectedFilamentDisplayNode extends HBox {
+public class SelectedFilamentDisplayNode extends GuicedHBox {
 
 	private static final int SWATCH_SQUARE_SIZE = 16;
 
@@ -28,7 +27,6 @@ public class SelectedFilamentDisplayNode extends HBox {
 	private I18N i18n;
 
 	public SelectedFilamentDisplayNode() {
-		GuiceContext.get().injectMembers(this);
 
 		setAlignment(Pos.CENTER_LEFT);
 		rectangle = new Rectangle(SWATCH_SQUARE_SIZE, SWATCH_SQUARE_SIZE);

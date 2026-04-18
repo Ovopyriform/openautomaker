@@ -4,8 +4,6 @@ package org.openautomaker.ui.component.notification;
 import org.openautomaker.base.printerControl.model.HeaterMode;
 import org.openautomaker.base.printerControl.model.NozzleHeater;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
-
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 
@@ -30,10 +28,6 @@ public class MaterialHeatingStatusBar extends AppearingProgressBar {
 	private I18N i18n;
 
 	public MaterialHeatingStatusBar(NozzleHeater heater, int materialNumber, boolean thisIsTheOnlyNozzle) {
-		super();
-
-		GuiceContext.get().injectMembers(this);
-
 		this.heater = heater;
 		this.materialNumber = materialNumber;
 		this.thisIsTheOnlyNozzle = thisIsTheOnlyNozzle;

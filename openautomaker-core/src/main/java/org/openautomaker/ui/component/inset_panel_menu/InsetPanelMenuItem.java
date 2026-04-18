@@ -3,20 +3,18 @@ package org.openautomaker.ui.component.inset_panel_menu;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedToggleButton;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.ToggleButton;
 
-public class InsetPanelMenuItem extends ToggleButton {
+public class InsetPanelMenuItem extends GuicedToggleButton {
 
 	@Inject
 	public FXMLLoaderFactory fxmlLoaderFactory;
 
 	public InsetPanelMenuItem() {
 
-		GuiceContext.get().injectMembers(this);
 
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("insetPanelMenuItem.fxml"));
 		fxmlLoader.setRoot(this);

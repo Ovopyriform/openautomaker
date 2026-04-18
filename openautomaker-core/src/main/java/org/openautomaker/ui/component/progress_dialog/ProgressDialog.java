@@ -42,7 +42,7 @@ public class ProgressDialog {
 	}
 
 	public ProgressDialog(ControllableService service) {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 		this.controllableService = service;
 
 		dialogStage = new Stage(StageStyle.TRANSPARENT);

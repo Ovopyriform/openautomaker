@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedStackPane;
 import org.openautomaker.ui.StageManager;
 import org.openautomaker.ui.component.choice_link_button.ChoiceLinkButton;
 
@@ -18,14 +18,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Control;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-public class ChoiceLinkDialogBox extends StackPane {
+public class ChoiceLinkDialogBox extends GuicedStackPane {
 
 	public class PrinterDisconnectedException extends Exception {
 
@@ -100,13 +99,13 @@ public class ChoiceLinkDialogBox extends StackPane {
 	}
 
 	public ChoiceLinkDialogBox(boolean closeOnPrinterDisconnect) {
-		GuiceContext.get().injectMembers(this);
+
 		this.closeOnPrinterDisconnect = closeOnPrinterDisconnect;
 		init();
 	}
 
 	public ChoiceLinkDialogBox(boolean closeOnPrinterDisconnect, boolean closeOnPrinterConnect) {
-		GuiceContext.get().injectMembers(this);
+
 		this.closeOnPrinterDisconnect = closeOnPrinterDisconnect;
 		this.closeOnPrinterConnect = closeOnPrinterConnect;
 		init();

@@ -14,7 +14,7 @@ import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterListChangesListener;
 import org.openautomaker.base.printerControl.model.Reel;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import org.openautomaker.ui.StandardColours;
@@ -24,13 +24,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-public class MaterialComponent extends VBox implements PrinterListChangesListener, FilamentSelectionListener {
+public class MaterialComponent extends GuicedVBox implements PrinterListChangesListener, FilamentSelectionListener {
 
 	private Printer printer;
 	private int extruderNumber;
@@ -104,13 +103,9 @@ public class MaterialComponent extends VBox implements PrinterListChangesListene
 	FXMLLoader fxmlLoader;
 
 	protected MaterialComponent() {
-		super();
-		GuiceContext.get().injectMembers(this);
 	}
 
 	public MaterialComponent(Printer printer, int extruderNumber) {
-		super();
-		GuiceContext.get().injectMembers(this);
 
 		fxmlLoader.setLocation(getClass().getResource("material.fxml"));
 		fxmlLoader.setRoot(this);

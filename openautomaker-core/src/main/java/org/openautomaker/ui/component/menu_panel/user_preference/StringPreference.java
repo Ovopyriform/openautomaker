@@ -25,7 +25,7 @@ public class StringPreference implements PreferencesInnerPanelController.Prefere
 
 	public StringPreference(StringProperty stringProperty, String caption) {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.stringProperty = stringProperty;
 		this.caption = caption;

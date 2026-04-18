@@ -51,7 +51,7 @@ public class NozzleChartData {
 			ReadOnlyIntegerProperty nozzleFirstLayerTargetTemperatureProperty,
 			ReadOnlyIntegerProperty nozzleTemperatureProperty) {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.nozzleTemperatureData = nozzleTemperatureData;
 

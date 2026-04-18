@@ -1,7 +1,5 @@
 package org.openautomaker.ui.component.notification;
 
-import org.openautomaker.guice.GuiceContext;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
@@ -17,10 +15,6 @@ public class DismissableNotificationBar extends AppearingNotificationBar {
 	private final NotificationDisplay notificationDisplay;
 
 	public DismissableNotificationBar(NotificationDisplay notificationDisplay) {
-		super();
-
-		GuiceContext.get().injectMembers(this);
-
 		this.notificationDisplay = notificationDisplay;
 
 		actionButton.setVisible(true);

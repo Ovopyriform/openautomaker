@@ -38,7 +38,7 @@ public class CalibrationXAndYGUI {
 	public CalibrationXAndYGUI(CalibrationInsetPanelController controller,
 			StateTransitionManager stateManager) {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.controller = controller;
 		this.stateManager = stateManager;

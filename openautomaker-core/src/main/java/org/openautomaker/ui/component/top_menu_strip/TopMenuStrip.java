@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 import org.openautomaker.ui.component.graphic_button.GraphicButton;
 
 import celtech.appManager.ApplicationMode;
@@ -14,13 +14,12 @@ import javafx.beans.binding.BooleanBinding;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.HBox;
 
 /**
  *
  * @author Ian
  */
-public class TopMenuStrip extends HBox {
+public class TopMenuStrip extends GuicedHBox {
 
 	private ApplicationStatus applicationStatus = null;
 
@@ -53,7 +52,6 @@ public class TopMenuStrip extends HBox {
 
 	public TopMenuStrip() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		URL fxml = getClass().getResource("TopMenuStrip.fxml");
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(fxml);
 		fxmlLoader.setRoot(this);

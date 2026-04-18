@@ -3,14 +3,13 @@ package org.openautomaker.ui.component.printer_status_page;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.VBox;
 
 @Deprecated
-public class GCodePanel extends VBox {
+public class GCodePanel extends GuicedVBox {
 
 	private GCodePanelController controller = null;
 
@@ -20,7 +19,6 @@ public class GCodePanel extends VBox {
 	//TODO: So what's this about?  Seems an abstract for an fxml loader which is not needed.
 	public GCodePanel() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		init();
 	}
 

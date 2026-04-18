@@ -20,7 +20,7 @@ public class UnitLabel extends Label {
 
 	public UnitLabel() {
 		super();
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 	}
 
 	public UnitType getUnits() {

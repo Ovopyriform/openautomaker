@@ -8,8 +8,6 @@ import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterException;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
-import org.openautomaker.guice.GuiceContext;
-
 import celtech.roboxbase.comms.remote.BusyStatus;
 import celtech.roboxbase.comms.remote.PauseStatus;
 import jakarta.inject.Inject;
@@ -74,8 +72,6 @@ public class PrintStatusBar extends AppearingProgressBar {
 	private final BooleanProperty buttonsAllowed = new SimpleBooleanProperty(false);
 
 	public PrintStatusBar() {
-		super();
-		GuiceContext.get().injectMembers(this);
 	}
 
 	private void reassessStatus() {

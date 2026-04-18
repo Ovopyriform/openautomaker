@@ -4,20 +4,19 @@ import java.io.IOException;
 
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedStackPane;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tooltip;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 
 /**
  *
  * @author Ian
  */
-public class FilamentSwatch extends StackPane {
+public class FilamentSwatch extends GuicedStackPane {
 
 	@FXML
 	private Rectangle swatchPanel;
@@ -31,12 +30,12 @@ public class FilamentSwatch extends StackPane {
 	FXMLLoaderFactory fxmlLoaderFactory;
 
 	public FilamentSwatch() {
-		GuiceContext.get().injectMembers(this);
+
 		initialise(null, null);
 	}
 
 	public FilamentSwatch(FilamentSelectionListener filamentSelectionListenerInput, Filament filament) {
-		GuiceContext.get().injectMembers(this);
+
 		initialise(filamentSelectionListenerInput, filament);
 	}
 

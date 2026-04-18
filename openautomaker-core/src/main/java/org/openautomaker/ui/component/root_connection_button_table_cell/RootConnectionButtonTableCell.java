@@ -136,7 +136,7 @@ public class RootConnectionButtonTableCell extends TableCell<PrintServerConnecti
 
 	public RootConnectionButtonTableCell() {
 		super();
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("RootConnectionButtonTableCell.fxml"));
 		fxmlLoader.setController(this);

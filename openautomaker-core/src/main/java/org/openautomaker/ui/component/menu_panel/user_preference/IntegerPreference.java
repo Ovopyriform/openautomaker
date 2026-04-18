@@ -27,7 +27,7 @@ public class IntegerPreference implements PreferencesInnerPanelController.Prefer
 			String caption) {
 
 		//TODO: GuiceContext here seems wrong.
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.integerProperty = integerProperty;
 		this.caption = caption;

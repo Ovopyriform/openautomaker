@@ -9,20 +9,20 @@ import java.util.Map.Entry;
 import org.openautomaker.base.MaterialType;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
+import javafx.scene.layout.VBox;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 /**
  *
  * @author Ian
  */
-public class FilamentCategory extends VBox {
+public class FilamentCategory extends GuicedVBox {
 
 	@FXML
 	private Text swatchPatchTitle;
@@ -40,7 +40,6 @@ public class FilamentCategory extends VBox {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public FilamentCategory(FilamentSelectionListener materialSelectionListener) {
-		GuiceContext.get().injectMembers(this);
 
 		this.materialSelectionListener = materialSelectionListener;
 

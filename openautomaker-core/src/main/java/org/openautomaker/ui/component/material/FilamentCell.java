@@ -6,7 +6,7 @@ package org.openautomaker.ui.component.material;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedListCell;
 
 import jakarta.inject.Inject;
 import javafx.geometry.Pos;
@@ -19,7 +19,7 @@ import javafx.scene.shape.Rectangle;
  *
  * @author tony
  */
-public class FilamentCell extends ListCell<Filament> {
+public class FilamentCell extends GuicedListCell<Filament> {
 
 	private static int SWATCH_SQUARE_SIZE = 16;
 
@@ -31,7 +31,6 @@ public class FilamentCell extends ListCell<Filament> {
 	public I18N i18n;
 
 	public FilamentCell() {
-		GuiceContext.get().injectMembers(this);
 
 		cellContainer = new HBox();
 		cellContainer.setAlignment(Pos.CENTER_LEFT);

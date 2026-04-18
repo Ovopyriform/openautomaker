@@ -3,13 +3,12 @@ package org.openautomaker.ui.component.layout_status_menu_strip;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.VBox;
 
-public class LayoutStatusMenuStrip extends VBox {
+public class LayoutStatusMenuStrip extends GuicedVBox {
 
 	private LayoutStatusMenuStripController controller = null;
 
@@ -18,7 +17,6 @@ public class LayoutStatusMenuStrip extends VBox {
 
 	public LayoutStatusMenuStrip() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		init();
 	}
 

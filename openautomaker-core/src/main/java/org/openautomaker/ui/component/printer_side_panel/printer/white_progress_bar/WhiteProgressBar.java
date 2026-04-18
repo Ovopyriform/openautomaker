@@ -5,16 +5,15 @@ import java.io.IOException;
 import java.net.URL;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedPane;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
-public class WhiteProgressBar extends Pane {
+public class WhiteProgressBar extends GuicedPane {
 
 	@FXML
 	private Polygon solidBar;
@@ -31,7 +30,6 @@ public class WhiteProgressBar extends Pane {
 
 	public WhiteProgressBar() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		URL fxml = getClass().getResource("WhiteProgressBar.fxml");
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(fxml);
 		fxmlLoader.setRoot(this);

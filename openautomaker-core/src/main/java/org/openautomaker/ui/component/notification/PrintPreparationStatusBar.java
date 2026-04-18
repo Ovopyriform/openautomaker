@@ -5,8 +5,6 @@ import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterException;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
-import org.openautomaker.guice.GuiceContext;
-
 import celtech.appManager.GCodeGeneratorManager;
 import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
@@ -35,10 +33,6 @@ public class PrintPreparationStatusBar extends AppearingProgressBar {
 
 
 	public PrintPreparationStatusBar() {
-		super();
-
-		GuiceContext.get().injectMembers(this);
-
 		getStyleClass().add("secondaryStatusBar");
 	}
 

@@ -47,7 +47,7 @@ public class ModalDialog extends AnchorPane {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public ModalDialog(String windowTitle) {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		initialise(windowTitle);
 	}

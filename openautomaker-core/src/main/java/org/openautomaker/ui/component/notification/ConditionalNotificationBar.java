@@ -2,8 +2,6 @@ package org.openautomaker.ui.component.notification;
 
 import org.openautomaker.base.notification_manager.NotificationType;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
-
 import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -36,9 +34,6 @@ public class ConditionalNotificationBar extends AppearingNotificationBar {
 	private NotificationDisplay notificationDisplay;
 
 	public ConditionalNotificationBar(String message, NotificationType notificationType) {
-
-		GuiceContext.get().injectMembers(this);
-
 		notificationDescription.replaceText(i18n.t(message));
 		setType(notificationType);
 	}

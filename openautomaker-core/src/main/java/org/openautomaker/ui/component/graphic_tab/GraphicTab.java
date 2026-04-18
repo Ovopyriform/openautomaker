@@ -34,7 +34,7 @@ public class GraphicTab extends Tab {
 	FXMLLoaderFactory fxmlLoaderFactory;
 
 	public GraphicTab() {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 		selectedProperty().addListener(selectedTabChangeListener);
 	}
 

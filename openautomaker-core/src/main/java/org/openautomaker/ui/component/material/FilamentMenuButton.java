@@ -86,7 +86,7 @@ public class FilamentMenuButton extends MenuButton implements FilamentSelectionL
 
 
 	public FilamentMenuButton() {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		setGraphic(filamentDisplayNode);
 		getStyleClass().add("filament-menu-button");

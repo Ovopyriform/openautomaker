@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Set;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 
 import org.openautomaker.ui.StandardColours;
 import jakarta.inject.Inject;
@@ -21,7 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -30,7 +29,7 @@ import javafx.scene.text.Text;
  *
  * @author tony
  */
-public class VerticalMenu extends VBox {
+public class VerticalMenu extends GuicedVBox {
 
 	public interface NoArgsVoidFunc {
 
@@ -118,7 +117,6 @@ public class VerticalMenu extends VBox {
 
 	public VerticalMenu() {
 		super();
-		GuiceContext.get().injectMembers(this);
 		URL fxml = getClass().getResource("verticalMenu.fxml");
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(fxml);
 		fxmlLoader.setRoot(this);

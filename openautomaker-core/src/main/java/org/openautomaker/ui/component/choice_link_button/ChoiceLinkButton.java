@@ -2,17 +2,16 @@ package org.openautomaker.ui.component.choice_link_button;
 
 import java.io.IOException;
 
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedButton;
 
 import org.openautomaker.ui.component.controls.HyperlinkedLabel;
 import jakarta.inject.Inject;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 
-public class ChoiceLinkButton extends Button {
+public class ChoiceLinkButton extends GuicedButton {
 
 	@FXML
 	VBox labelGroup;
@@ -27,7 +26,6 @@ public class ChoiceLinkButton extends Button {
 	private FXMLLoader fxmlLoader;
 
 	public ChoiceLinkButton() {
-		GuiceContext.get().injectMembers(this);
 
 		fxmlLoader.setLocation(getClass().getResource("ChoiceLinkButton.fxml"));
 		fxmlLoader.setRoot(this);

@@ -4,8 +4,6 @@ package org.openautomaker.ui.component.notification;
 import org.openautomaker.base.printerControl.model.HeaterMode;
 import org.openautomaker.base.printerControl.model.PrinterAncillarySystems;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
-
 import jakarta.inject.Inject;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
@@ -32,9 +30,6 @@ public class BedHeaterStatusBar extends AppearingProgressBar {
 	private I18N i18n;
 
 	public BedHeaterStatusBar() {
-		super();
-		GuiceContext.get().injectMembers(this);
-
 		getStyleClass().add("secondaryStatusBar");
 
 		setPickOnBounds(false);

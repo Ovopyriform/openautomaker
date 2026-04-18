@@ -3,13 +3,12 @@ package org.openautomaker.ui.component.inset_panel_menu;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 
 import jakarta.inject.Inject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -17,7 +16,7 @@ import javafx.scene.text.Text;
  *
  * @author Ian
  */
-public class InsetPanelMenu extends HBox {
+public class InsetPanelMenu extends GuicedHBox {
 
 	@FXML
 	private Text menuTitle;
@@ -31,7 +30,6 @@ public class InsetPanelMenu extends HBox {
 	public FXMLLoaderFactory fxmlLoaderFactory;
 
 	public InsetPanelMenu() {
-		GuiceContext.get().injectMembers(this);
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("insetPanelMenu.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);

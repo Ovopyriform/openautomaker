@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedHBox;
 
 import celtech.coreUI.DisplayManager;
 import jakarta.inject.Inject;
@@ -20,7 +20,6 @@ import javafx.geometry.Point2D;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
 
@@ -29,7 +28,7 @@ import javafx.scene.shape.SVGPath;
  * @author Ian
  */
 @Deprecated
-public class ArrowTag extends HBox {
+public class ArrowTag extends GuicedHBox {
 
 	Label title = new Label();
 
@@ -63,7 +62,6 @@ public class ArrowTag extends HBox {
 	private DisplayManager displayManager;
 
 	public ArrowTag() {
-		GuiceContext.get().injectMembers(this);
 
 		this.getStyleClass().add("arrow-tag");
 

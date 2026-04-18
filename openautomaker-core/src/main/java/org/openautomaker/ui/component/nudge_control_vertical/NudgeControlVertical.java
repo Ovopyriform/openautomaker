@@ -3,7 +3,7 @@ package org.openautomaker.ui.component.nudge_control_vertical;
 import java.io.IOException;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedVBox;
 
 import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import jakarta.inject.Inject;
@@ -14,13 +14,12 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.layout.VBox;
 
 /**
  *
  * @author Ian
  */
-public class NudgeControlVertical extends VBox {
+public class NudgeControlVertical extends GuicedVBox {
 
 	private final DoubleProperty deltaValue = new SimpleDoubleProperty(0);
 	private final DoubleProperty maxValue = new SimpleDoubleProperty(0);
@@ -64,7 +63,6 @@ public class NudgeControlVertical extends VBox {
 	public FXMLLoaderFactory fxmlLoaderFactory;
 
 	public NudgeControlVertical() {
-		GuiceContext.get().injectMembers(this);
 
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("nudgeControlVertical.fxml"));
 		fxmlLoader.setRoot(this);

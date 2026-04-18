@@ -5,8 +5,10 @@ import java.net.URL;
 
 import org.openautomaker.base.utils.Math.MathUtils;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedStackPane;
 import org.openautomaker.ui.component.graphic_button.GraphicButton;
+
+import javafx.scene.layout.StackPane;
 
 import jakarta.inject.Inject;
 import javafx.animation.Animation;
@@ -16,7 +18,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
@@ -25,7 +26,7 @@ import javafx.util.Duration;
  *
  * @author tony
  */
-public abstract class AppearingProgressBar extends StackPane {
+public abstract class AppearingProgressBar extends GuicedStackPane {
 
 	@FXML
 	private StackPane statusBar;
@@ -106,10 +107,6 @@ public abstract class AppearingProgressBar extends StackPane {
 	private I18N i18n;
 
 	public AppearingProgressBar() {
-		super();
-
-		GuiceContext.get().injectMembers(this);
-
 		showSidebar.setOnFinished((ActionEvent t) -> {
 			slidingIntoView = false;
 			slidIntoView = true;

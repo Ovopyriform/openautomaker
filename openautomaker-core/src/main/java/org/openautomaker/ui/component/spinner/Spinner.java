@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import org.openautomaker.guice.FXMLLoaderFactory;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedStackPane;
 
 import jakarta.inject.Inject;
 import javafx.animation.AnimationTimer;
@@ -16,14 +16,13 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.SVGPath;
 
 /**
  *
  * @author Ian
  */
-public class Spinner extends StackPane implements Initializable {
+public class Spinner extends GuicedStackPane implements Initializable {
 
 	@FXML
 	private SVGPath outerArcs;
@@ -37,8 +36,6 @@ public class Spinner extends StackPane implements Initializable {
 	private FXMLLoaderFactory fxmlLoaderFactory;
 
 	public Spinner() {
-		GuiceContext.get().injectMembers(this);
-
 		FXMLLoader fxmlLoader = fxmlLoaderFactory.create(getClass().getResource("spinner.fxml"));
 		fxmlLoader.setRoot(this);
 		fxmlLoader.setController(this);

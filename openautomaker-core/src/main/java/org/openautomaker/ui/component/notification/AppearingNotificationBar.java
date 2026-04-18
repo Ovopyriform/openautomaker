@@ -7,7 +7,7 @@ import java.net.URL;
 import org.openautomaker.base.notification_manager.NotificationType;
 import org.openautomaker.base.utils.Math.MathUtils;
 import org.openautomaker.environment.I18N;
-import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.guice.components.GuicedStackPane;
 
 import org.openautomaker.ui.component.controls.HyperlinkedLabel;
 import jakarta.inject.Inject;
@@ -24,7 +24,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 
-public abstract class AppearingNotificationBar extends StackPane {
+public abstract class AppearingNotificationBar extends GuicedStackPane {
 
 	@FXML
 	private StackPane notificationBar;
@@ -90,10 +90,6 @@ public abstract class AppearingNotificationBar extends StackPane {
 	private I18N i18n;
 
 	public AppearingNotificationBar() {
-		super();
-
-		GuiceContext.get().injectMembers(this);
-
 		URL fxml = getClass().getResource("appearingNotificationBar.fxml");
 		fxmlLoader.setLocation(fxml);
 		fxmlLoader.setRoot(this);

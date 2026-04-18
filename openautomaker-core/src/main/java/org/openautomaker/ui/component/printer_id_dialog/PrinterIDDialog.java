@@ -40,7 +40,7 @@ public class PrinterIDDialog {
 
 
 	public PrinterIDDialog() {
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		dialogStage = new Stage(StageStyle.TRANSPARENT);
 

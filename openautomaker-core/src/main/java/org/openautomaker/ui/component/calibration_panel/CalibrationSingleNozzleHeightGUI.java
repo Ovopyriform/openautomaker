@@ -38,7 +38,7 @@ public class CalibrationSingleNozzleHeightGUI {
 	public CalibrationSingleNozzleHeightGUI(CalibrationInsetPanelController controller,
 			StateTransitionManager<SingleNozzleHeightCalibrationState> stateManager) {
 
-		GuiceContext.get().injectMembers(this);
+		GuiceContext.inject(this);
 
 		this.controller = controller;
 		this.stateManager = stateManager;
