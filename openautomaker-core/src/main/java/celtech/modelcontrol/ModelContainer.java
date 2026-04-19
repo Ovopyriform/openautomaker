@@ -835,6 +835,10 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 			storedY = in.readDouble();
 		}
 
+		transformDropToBedYAdjust = new Translate(0, 0, 0);
+		transformRotateLeanPreferred = new Rotate(0, 0, 0, 0, X_AXIS);
+		transformRotateTwistPreferred = new Rotate(0, 0, 0, 0, Y_AXIS);
+
 		initialiseTransforms();
 
 		transformMoveToPreferred.setX(storedX);
@@ -1187,9 +1191,12 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 				float yPos = originalPoints.get(pointOffset + 1);
 				float zPos = originalPoints.get(pointOffset + 2);
 
-				Point3D pointInScene = meshView.localToScene(xPos, yPos, zPos);
-
-				Point3D pointInBed = rootModelContainer.localToParent(rootModelContainer.sceneToLocal(pointInScene));
+				Point3D pointInBed = new Point3D(xPos, yPos, zPos);
+				for (Node n = meshView; n != null; n = n.getParent()) {
+					pointInBed = n.localToParent(pointInBed);
+					if (n == rootModelContainer)
+						break;
+				}
 				//                System.out.println("point is " + xPos + " " + yPos + " " + zPos + " in bed is "
 				//                    + pointInBed.toString());
 
@@ -1243,8 +1250,10 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 				float yPos = originalPoints.get(pointOffset + 1);
 				float zPos = originalPoints.get(pointOffset + 2);
 
-				Point3D pointInScene = meshView.localToScene(xPos, yPos, zPos);
-				Point3D pointInParent = parentModelContainer.sceneToLocal(pointInScene);
+				Point3D pointInParent = new Point3D(xPos, yPos, zPos);
+				for (Node n = meshView; n != null && n != parentModelContainer; n = n.getParent()) {
+					pointInParent = n.localToParent(pointInParent);
+				}
 
 				minX = Math.min(pointInParent.getX(), minX);
 				minY = Math.min(pointInParent.getY(), minY);

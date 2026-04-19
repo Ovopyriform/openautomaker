@@ -20,6 +20,7 @@ import org.openautomaker.environment.preference.printer.LastFirmwareVersionPrefe
 import org.openautomaker.environment.preference.printer.LastSerialNumberPreference;
 import org.openautomaker.environment.preference.root.FirmwarePathPreference;
 
+import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
 import com.google.inject.assistedinject.AssistedInject;
 
@@ -123,7 +124,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 	protected int bedTargetTemperature = 30;
 
 	private final FilamentContainer filamentContainer;
-	private final RoboxCommsManager roboxCommsManager;
+	private final Provider<RoboxCommsManager> roboxCommsManagerProvider;
 	private final RequiredFirmwareVersionPreference requiredFirmwareVersionPreference;
 	private final HeadContainer headContainer;
 	private final HeadFactory headFactory;
@@ -136,7 +137,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			SystemNotificationManager systemNotificationManager,
 			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
 			FilamentContainer filamentContainer,
-			RoboxCommsManager roboxCommsManager,
+			Provider<RoboxCommsManager> roboxCommsManagerProvider,
 			FirmwarePathPreference firmwarePathPreference,
 			LastSerialNumberPreference lastSerialNumberPreference,
 			LastFirmwareVersionPreference lastFirmwareVersionPreference,
@@ -170,7 +171,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 		this.printerName = printerName;
 		this.printerModel = printerModel;
 		this.filamentContainer = filamentContainer;
-		this.roboxCommsManager = roboxCommsManager;
+		this.roboxCommsManagerProvider = roboxCommsManagerProvider;
 		this.requiredFirmwareVersionPreference = requiredFirmwareVersionPreference;
 		this.headContainer = headContainer;
 		this.headFactory = headFactory;
@@ -186,7 +187,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			SystemNotificationManager systemNotificationManager,
 			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
 			FilamentContainer filamentContainer,
-			RoboxCommsManager roboxCommsManager,
+			Provider<RoboxCommsManager> roboxCommsManagerProvider,
 			FirmwarePathPreference firmwarePathPreference,
 			LastSerialNumberPreference lastSerialNumberPreference,
 			LastFirmwareVersionPreference lastFirmwareVersionPreference,
@@ -204,7 +205,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 				systemNotificationManager,
 				requiredFirmwareVersionPreference,
 				filamentContainer,
-				roboxCommsManager,
+				roboxCommsManagerProvider,
 				firmwarePathPreference,
 				lastSerialNumberPreference,
 				lastFirmwareVersionPreference,
@@ -227,7 +228,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			SystemNotificationManager systemNotificationManager,
 			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
 			FilamentContainer filamentContainer,
-			RoboxCommsManager roboxCommsManager,
+			Provider<RoboxCommsManager> roboxCommsManagerProvider,
 			FirmwarePathPreference firmwarePathPreference,
 			LastSerialNumberPreference lastSerialNumberPreference,
 			LastFirmwareVersionPreference lastFirmwareVersionPreference,
@@ -244,7 +245,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 				systemNotificationManager,
 				requiredFirmwareVersionPreference,
 				filamentContainer,
-				roboxCommsManager,
+				roboxCommsManagerProvider,
 				firmwarePathPreference,
 				lastSerialNumberPreference,
 				lastFirmwareVersionPreference,
@@ -614,7 +615,7 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 				currentStatus.setHeadPowerOn(false);
 			}
 			else if (messageData.equalsIgnoreCase(detachPrinterCommand)) {
-				roboxCommsManager.removeDummyPrinter(printerHandle);
+				roboxCommsManagerProvider.get().removeDummyPrinter(printerHandle);
 			}
 			else if (messageData.startsWith(attachReelCommand)) {
 				boolean attachSuccess = false;

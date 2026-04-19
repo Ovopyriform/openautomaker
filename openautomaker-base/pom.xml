@@ -155,8 +155,12 @@
 			<artifactId>openautomaker-test-library</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.platform</groupId>
-			<artifactId>jakarta.jakartaee-api</artifactId>
+			<groupId>jakarta.inject</groupId>
+			<artifactId>jakarta.inject-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.annotation</groupId>
+			<artifactId>jakarta.annotation-api</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.openautomaker</groupId>
