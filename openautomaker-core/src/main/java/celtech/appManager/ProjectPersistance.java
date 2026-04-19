@@ -1,11 +1,14 @@
 package celtech.appManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.environment.preference.modeling.ProjectsPathPreference;
+import org.openautomaker.project.RbxProjFile;
+import org.openautomaker.project.RbxProjWriter;
 import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
 import org.openautomaker.ui.inject.project.ShapeContainerProjectFactory;
 
@@ -13,6 +16,7 @@ import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import celtech.appManager.project.ModelContainerProjectAdapter;
 import celtech.configuration.ApplicationConfiguration;
 import celtech.configuration.fileRepresentation.ModelContainerProjectFile;
 import celtech.configuration.fileRepresentation.ProjectFile;
@@ -28,21 +32,29 @@ public class ProjectPersistance {
 	private final ProjectsPathPreference projectsPathPreference;
 	private final ModelContainerProjectFactory modelContainerProjectFactory;
 	private final ShapeContainerProjectFactory shapeContainerProjectFactory;
+	private final RbxProjWriter rbxProjWriter;
 
 	@Inject
 	protected ProjectPersistance(
 			ProjectsPathPreference projectsPathPreference,
 			ModelContainerProjectFactory modelContainerProjectFactory,
-			ShapeContainerProjectFactory shapeContainerProjectFactory) {
+			ShapeContainerProjectFactory shapeContainerProjectFactory,
+			RbxProjWriter rbxProjWriter) {
 
 		this.projectsPathPreference = projectsPathPreference;
 		this.modelContainerProjectFactory = modelContainerProjectFactory;
 		this.shapeContainerProjectFactory = shapeContainerProjectFactory;
+		this.rbxProjWriter = rbxProjWriter;
 	}
 
 	public final void saveProject(Project project) {
 		if (project == null)
 			return;
+
+		if (project instanceof ModelContainerProject mcp) {
+			saveAsRbxProj(mcp);
+			return;
+		}
 
 		Path basePath = projectsPathPreference.getValue().resolve(project.getProjectName());
 
@@ -53,6 +65,18 @@ public class ProjectPersistance {
 
 		project.save(basePath);
 		project.setProjectSaved(true);
+	}
+
+	private void saveAsRbxProj(ModelContainerProject project) {
+		Path targetPath = projectsPathPreference.getValue()
+				.resolve(project.getProjectName() + RbxProjFile.EXTENSION);
+		try {
+			rbxProjWriter.write(new ModelContainerProjectAdapter(project), targetPath);
+			project.setProjectSaved(true);
+		}
+		catch (IOException ex) {
+			LOGGER.error("Failed to save project as .rbxproj: {}", targetPath, ex);
+		}
 	}
 
 	public final Project loadProject(Path filePath) {

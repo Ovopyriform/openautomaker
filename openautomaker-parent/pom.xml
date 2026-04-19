@@ -33,6 +33,7 @@
 		<module>../openautomaker-root</module>
 		<module>../openautomaker-root-ui</module -->
 		<module>../openautomaker-i18n</module>
+		<module>../openautomaker-project</module>
 	</modules>
 
 	<properties>
@@ -98,6 +99,11 @@
 			<dependency>
 				<groupId>org.openautomaker</groupId>
 				<artifactId>openautomaker-i18n</artifactId>
+				<version>1.0-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>org.openautomaker</groupId>
+				<artifactId>openautomaker-project</artifactId>
 				<version>1.0-SNAPSHOT</version>
 			</dependency>
 			<dependency>
