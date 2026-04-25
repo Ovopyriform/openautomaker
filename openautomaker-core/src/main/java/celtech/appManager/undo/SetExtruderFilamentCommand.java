@@ -7,7 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.configuration.Filament;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 
 /**
  *
@@ -18,12 +18,12 @@ public class SetExtruderFilamentCommand implements Command {
 	private static final Logger LOGGER = LogManager.getLogger(
 			SetExtruderFilamentCommand.class.getName());
 
-	ModelContainerProject project;
+	Project project;
 	Filament filament;
 	Filament previousFilament;
 	private final int extruderNumber;
 
-	public SetExtruderFilamentCommand(ModelContainerProject project, Filament filament, int extruderNumber) {
+	public SetExtruderFilamentCommand(Project project, Filament filament, int extruderNumber) {
 		this.project = project;
 		this.filament = filament;
 		this.extruderNumber = extruderNumber;

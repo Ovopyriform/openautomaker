@@ -18,7 +18,7 @@ import org.openautomaker.ui.inject.model.ModelContainerFactory;
 
 import com.google.inject.assistedinject.Assisted;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.modelcontrol.Groupable;
 import celtech.modelcontrol.ItemState;
 import celtech.modelcontrol.ModelContainer;
@@ -121,7 +121,7 @@ public class CutCommand implements Command {
 
 	private Set<GroupingOperation> groupingOperations;
 
-	final ModelContainerProject project;
+	final Project project;
 	final float cutHeightValue;
 	final Set<ModelContainer> modelContainers;
 
@@ -145,7 +145,7 @@ public class CutCommand implements Command {
 			I18N i18n,
 			SystemNotificationManager systemNotificationManager,
 			ModelContainerFactory modelContainerFactory,
-			@Assisted ModelContainerProject project,
+			@Assisted Project project,
 			@Assisted Set<ModelContainer> modelContainers,
 			@Assisted float cutHeightValue) {
 
@@ -181,7 +181,7 @@ public class CutCommand implements Command {
 			try {
 				project.recreateGroups(groupStructure, groupState);
 			}
-			catch (ModelContainerProject.ProjectLoadException ex) {
+			catch (Project.ProjectLoadException ex) {
 				LOGGER.error("Error undoing group cut", ex);
 			}
 		}

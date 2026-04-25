@@ -10,10 +10,6 @@ import jakarta.inject.Inject;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 
-/**
- *
- * @author ianhudson
- */
 public class ModelLoaderService extends Service<ModelLoadResults> implements
 		ControllableService {
 

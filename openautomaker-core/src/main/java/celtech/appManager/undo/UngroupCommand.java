@@ -11,7 +11,7 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.modelcontrol.Groupable;
 import celtech.modelcontrol.ItemState;
 import celtech.modelcontrol.ModelContainer;
@@ -25,13 +25,13 @@ public class UngroupCommand implements Command {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	ModelContainerProject project;
+	Project project;
 	Map<Integer, Set<Groupable>> groupIds;
 	private Set<ItemState> originalStates;
 	private Set<ItemState> newStates;
 	private Set<ModelContainer> containersToRecentre = new HashSet<>();
 
-	public UngroupCommand(ModelContainerProject project, Set<ModelContainer> modelContainers) {
+	public UngroupCommand(Project project, Set<ModelContainer> modelContainers) {
 		this.project = project;
 		groupIds = new HashMap<>();
 		for (ModelContainer modelContainer : modelContainers) {
@@ -62,7 +62,7 @@ public class UngroupCommand implements Command {
 			try {
 				project.ungroup(project.getModelContainersOfIds(groupIds.keySet()));
 			}
-			catch (ModelContainerProject.ProjectLoadException ex) {
+			catch (Project.ProjectLoadException ex) {
 				LOGGER.error("Could not ungroup", ex);
 			}
 			newStates = project.getModelStates();

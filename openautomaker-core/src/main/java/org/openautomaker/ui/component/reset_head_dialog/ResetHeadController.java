@@ -16,7 +16,6 @@ import org.openautomaker.base.printerControl.model.PrinterException;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.configuration.ApplicationConfiguration;
 import celtech.roboxbase.comms.exceptions.RoboxCommsException;
 import celtech.roboxbase.comms.remote.EEPROMState;
 import celtech.roboxbase.comms.rx.AckResponse;

@@ -11,7 +11,7 @@ import org.openautomaker.guice.components.GuicedHBox;
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 import org.openautomaker.ui.state.SelectedSpinnerControl;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.appManager.undo.UndoableProject;
 import celtech.coreUI.LayoutSubmode;
 import org.openautomaker.ui.component.controls.RestrictedNumberField;
@@ -40,7 +40,7 @@ public class ZCutEntryBox extends GuicedHBox implements ScreenExtentsListener {
 	private final ObjectProperty<LayoutSubmode> layoutSubmodeProperty;
 	private final ThreeDViewManager viewManager;
 	private ModelContainer currentModel = null;
-	private final ModelContainerProject project;
+	private final Project project;
 	private final UndoableProject undoableProject;
 	private Thread cutThread = null;
 	private TimeUtils timeUtils = new TimeUtils();
@@ -133,7 +133,7 @@ public class ZCutEntryBox extends GuicedHBox implements ScreenExtentsListener {
 		loadContent();
 	}
 
-	public ZCutEntryBox(Pane paneInWhichControlResides, ObjectProperty<LayoutSubmode> layoutSubmodeProperty, ThreeDViewManager viewManager, ModelContainerProject project) {
+	public ZCutEntryBox(Pane paneInWhichControlResides, ObjectProperty<LayoutSubmode> layoutSubmodeProperty, ThreeDViewManager viewManager, Project project) {
 
 		this.paneInWhichControlResides = paneInWhichControlResides;
 		this.layoutSubmodeProperty = layoutSubmodeProperty;

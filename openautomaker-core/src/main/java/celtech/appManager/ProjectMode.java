@@ -17,7 +17,5 @@ public enum ProjectMode {
 	/**
 	 *
 	 */
-	MESH,
-
-	SVG
+	MESH
 }

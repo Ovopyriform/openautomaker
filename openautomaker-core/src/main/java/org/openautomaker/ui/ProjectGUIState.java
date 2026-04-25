@@ -3,18 +3,23 @@
  */
 package org.openautomaker.ui;
 
+import org.openautomaker.base.services.slicer.PrintQualityEnumeration;
 import org.openautomaker.ui.inject.project.ProjectGUIRulesFactory;
 import org.openautomaker.ui.inject.project.ProjectSelectionFactory;
 
 import com.google.inject.assistedinject.Assisted;
 
+import celtech.appManager.GCodeGeneratorManager;
+import celtech.appManager.GCodeGeneratorManagerFactory;
 import celtech.appManager.Project;
 import celtech.coreUI.LayoutSubmode;
 import celtech.appManager.undo.CommandStack;
 import celtech.coreUI.visualisation.ProjectSelection;
 import celtech.modelcontrol.ModelContainer;
 import jakarta.inject.Inject;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -33,10 +38,16 @@ public class ProjectGUIState {
 
 	private final ProjectGUIRules projectGUIRules;
 
+	private final GCodeGeneratorManager gCodeGenManager;
+
+	private final BooleanProperty canPrint = new SimpleBooleanProperty(true);
+	private final BooleanProperty customSettingsNotChosen = new SimpleBooleanProperty(true);
+
 	@Inject
 	protected ProjectGUIState(
 			ProjectSelectionFactory projectSelectionFactory,
 			ProjectGUIRulesFactory projectGUIRulesFactory,
+			GCodeGeneratorManagerFactory gCodeGeneratorManagerFactory,
 			@Assisted Project project) {
 
 		projectSelection = projectSelectionFactory.create(project);
@@ -44,6 +55,14 @@ public class ProjectGUIState {
 		layoutSubmode = new SimpleObjectProperty<>(LayoutSubmode.SELECT);
 		commandStack = new CommandStack();
 		projectGUIRules = projectGUIRulesFactory.create(projectSelection, excludedFromSelection);
+
+		gCodeGenManager = gCodeGeneratorManagerFactory.create(project);
+
+		customSettingsNotChosen.bind(project.getPrinterSettings().printQualityProperty()
+				.isEqualTo(PrintQualityEnumeration.CUSTOM)
+				.and(project.getPrinterSettings().getSettingsNameProperty().isEmpty()));
+		canPrint.bind(customSettingsNotChosen.not()
+				.and(gCodeGenManager.printOrSaveTaskRunningProperty().not()));
 	}
 
 	public CommandStack getCommandStack() {
@@ -64,5 +83,17 @@ public class ProjectGUIState {
 
 	public ObjectProperty<LayoutSubmode> getLayoutSubmodeProperty() {
 		return layoutSubmode;
+	}
+
+	public GCodeGeneratorManager getGCodeGenManager() {
+		return gCodeGenManager;
+	}
+
+	public BooleanProperty canPrintProperty() {
+		return canPrint;
+	}
+
+	public BooleanProperty customSettingsNotChosenProperty() {
+		return customSettingsNotChosen;
 	}
 }

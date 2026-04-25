@@ -22,72 +22,72 @@
 					<children>
 						<ImageView fx:id="reel1Background" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Reel%201%20Background.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/reel_1_background.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="reel2Background" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Reel%202%20Background.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/reel_2_background.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="baseNoReels" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Base%20Render%20(No%20Reels).png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/base_render_no_reels.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="baseReel2" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Base%20Render%20(Reel%202).png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/base_render_reel_2.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="baseReel1" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Base%20Render%20(Reel%201).png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/base_render_reel_1.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="baseReelBoth" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Base%20Render%20(Both%20Reels).png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/base_render_both_reels.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="doorClosed" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Door%20Closed.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/door_closed.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="doorOpen" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Door%20Open.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/door_open.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="ambientLight" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Ambient%20Light%20(White).png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/ambient_light_white.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="singleMaterialHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Robox%20QuickFill%20Head.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/robox_quickfill_head.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="dualMaterialHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Robox%20DualMaterial%20Head.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/robox_dualmaterial_head.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="singleNozzleHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Robox%20SingleEX%20Head.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/robox_singleex_head.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="bed" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Bed.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/bed.png" />
 						   </image>
 						</ImageView>
 						<ImageView fx:id="temperatureWarning" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
 						   <image>
-							  <Image url="@../images/statusRender/RBX01/Bed%20Hot%20Warning.png" />
+							  <Image url="@/org/openautomaker/ui/images/status_render/RBX01/bed_hot_warning.png" />
 						   </image>
 						</ImageView>
 						<HBox fx:id="xAxisControls" translateX="130.0" translateY="110.0" alignment="CENTER" fillHeight="false" maxHeight="39.0" maxWidth="293.0" spacing="2.0"  StackPane.alignment="CENTER">
@@ -96,7 +96,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_-100_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_minus100_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -105,7 +105,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_-10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_minus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -114,7 +114,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_-1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_minus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -123,7 +123,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_+1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_plus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -132,7 +132,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_+10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_plus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -141,7 +141,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_+100_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/x_plus100_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -154,7 +154,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_-100_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_minus100_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -163,7 +163,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_-10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_minus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -172,7 +172,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_-1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_minus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -181,7 +181,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_+1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_plus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -190,7 +190,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_+10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_plus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -199,7 +199,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_+100_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/y_plus100_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -212,7 +212,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_+10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_plus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -221,7 +221,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_+1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_plus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -230,7 +230,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_+01_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_plus01_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -239,7 +239,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_-01_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_minus01_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -248,7 +248,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_-1_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_minus1_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -257,7 +257,7 @@
 									  <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											  <image>
-												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_-10_-_icons.png" />
+												  <Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/z_minus10_icons.png" />
 											  </image>
 										  </ImageView>
 									  </graphic>
@@ -272,7 +272,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-100_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus100_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -281,7 +281,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-20_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus20_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -290,7 +290,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-5_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus5_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -303,7 +303,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+5_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus5_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -312,7 +312,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+20_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus20_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -321,7 +321,7 @@
 											<graphic>
 												<ImageView pickOnBounds="true" preserveRatio="true">
 													<image>
-														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+100_-_icons.png" />
+														<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus100_icons.png" />
 													</image>
 												</ImageView>
 											</graphic>
@@ -338,7 +338,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-100_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus100_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>
@@ -347,7 +347,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-20_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus20_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>
@@ -356,7 +356,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_-5_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_minus5_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>
@@ -369,7 +369,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+5_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus5_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>
@@ -378,7 +378,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+20_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus20_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>
@@ -387,7 +387,7 @@
 									   <graphic>
 										  <ImageView pickOnBounds="true" preserveRatio="true">
 											 <image>
-												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_+100_-_icons.png" />
+												<Image url="@/org/openautomaker/ui/images/advanced_home_and_jog/extruder_plus100_icons.png" />
 											 </image>
 										  </ImageView>
 									   </graphic>

@@ -1,6 +1,6 @@
 package celtech;
 
-import java.io.File;
+import java.nio.file.Path;
 
 import org.openautomaker.ui.inject.model.ModelContainerFactory;
 
@@ -22,14 +22,14 @@ public class TestUtils {
 
 	public ModelContainer makeModelContainer(boolean useExtruder0) {
 		MeshView meshView = new MeshView(new Shape3DRectangle(2, 3));
-		ModelContainer modelContainer = modelContainerFactory.create(new File("testModel"), meshView);
+		ModelContainer modelContainer = modelContainerFactory.create(Path.of("testModel"), meshView);
 		modelContainer.setUseExtruder0(useExtruder0);
 		return modelContainer;
 	}
 
 	public ModelContainer makeModelContainer(boolean useExtruder0, int x, int y) {
 		MeshView meshView = new MeshView(new Shape3DRectangle(x, y));
-		ModelContainer modelContainer = modelContainerFactory.create(new File("testModel"), meshView);
+		ModelContainer modelContainer = modelContainerFactory.create(Path.of("testModel"), meshView);
 		modelContainer.setUseExtruder0(useExtruder0);
 		return modelContainer;
 	}

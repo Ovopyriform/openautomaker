@@ -2,9 +2,12 @@ package celtech.services.modelLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -13,29 +16,31 @@ import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.utils.FileUtilities;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.root.TempPathPreference;
-import org.openautomaker.ui.inject.importer.OBJImporterFactory;
-import org.openautomaker.ui.inject.importer.STLImporterFactory;
-import org.openautomaker.ui.inject.importer.SVGImporterFactory;
+import org.openautomaker.project.importer.ObjImporter;
+import org.openautomaker.project.importer.RawMeshData;
+import org.openautomaker.project.importer.StlImporter;
 
 import com.google.inject.assistedinject.Assisted;
 
+import celtech.coreUI.visualisation.ApplicationMaterials;
 import celtech.coreUI.visualisation.metaparts.ModelLoadResult;
 import celtech.coreUI.visualisation.metaparts.ModelLoadResultType;
-import celtech.utils.threed.importers.obj.ObjImporter;
-import celtech.utils.threed.importers.stl.STLImporter;
-import celtech.utils.threed.importers.svg.SVGImporter;
+import celtech.modelcontrol.ModelContainer;
+import celtech.modelcontrol.ProjectifiableThing;
 import jakarta.inject.Inject;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
+import javafx.scene.shape.CullFace;
+import javafx.scene.shape.MeshView;
 
-/**
- *
- * @author ianhudson
- */
-//TODO: This should be refactored to be a service that can be called by the task, and then the task just handles the progress and message updates.  This would make it easier to test the loading code without needing to run a task.
+import org.openautomaker.ui.inject.model.ModelContainerFactory;
+import org.openautomaker.ui.project.loader.StlModelLoader;
+import org.openautomaker.ui.project.loader.SvgModelLoader;
+
+//TODO: Revisit all services
 public class ModelLoaderTask extends Task<ModelLoadResults> {
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -43,27 +48,29 @@ public class ModelLoaderTask extends Task<ModelLoadResults> {
 	private final List<File> modelFilesToLoad;
 	private final DoubleProperty percentProgress = new SimpleDoubleProperty();
 
-	private final OBJImporterFactory objImporterFactory;
-	private final STLImporterFactory stlImporterFactory;
-	private final SVGImporterFactory svgImporterFactory;
+	private final ModelContainerFactory modelContainerFactory;
+	private final StlImporter stlImporter;
+	private final ObjImporter objImporter;
+	private final SvgModelLoader svgModelLoader;
 	private final TempPathPreference tempPathPreference;
 	private final I18N i18n;
 
 	@Inject
 	protected ModelLoaderTask(
-			OBJImporterFactory objImporterFactory,
-			STLImporterFactory stlImporterFactory,
-			SVGImporterFactory svgImporterFactory,
+			ModelContainerFactory modelContainerFactory,
+			StlImporter stlImporter,
+			ObjImporter objImporter,
+			SvgModelLoader svgModelLoader,
 			TempPathPreference tempPathPreference,
 			I18N i18n,
 			@Assisted List<File> modelFilesToLoad) {
 
-		this.objImporterFactory = objImporterFactory;
-		this.stlImporterFactory = stlImporterFactory;
-		this.svgImporterFactory = svgImporterFactory;
+		this.modelContainerFactory = modelContainerFactory;
+		this.stlImporter = stlImporter;
+		this.objImporter = objImporter;
+		this.svgModelLoader = svgModelLoader;
 		this.tempPathPreference = tempPathPreference;
 		this.i18n = i18n;
-
 		this.modelFilesToLoad = modelFilesToLoad;
 
 		percentProgress.addListener(new ChangeListener<Number>() {
@@ -83,24 +90,22 @@ public class ModelLoaderTask extends Task<ModelLoadResults> {
 		for (File modelFileToLoad : modelFilesToLoad) {
 			LOGGER.info("Model file load started:" + modelFileToLoad.getName());
 
-			String modelFilePath = modelFileToLoad.getAbsolutePath();
-			updateMessage(i18n.t("dialogs.gcodeLoadMessagePrefix")
-					+ modelFileToLoad.getName());
+			Path modelPath = modelFileToLoad.toPath();
+			updateMessage(i18n.t("dialogs.gcodeLoadMessagePrefix") + modelFileToLoad.getName());
 			updateProgress(0, 100);
 
-			final List<String> fileNamesToLoad = new ArrayList<>();
+			final List<Path> pathsToLoad = new ArrayList<>();
 
-			if (modelFilePath.toUpperCase().endsWith("ZIP")) {
-				//                modelLoadResults.setShouldCentre(false);
-				ZipFile zipFile = new ZipFile(modelFilePath);
-
+			String upperName = modelFileToLoad.getName().toUpperCase();
+			if (upperName.endsWith("ZIP")) {
+				ZipFile zipFile = new ZipFile(modelFileToLoad);
 				try {
 					final Enumeration<? extends ZipEntry> entries = zipFile.entries();
 					while (entries.hasMoreElements()) {
 						final ZipEntry entry = entries.nextElement();
-						final String tempTargetname = tempPathPreference.getValue() + entry.getName();
-						FileUtilities.writeStreamToFile(zipFile.getInputStream(entry), tempTargetname);
-						fileNamesToLoad.add(tempTargetname);
+						Path tempTarget = tempPathPreference.getValue().resolve(entry.getName());
+						FileUtilities.writeStreamToFile(zipFile.getInputStream(entry), tempTarget.toString());
+						pathsToLoad.add(tempTarget);
 					}
 				}
 				catch (IOException ex) {
@@ -111,16 +116,16 @@ public class ModelLoaderTask extends Task<ModelLoadResults> {
 				}
 			}
 			else {
-				fileNamesToLoad.add(modelFilePath);
+				pathsToLoad.add(modelPath);
 			}
 
-			for (String filenameToLoad : fileNamesToLoad) {
-				ModelLoadResult loadResult = loadTheFile(filenameToLoad);
+			for (Path pathToLoad : pathsToLoad) {
+				ModelLoadResult loadResult = loadTheFile(pathToLoad);
 				if (loadResult != null) {
 					modelLoadResultList.add(loadResult);
 				}
 				else {
-					LOGGER.warn("Failed to load model: " + filenameToLoad);
+					LOGGER.warn("Failed to load model: " + pathToLoad);
 				}
 			}
 		}
@@ -132,31 +137,52 @@ public class ModelLoaderTask extends Task<ModelLoadResults> {
 		return new ModelLoadResults(type, modelLoadResultList);
 	}
 
-	private ModelLoadResult loadTheFile(String modelFileToLoad) {
-		ModelLoadResult modelLoadResult = null;
+	private ModelLoadResult loadTheFile(Path path) {
+		String upper = path.getFileName().toString().toUpperCase();
+		String name = path.getFileName().toString();
 
-		if (modelFileToLoad.toUpperCase().endsWith("OBJ")) {
-			ObjImporter reader = objImporterFactory.create();
-			modelLoadResult = reader.loadFile(this, modelFileToLoad, percentProgress, false);
+		try {
+			if (upper.endsWith("OBJ")) {
+				List<RawMeshData> meshes = objImporter.load(path);
+				return buildMultiMeshResult(path, meshes);
+			}
+			else if (upper.endsWith("STL")) {
+				RawMeshData raw = stlImporter.load(path).get(0);
+				MeshView view = StlModelLoader.buildMeshView(raw, name);
+				applyDefaults(view, name);
+				ModelContainer mc = modelContainerFactory.create(path, view);
+				Set<ProjectifiableThing> things = new HashSet<>();
+				things.add(mc);
+				return new ModelLoadResult(ModelLoadResultType.Mesh, path.toString(), name, things);
+			}
+			else if (upper.endsWith("SVG")) {
+				return svgModelLoader.loadAsResult(path);
+			}
 		}
-		else if (modelFileToLoad.toUpperCase().endsWith("STL")) {
-			STLImporter reader = stlImporterFactory.create();
-			modelLoadResult = reader.loadFile(this, new File(modelFileToLoad),
-					percentProgress);
+		catch (Exception ex) {
+			LOGGER.error("Failed to load {}: {}", path, ex.getMessage(), ex);
 		}
-		else if (modelFileToLoad.toUpperCase().endsWith("SVG")) {
-			SVGImporter reader = svgImporterFactory.create();
-			modelLoadResult = reader.loadFile(this, new File(modelFileToLoad),
-					percentProgress);
-		}
-
-		return modelLoadResult;
+		return null;
 	}
 
-	/**
-	 *
-	 * @param message
-	 */
+	private ModelLoadResult buildMultiMeshResult(Path path, List<RawMeshData> meshes) {
+		Set<ProjectifiableThing> things = new HashSet<>();
+		for (RawMeshData raw : meshes) {
+			MeshView view = StlModelLoader.buildMeshView(raw, raw.name());
+			applyDefaults(view, raw.name());
+			ModelContainer mc = modelContainerFactory.create(path, view, raw.extruder());
+			things.add(mc);
+		}
+		return things.isEmpty() ? null
+				: new ModelLoadResult(ModelLoadResultType.Mesh, path.toString(), path.getFileName().toString(), things);
+	}
+
+	private void applyDefaults(MeshView view, String id) {
+		view.setMaterial(ApplicationMaterials.getDefaultModelMaterial());
+		view.setCullFace(CullFace.BACK);
+		view.setId(id + "_mesh");
+	}
+
 	public void updateMessageText(String message) {
 		updateMessage(message);
 	}

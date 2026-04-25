@@ -5,8 +5,9 @@ import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterException;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.slicer.SafetyFeaturesPreference;
+import org.openautomaker.ui.state.ProjectGUIStates;
+
 import celtech.appManager.GCodeGeneratorManager;
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
@@ -22,6 +23,9 @@ public class PrintPreparationStatusBar extends AppearingProgressBar {
 
 	@Inject
 	private I18N i18n;
+
+	@Inject
+	private ProjectGUIStates projectGUIStates;
 
 	private final ChangeListener<Boolean> serviceStatusListener = (observable, newValue, oldValue) -> {
 		reassessStatus();
@@ -62,8 +66,8 @@ public class PrintPreparationStatusBar extends AppearingProgressBar {
 	public void bindToProject(Project project) {
 		this.project = project;
 
-		if (project instanceof ModelContainerProject) {
-			gCodeGenManager = project.getGCodeGenManager();
+		if (project != null) {
+			gCodeGenManager = projectGUIStates.get(project).getGCodeGenManager();
 			if (gCodeGenManager != null) {
 				gCodeGenManager.selectedTaskRunningProperty().addListener(serviceStatusListener);
 				gCodeGenManager.selectedTaskProgressProperty().addListener(serviceProgressListener);
@@ -131,7 +135,7 @@ public class PrintPreparationStatusBar extends AppearingProgressBar {
 
 	public void unbindFromProject() {
 		if (project != null) {
-			gCodeGenManager = project.getGCodeGenManager();
+			gCodeGenManager = projectGUIStates.get(project).getGCodeGenManager();
 			if (gCodeGenManager != null) {
 				gCodeGenManager.selectedTaskRunningProperty().removeListener(serviceStatusListener);
 				gCodeGenManager.selectedTaskProgressProperty().removeListener(serviceProgressListener);

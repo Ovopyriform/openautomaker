@@ -18,30 +18,37 @@ import org.openautomaker.ui.inject.controller.LanguagePreferenceControllerFactor
 import org.openautomaker.ui.inject.controller.LogLevelPreferenceControllerFactory;
 import org.openautomaker.ui.inject.controller.SlicerTypePreferenceControllerFactory;
 import org.openautomaker.ui.inject.controller.TickBoxPreferenceFactory;
-import org.openautomaker.ui.inject.importer.OBJImporterFactory;
-import org.openautomaker.ui.inject.importer.STLImporterFactory;
-import org.openautomaker.ui.inject.importer.SVGImporterFactory;
-import org.openautomaker.ui.inject.importer.ShapeContainerFactory;
 import org.openautomaker.ui.inject.model.ModelContainerFactory;
 import org.openautomaker.ui.inject.model.ModelGroupFactory;
 import org.openautomaker.ui.inject.model_loader.ModelLoaderTaskFactory;
-import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
+import org.openautomaker.ui.inject.project.ProjectFactory;
 import org.openautomaker.ui.inject.project.ProjectGUIRulesFactory;
 import org.openautomaker.ui.inject.project.ProjectGUIStateFactory;
 import org.openautomaker.ui.inject.project.ProjectSelectionFactory;
-import org.openautomaker.ui.inject.project.ShapeContainerProjectFactory;
 import org.openautomaker.ui.inject.undo.CutCommandFactory;
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 import org.openautomaker.ui.inject.utils.settings_generation.ProfileDetailsGeneratorFactory;
 import org.openautomaker.ui.inject.visualisation.DimensionLineFactory;
 import org.openautomaker.ui.inject.visualisation.DimensionLineManagerFactory;
 import org.openautomaker.ui.inject.visualisation.ThreeDViewManagerFactory;
+import org.openautomaker.ui.project.adapter.ProjectBridgeFactory;
+import org.openautomaker.ui.project.loader.ObjModelLoader;
+import org.openautomaker.ui.project.loader.StlModelLoader;
+import org.openautomaker.ui.project.loader.SvgModelLoader;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Provides;
+import com.google.inject.Singleton;
 import com.google.inject.assistedinject.FactoryModuleBuilder;
 
-import celtech.appManager.ModelContainerProject;
-import celtech.appManager.ShapeContainerProject;
+import java.util.List;
+
+import org.openautomaker.project.api.IModelLoader;
+import org.openautomaker.project.api.IProjectFactory;
+
+import celtech.appManager.GCodeGeneratorManager;
+import celtech.appManager.GCodeGeneratorManagerFactory;
+import celtech.appManager.Project;
 import celtech.appManager.undo.CutCommand;
 import celtech.appManager.undo.UndoableProject;
 import org.openautomaker.ui.ProjectGUIRules;
@@ -54,10 +61,6 @@ import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ModelGroup;
 import celtech.services.modelLoader.ModelLoaderTask;
 import celtech.utils.settingsgeneration.ProfileDetailsGenerator;
-import celtech.utils.threed.importers.obj.ObjImporter;
-import celtech.utils.threed.importers.stl.STLImporter;
-import celtech.utils.threed.importers.svg.SVGImporter;
-import celtech.utils.threed.importers.svg.ShapeContainer;
 
 public class UIModule extends AbstractModule {
 
@@ -69,6 +72,10 @@ public class UIModule extends AbstractModule {
 	public void configure() {
 
 		install(new FactoryModuleBuilder()
+				.implement(GCodeGeneratorManager.class, GCodeGeneratorManager.class)
+				.build(GCodeGeneratorManagerFactory.class));
+
+		install(new FactoryModuleBuilder()
 				.implement(CutCommand.class, CutCommand.class)
 				.build(CutCommandFactory.class));
 
@@ -77,12 +84,8 @@ public class UIModule extends AbstractModule {
 				.build(UndoableProjectFactory.class));
 
 		install(new FactoryModuleBuilder()
-				.implement(ModelContainerProject.class, ModelContainerProject.class)
-				.build(ModelContainerProjectFactory.class));
-
-		install(new FactoryModuleBuilder()
-				.implement(ShapeContainerProject.class, ShapeContainerProject.class)
-				.build(ShapeContainerProjectFactory.class));
+				.implement(Project.class, Project.class)
+				.build(ProjectFactory.class));
 
 		install(new FactoryModuleBuilder()
 				.implement(ModelContainer.class, ModelContainer.class)
@@ -91,10 +94,6 @@ public class UIModule extends AbstractModule {
 		install(new FactoryModuleBuilder()
 				.implement(ModelGroup.class, ModelGroup.class)
 				.build(ModelGroupFactory.class));
-
-		install(new FactoryModuleBuilder()
-				.implement(ShapeContainer.class, ShapeContainer.class)
-				.build(ShapeContainerFactory.class));
 
 		install(new FactoryModuleBuilder()
 				.implement(ProjectSelection.class, ProjectSelection.class)
@@ -107,18 +106,6 @@ public class UIModule extends AbstractModule {
 		install(new FactoryModuleBuilder()
 				.implement(ProjectGUIRules.class, ProjectGUIRules.class)
 				.build(ProjectGUIRulesFactory.class));
-
-		install(new FactoryModuleBuilder()
-				.implement(ObjImporter.class, ObjImporter.class)
-				.build(OBJImporterFactory.class));
-
-		install(new FactoryModuleBuilder()
-				.implement(STLImporter.class, STLImporter.class)
-				.build(STLImporterFactory.class));
-
-		install(new FactoryModuleBuilder()
-				.implement(SVGImporter.class, SVGImporter.class)
-				.build(SVGImporterFactory.class));
 
 		install(new FactoryModuleBuilder()
 				.implement(ModelLoaderTask.class, ModelLoaderTask.class)
@@ -177,5 +164,12 @@ public class UIModule extends AbstractModule {
 				.implement(DimensionLineManager.class, DimensionLineManager.class)
 				.build(DimensionLineManagerFactory.class));
 
+		bind(IProjectFactory.class).to(ProjectBridgeFactory.class);
+	}
+
+	@Provides
+	@Singleton
+	List<IModelLoader> provideModelLoaders(StlModelLoader stlLoader, ObjModelLoader objLoader, SvgModelLoader svgLoader) {
+		return List.of(stlLoader, objLoader, svgLoader);
 	}
 }

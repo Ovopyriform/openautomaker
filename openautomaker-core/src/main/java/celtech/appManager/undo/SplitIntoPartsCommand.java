@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.modelcontrol.ItemState;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
@@ -18,12 +18,12 @@ import celtech.modelcontrol.ProjectifiableThing;
  */
 public class SplitIntoPartsCommand implements Command {
 
-	ModelContainerProject project;
+	Project project;
 	Set<ModelContainer> modelContainers;
 	Set<ModelContainer> newModelContainers;
 	Map<ModelContainer, ItemState> states;
 
-	public SplitIntoPartsCommand(ModelContainerProject project, Set<ModelContainer> modelContainers) {
+	public SplitIntoPartsCommand(Project project, Set<ModelContainer> modelContainers) {
 		this.project = project;
 		this.modelContainers = modelContainers;
 	}

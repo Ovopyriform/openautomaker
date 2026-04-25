@@ -164,31 +164,6 @@ public class OpenAutomaker extends Application implements /* AutoUpdateCompletio
 			return;
 		}
 
-		//TODO: This seems like it shouldn't need be here.
-		//BaseConfiguration.initialise(OpenAutomaker.class);
-		//Lookup.setupDefaultValuesFX();
-
-		//BaseLookup.setupDefaultValues();
-
-		//Now Injected
-		//BaseLookup.setTaskExecutor(fGuiceContext.getInstance(LiveTaskExecutor.class));
-		//BaseLookup.setSystemNotificationHandler(fGuiceContext.getInstance(SystemNotificationManager.class));
-		//BaseLookup.setSlicerMappings(slicerMappingsContainer.getSlicerMappings());
-
-		//This seems odd, perhaps just inject this or create a factory using assisted inject?
-		//BaseLookup.setPostProcessorOutputWriterFactory(LiveGCodeOutputWriter::new);
-
-		//Now Injected
-		//		Lookup.setNotificationDisplay(new NotificationDisplay());
-		//		Lookup.setProgressDisplay(new ProgressDisplay());
-
-		//ApplicationUtils.outputApplicationStartupBanner();
-
-		//		commsManager = RoboxCommsManager.getInstance(
-		//				false,
-		//				FXProperty.bind(fDetectLoadedFilamentPreference),
-		//				FXProperty.bind(fSearchForRemoteCamerasPreference));
-
 		switch (interAppCommand) {
 			case LOAD_MESH_INTO_LAYOUT_VIEW:
 

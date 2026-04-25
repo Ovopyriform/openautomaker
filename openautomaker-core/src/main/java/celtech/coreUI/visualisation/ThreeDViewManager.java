@@ -17,8 +17,10 @@ import org.openautomaker.base.printerControl.model.Head;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterConnection;
 import org.openautomaker.base.utils.TimeUtils;
-import org.openautomaker.ui.inject.importer.OBJImporterFactory;
+import org.openautomaker.project.importer.ObjImporter;
+import org.openautomaker.project.importer.RawMeshData;
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
+import org.openautomaker.ui.project.loader.StlModelLoader;
 import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;
@@ -27,22 +29,18 @@ import com.google.inject.assistedinject.Assisted;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import celtech.appManager.TimelapseSettingsData;
 import celtech.appManager.undo.UndoableProject;
-import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.LayoutSubmode;
 import org.openautomaker.ui.ProjectGUIState;
 import org.openautomaker.ui.StandardColours;
 import celtech.coreUI.visualisation.collision.CollisionManager;
-import celtech.coreUI.visualisation.metaparts.ModelLoadResult;
 import celtech.coreUI.visualisation.modelDisplay.SelectionHighlighter;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ModelGroup;
 import celtech.modelcontrol.ProjectifiableThing;
 import celtech.modelcontrol.TranslateableTwoD;
-import celtech.utils.threed.importers.obj.ObjImporter;
 import jakarta.inject.Inject;
 import javafx.animation.AnimationTimer;
 import javafx.animation.Interpolator;
@@ -162,7 +160,7 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		}
 	};
 
-	private final ModelContainerProject project;
+	private final Project project;
 	private final UndoableProject undoableProject;
 	private final ObjectProperty<LayoutSubmode> layoutSubmode;
 	private boolean justEnteredDragMode;
@@ -677,10 +675,10 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 	//private final SelectedProject selectedProject;
 	private final SelectedPrinter selectedPrinter;
 
-	private final OBJImporterFactory objImporterFactory;
 	private final ProjectGUIState projectGUIState;
 
 	private final PrinterContainer printerContainer;
+	private final ObjImporter objImporter;
 
 	@Inject
 	public ThreeDViewManager(
@@ -689,17 +687,17 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 			SelectedProject selectedProject,
 			SelectedPrinter selectedPrinter,
 			ProjectGUIStates projectGUIStates,
-			OBJImporterFactory objImporterFactory,
 			PrinterContainer printerContainer,
-			@Assisted ModelContainerProject project,
+			ObjImporter objImporter,
+			@Assisted Project project,
 			@Assisted("widthProperty") ReadOnlyDoubleProperty widthProperty,
 			@Assisted("heightProperty") ReadOnlyDoubleProperty heightProperty) {
 
 		this.applicationStatus = applicationStatus;
 		//this.selectedProject = selectedProject;
 		this.selectedPrinter = selectedPrinter;
-		this.objImporterFactory = objImporterFactory;
 		this.printerContainer = printerContainer;
+		this.objImporter = objImporter;
 
 		this.project = project;
 		this.undoableProject = undoableProjectFactory.create(project);
@@ -972,25 +970,43 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		PhongMaterial bedClipsMaterial = new PhongMaterial(Color.web("#f0f0f0"));
 		bedClipsMaterial.setSpecularPower(20f);
 
-		ObjImporter bedOuterImporter = objImporterFactory.create();
-		ModelLoadResult bedOuterLoadResult = bedOuterImporter.loadURL(null, bedOuterURL);
-		MeshView outerMeshView = ((ModelContainer) bedOuterLoadResult.getProjectifiableThings().iterator().next()).getMeshView();
-		outerMeshView.setMaterial(bedOuterMaterial);
-		bed.getChildren().addAll(outerMeshView);
+		try {
+			List<RawMeshData> bedOuterMeshes = objImporter.load(bedOuterURL);
+			if (!bedOuterMeshes.isEmpty()) {
+				MeshView outerMeshView = StlModelLoader.buildMeshView(bedOuterMeshes.get(0), "bedOuter");
+				outerMeshView.setMaterial(bedOuterMaterial);
+				bed.getChildren().addAll(outerMeshView);
+			}
+		}
+		catch (Exception ex) {
+			LOGGER.error("Failed to load bed outer model: {}", ex.getMessage());
+		}
 
-		ObjImporter peiSheetImporter = objImporterFactory.create();
-		ModelLoadResult peiSheetLoadResult = peiSheetImporter.loadURL(null, peiSheetURL);
-		MeshView peiMeshView = ((ModelContainer) peiSheetLoadResult.getProjectifiableThings().iterator().next()).getMeshView();
-		peiMeshView.setMaterial(peiSheetMaterial);
-
-		bed.getChildren().addAll(peiMeshView);
+		MeshView peiMeshView = null;
+		try {
+			List<RawMeshData> peiMeshes = objImporter.load(peiSheetURL);
+			if (!peiMeshes.isEmpty()) {
+				peiMeshView = StlModelLoader.buildMeshView(peiMeshes.get(0), "peiSheet");
+				peiMeshView.setMaterial(peiSheetMaterial);
+				bed.getChildren().addAll(peiMeshView);
+			}
+		}
+		catch (Exception ex) {
+			LOGGER.error("Failed to load PEI sheet model: {}", ex.getMessage());
+		}
 
 		if (bedClipsURL != null) {
-			ObjImporter bedClipsImporter = objImporterFactory.create();
-			ModelLoadResult bedClipsLoadResult = bedClipsImporter.loadURL(null, bedClipsURL);
-			MeshView bedClipsMeshView = ((ModelContainer) bedClipsLoadResult.getProjectifiableThings().iterator().next()).getMeshView();
-			bedClipsMeshView.setMaterial(bedClipsMaterial);
-			bed.getChildren().addAll(bedClipsMeshView);
+			try {
+				List<RawMeshData> clipsMeshes = objImporter.load(bedClipsURL);
+				if (!clipsMeshes.isEmpty()) {
+					MeshView bedClipsMeshView = StlModelLoader.buildMeshView(clipsMeshes.get(0), "bedClips");
+					bedClipsMeshView.setMaterial(bedClipsMaterial);
+					bed.getChildren().addAll(bedClipsMeshView);
+				}
+			}
+			catch (Exception ex) {
+				LOGGER.error("Failed to load bed clips model: {}", ex.getMessage());
+			}
 		}
 
 		final Image roboxLogoImage = new Image(bedGraphicURL.toExternalForm());
@@ -1010,7 +1026,9 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		bedGraphicTransformNode.setRotateX(-90);
 		bedGraphicTransformNode.setScale(0.1);
 
-		peiMeshView.translateYProperty().set(peiDrop);
+		if (peiMeshView != null) {
+			peiMeshView.translateYProperty().set(peiDrop);
+		}
 
 		bedGraphicTransformNode.getChildren().add(bedGraphicView);
 		bedGraphicTransformNode.setId("LogoImage");
@@ -1340,7 +1358,7 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 	/**
 	 * Models must reflect the project filament colours.
 	 */
-	private void setupFilamentListeners(ModelContainerProject project) {
+	private void setupFilamentListeners(Project project) {
 		project.getExtruder0FilamentProperty().addListener(
 				(ObservableValue<? extends Filament> observable, Filament oldValue, Filament newValue) -> {
 					updateModelColours();

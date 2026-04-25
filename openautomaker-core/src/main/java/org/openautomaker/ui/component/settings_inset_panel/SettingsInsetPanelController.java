@@ -33,7 +33,7 @@ import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.appManager.Project;
 import celtech.appManager.TimelapseSettingsData;
 import celtech.coreUI.DisplayManager;
@@ -64,7 +64,7 @@ import javafx.scene.layout.HBox;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
-public class SettingsInsetPanelController implements ProjectAwareController, ModelContainerProject.ProjectChangesListener {
+public class SettingsInsetPanelController implements ProjectAwareController, Project.ProjectChangesListener {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -659,24 +659,24 @@ public class SettingsInsetPanelController implements ProjectAwareController, Mod
 	}
 
 	private void dealWithSpiralness() {
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			spiralPrintHBox.disableProperty().set(currentProject.getAllModels().size() != 1
-					|| !((ModelContainerProject) currentProject).allModelsOnSameExtruder(currentPrinter));
+					|| !currentProject.allModelsOnSameExtruder(currentPrinter));
 
 			spiralPrintCheckbox.setSelected(spiralPrintCheckbox.selectedProperty().get()
 					&& currentProject.getAllModels().size() == 1
-					&& ((ModelContainerProject) currentProject).allModelsOnSameExtruder(currentPrinter));
+					&& currentProject.allModelsOnSameExtruder(currentPrinter));
 		}
 	}
 
 	private void dealWithSupportGap() {
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			supportGapHBox.disableProperty().set(!supportButton.isSelected());
 
 			boolean supportGapEnabledDriver = currentPrinter != null
 					&& supportButton.isSelected()
 					&& !(currentPrinter.effectiveFilamentsProperty().get(0).getMaterial() != currentPrinter.effectiveFilamentsProperty().get(1).getMaterial()
-							&& !((ModelContainerProject) currentProject).getPrintingExtruders(currentPrinter).get(supportComboBox.getSelectionModel().getSelectedItem().getExtruderNumber()));
+							&& !currentProject.getPrintingExtruders(currentPrinter).get(supportComboBox.getSelectionModel().getSelectedItem().getExtruderNumber()));
 
 			//			if (new SlicerPreference().getValue() == Slicer.CURA) {
 			//				supportGapButton.setSelected(supportGapEnabledDriver);
@@ -694,9 +694,9 @@ public class SettingsInsetPanelController implements ProjectAwareController, Mod
 				//One of the materials is PLA
 				&& (currentPrinter.effectiveFilamentsProperty().get(0).getMaterial() == MaterialType.PLA || currentPrinter.effectiveFilamentsProperty().get(1).getMaterial() == MaterialType.PLA)
 				//Both materials are required for the print
-				&& currentProject instanceof ModelContainerProject
-				&& ((ModelContainerProject) currentProject).getPrintingExtruders(currentPrinter).get(0)
-				&& ((ModelContainerProject) currentProject).getPrintingExtruders(currentPrinter).get(1);
+				&& currentProject != null
+				&& currentProject.getPrintingExtruders(currentPrinter).get(0)
+				&& currentProject.getPrintingExtruders(currentPrinter).get(1);
 
 		if (triggerPLAIncompatibility) {
 			SupportType requiredSupportType = (currentPrinter.effectiveFilamentsProperty().get(0).getMaterial() == MaterialType.PLA) ? SupportType.MATERIAL_1 : SupportType.MATERIAL_2;

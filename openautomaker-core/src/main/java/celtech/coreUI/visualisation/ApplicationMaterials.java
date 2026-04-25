@@ -1,9 +1,7 @@
 
 package celtech.coreUI.visualisation;
 
-import celtech.configuration.ApplicationConfiguration;
 import org.openautomaker.ui.StandardColours;
-import celtech.coreUI.visualisation.modelDisplay.SelectionHighlighter;
 import celtech.utils.gcode.representation.MovementType;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;

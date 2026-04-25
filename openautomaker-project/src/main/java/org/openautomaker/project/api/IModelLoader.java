@@ -1,7 +1,7 @@
 package org.openautomaker.project.api;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 /**
  * Loads a model file into an {@link IProjectModel}.
@@ -21,9 +21,9 @@ public interface IModelLoader {
 	/**
 	 * Load the model file and return the resulting project model.
 	 *
-	 * @param file the model file to import
+	 * @param path the model file to import
 	 * @return loaded model, never {@code null}
 	 * @throws IOException if the file cannot be read or parsed
 	 */
-	IProjectModel load(File file) throws IOException;
+	IProjectModel load(Path path) throws IOException;
 }

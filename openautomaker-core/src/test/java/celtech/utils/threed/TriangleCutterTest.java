@@ -8,27 +8,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.openautomaker.test_library.GuiceExtension;
-import org.openautomaker.ui.inject.importer.STLImporterFactory;
+import org.openautomaker.project.importer.RawMeshData;
+import org.openautomaker.project.importer.StlImporter;
+import org.openautomaker.ui.project.loader.StlModelLoader;
 
 import celtech.utils.threed.MeshCutter2.BedToLocalConverter;
-import celtech.utils.threed.importers.stl.STLFileParsingException;
-import jakarta.inject.Inject;
 import javafx.geometry.Point3D;
 import javafx.scene.shape.TriangleMesh;
 
-@ExtendWith(GuiceExtension.class)
 public class TriangleCutterTest {
 
-	@Inject
-	STLImporterFactory stlImporterFactory;
+	private TriangleMesh loadMesh(String resource) throws IOException {
+		URL stlURL = this.getClass().getResource(resource);
+		File file = new File(stlURL.getFile());
+		RawMeshData raw = new StlImporter().load(file.toPath()).get(0);
+		return (TriangleMesh) StlModelLoader.buildMeshView(raw, file.getName()).getMesh();
+	}
 
 	public static TriangleMesh createSimpleCube() {
 		TriangleMesh mesh = new TriangleMesh();
@@ -381,11 +383,9 @@ public class TriangleCutterTest {
 	}
 
 	@Test
-	public void testEnricoSTLAt1Face1612DuplicateVerticesCreated() throws STLFileParsingException {
+	public void testEnricoSTLAt1Face1612DuplicateVerticesCreated() throws IOException {
 
-		URL stlURL = this.getClass().getResource("/enrico.stl");
-		File singleObjectSTLFile = new File(stlURL.getFile());
-		TriangleMesh mesh = stlImporterFactory.create().processBinarySTLData(singleObjectSTLFile);
+		TriangleMesh mesh = loadMesh("/enrico.stl");
 		Optional<MeshUtils.MeshError> error = MeshUtils.validate(mesh);
 		assertFalse(error.isPresent());
 

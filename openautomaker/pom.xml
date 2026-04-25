@@ -224,11 +224,9 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<groupId>
-				org.junit.platform</groupId>
+			<groupId>org.junit.platform</groupId>
 			<artifactId>junit-platform-launcher</artifactId>
-			<scope>
-				test</scope>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>

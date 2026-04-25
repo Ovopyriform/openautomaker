@@ -1,7 +1,7 @@
 package celtech.modelcontrol;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.ObjectStreamException;
@@ -114,7 +114,7 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 
 	@AssistedInject
 	protected ModelContainer(
-			@Assisted File modelFile,
+			@Assisted Path modelFile,
 			@Assisted MeshView meshView) {
 
 		super(modelFile);
@@ -126,8 +126,8 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 		nextModelId += 1;
 
 		if (modelFile != null) {
-			setModelName(modelFile.getName());
-			this.setId(modelFile.getName() + Integer.toString(modelId));
+			setModelName(modelFile.getFileName().toString());
+			this.setId(modelFile.getFileName().toString() + Integer.toString(modelId));
 		}
 		else {
 			setModelName("group " + modelId);
@@ -139,7 +139,7 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 
 	@AssistedInject
 	public ModelContainer(
-			@Assisted File modelFile,
+			@Assisted Path modelFile,
 			@Assisted MeshView meshView,
 			@Assisted int extruderAssociation) {
 
@@ -149,14 +149,14 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 	}
 
 	//This is the old initialize
-	protected void initialise(File modelFile) {
+	protected void initialise(Path modelFile) {
 		setModelFile(modelFile);
 		modelId = nextModelId;
 		nextModelId += 1;
 
 		if (modelFile != null) {
-			setModelName(modelFile.getName());
-			this.setId(modelFile.getName() + Integer.toString(modelId));
+			setModelName(modelFile.getFileName().toString());
+			this.setId(modelFile.getFileName().toString() + Integer.toString(modelId));
 		}
 		else {
 			setModelName("group " + modelId);
@@ -801,7 +801,7 @@ public class ModelContainer extends ProjectifiableThing implements Serializable,
 
 		getChildren().add(meshView);
 
-		initialise(new File(modelName));
+		initialise(Path.of(modelName));
 
 		double storedX = in.readDouble();
 		double storedY = 0;

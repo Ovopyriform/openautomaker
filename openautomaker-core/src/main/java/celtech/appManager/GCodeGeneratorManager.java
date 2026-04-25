@@ -59,6 +59,7 @@ import org.openautomaker.ui.state.SelectedProject;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
 import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import com.google.inject.assistedinject.Assisted;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.DoubleProperty;
@@ -82,7 +83,7 @@ import javafx.geometry.Bounds;
  *
  * @author Tony and George
  */
-public class GCodeGeneratorManager implements ModelContainerProject.ProjectChangesListener {
+public class GCodeGeneratorManager implements Project.ProjectChangesListener {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	private final ExecutorService slicingExecutorService;
@@ -163,6 +164,7 @@ public class GCodeGeneratorManager implements ModelContainerProject.ProjectChang
 
 	@Inject
 	public GCodeGeneratorManager(
+			@Assisted Project project,
 			SlicerPreference slicerPreference,
 			SafetyFeaturesPreference safetyFeaturesPreference,
 			TaskExecutor taskExecutor,
@@ -175,6 +177,7 @@ public class GCodeGeneratorManager implements ModelContainerProject.ProjectChang
 			ProjectsPathPreference projectsPathPreference,
 			PrintableMeshesFactory printableMeshesFactory) {
 
+		this.project = project;
 		this.fSlicerPreference = slicerPreference;
 		this.fSafetyFeaturesPreference = safetyFeaturesPreference;
 		this.taskExecutor = taskExecutor;
@@ -189,7 +192,6 @@ public class GCodeGeneratorManager implements ModelContainerProject.ProjectChang
 
 		this.currentPrinter = selectedPrinter.get();
 
-
 		ThreadFactory threadFactory = (Runnable runnable) -> {
 			Thread thread = Executors.defaultThreadFactory().newThread(runnable);
 			thread.setDaemon(true);
@@ -202,10 +204,7 @@ public class GCodeGeneratorManager implements ModelContainerProject.ProjectChang
 		int nThreads = 1;
 		slicingExecutorService = Executors.newFixedThreadPool(nThreads, threadFactory);
 		printOrSaveExecutorService = Executors.newSingleThreadExecutor();
-	}
 
-	public void setProject(Project project) {
-		this.project = project;
 		initialiseListeners();
 	}
 
@@ -408,16 +407,13 @@ public class GCodeGeneratorManager implements ModelContainerProject.ProjectChang
 							List<MeshForProcessing> meshesForProcessing = new ArrayList<>();
 							List<Integer> extruderForModel = new ArrayList<>();
 
-							// Only to be run on a ModelContainerProject
-							if (project instanceof ModelContainerProject) {
-								project.getTopLevelThings().forEach((modelContainer) -> {
-									((ModelContainer) modelContainer).getModelsHoldingMeshViews().forEach((modelContainerWithMesh) -> {
-										MeshForProcessing meshForProcessing = new MeshForProcessing(modelContainerWithMesh.getMeshView(), modelContainerWithMesh);
-										meshesForProcessing.add(meshForProcessing);
-										extruderForModel.add(modelContainerWithMesh.getAssociateWithExtruderNumberProperty().get());
-									});
+							project.getTopLevelThings().forEach((modelContainer) -> {
+								((ModelContainer) modelContainer).getModelsHoldingMeshViews().forEach((modelContainerWithMesh) -> {
+									MeshForProcessing meshForProcessing = new MeshForProcessing(modelContainerWithMesh.getMeshView(), modelContainerWithMesh);
+									meshesForProcessing.add(meshForProcessing);
+									extruderForModel.add(modelContainerWithMesh.getAssociateWithExtruderNumberProperty().get());
 								});
-							}
+							});
 
 							// We need to tell the slicers where the centre of the printed objects is - otherwise everything is put in the centre of the bed...
 							CentreCalculations centreCalc = new CentreCalculations();

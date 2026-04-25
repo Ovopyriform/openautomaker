@@ -19,9 +19,10 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.l10n.CurrencySymbolPreference;
 import org.openautomaker.environment.preference.l10n.GBPToLocalMultiplierPreference;
 import org.openautomaker.guice.GuiceContext;
+import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import jakarta.inject.Inject;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Label;
@@ -40,8 +41,8 @@ public class GetTimeWeightCost {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	//We are allowed to use ModelContainerProject here since this class can only run calcs for projects with meshes
-	private final ModelContainerProject project;
+	//We are allowed to use Project here since this class can only run calcs for projects with meshes
+	private final Project project;
 	private final Label lblTime;
 	private final Label lblWeight;
 	private final Label lblCost;
@@ -63,8 +64,11 @@ public class GetTimeWeightCost {
 	@Inject
 	private I18N i18n;
 
+	@Inject
+	private ProjectGUIStates projectGUIStates;
+
 	public GetTimeWeightCost(
-			ModelContainerProject project,
+			Project project,
 			Label lblTime,
 			Label lblWeight,
 			Label lblCost,
@@ -99,9 +103,9 @@ public class GetTimeWeightCost {
 	}
 
 	public void updateFromProject(PrintQualityEnumeration printQuality) {
-		ModelContainerProject mProject = project;
+		Project mProject = project;
 		Printer printer = selectedPrinter.get();
-		Optional<GCodeGeneratorResult> resultOpt = mProject.getGCodeGenManager().getPrepResult(printQuality);
+		Optional<GCodeGeneratorResult> resultOpt = projectGUIStates.get(mProject).getGCodeGenManager().getPrepResult(printQuality);
 		if (resultOpt.isPresent()) {
 			if (resultOpt.get().isSuccess()) {
 				GCodeGeneratorResult result = resultOpt.get();

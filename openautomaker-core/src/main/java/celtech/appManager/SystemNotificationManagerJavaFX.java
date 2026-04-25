@@ -33,7 +33,6 @@ import org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox
 import org.openautomaker.ui.component.printer_id_dialog.PrinterIDDialog;
 import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
 
-import celtech.configuration.ApplicationConfiguration;
 import org.openautomaker.ui.component.notification.NotificationDisplay;
 import org.openautomaker.ui.component.reset_head_dialog.ResetHeadController;
 import org.openautomaker.ui.component.reset_printer_id_dialog.ResetPrinterIDController;

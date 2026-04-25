@@ -31,7 +31,7 @@ import org.openautomaker.ui.component.graphic_button.GraphicButtonWithLabel;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import org.openautomaker.ui.component.controls.RestrictedNumberField;
 import org.openautomaker.ui.component.notification.ConditionalNotificationBar;
 import org.openautomaker.ui.utils.FXMLUtilities;
@@ -56,7 +56,7 @@ public class PurgeInsetPanelController {
 
 	private static final Logger LOGGER = LogManager.getLogger();
 
-	private ModelContainerProject project = null;
+	private Project project = null;
 	private Printer printer = null;
 	private Filament currentMaterial0;
 	private Filament currentMaterial1;
@@ -634,7 +634,7 @@ public class PurgeInsetPanelController {
 	/**
 	 * This is called when the user wants to print and the system has detected that a purge is required.
 	 */
-	public void purgeAndPrint(ModelContainerProject project, Printer printerToUse) {
+	public void purgeAndPrint(Project project, Printer printerToUse) {
 		this.project = project;
 		bindPrinter(printerToUse);
 		selectMaterial0(printer.effectiveFilamentsProperty().get(0));

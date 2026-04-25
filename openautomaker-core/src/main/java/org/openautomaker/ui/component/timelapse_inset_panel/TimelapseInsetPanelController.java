@@ -17,7 +17,7 @@ import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.appManager.Project;
 import celtech.appManager.TimelapseSettingsData;
 import celtech.coreUI.DisplayManager;
@@ -39,7 +39,7 @@ import javafx.scene.layout.GridPane;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
-public class TimelapseInsetPanelController extends SnapshotController implements ProjectAwareController, ModelContainerProject.ProjectChangesListener {
+public class TimelapseInsetPanelController extends SnapshotController implements ProjectAwareController, Project.ProjectChangesListener {
 	private static final Logger LOGGER = LogManager.getLogger();
 
 	@FXML

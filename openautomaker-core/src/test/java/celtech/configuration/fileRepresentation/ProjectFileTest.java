@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
+import org.openautomaker.ui.project.robox.data.ProjectFile;
+import org.openautomaker.ui.project.robox.data.ProjectFileDeserialiser;
 
 import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -22,7 +24,7 @@ public class ProjectFileTest {
 
 	@Test
 	public void serializesToJSON() throws Exception {
-		final ModelContainerProjectFile projectFile = createTestProjectFile();
+		final ProjectFile projectFile = createTestProjectFile();
 
 		ObjectMapper mapper = new ObjectMapper();
 		String mappedValue = mapper.writeValueAsString(projectFile);
@@ -42,7 +44,7 @@ public class ProjectFileTest {
 
 			ProjectFile projectFileReceived = mapper.readValue(jsonifiedClass, ProjectFile.class);
 			assertNotNull(projectFileReceived);
-			assertTrue(projectFileReceived instanceof ModelContainerProjectFile);
+			assertTrue(projectFileReceived instanceof ProjectFile);
 		}
 		catch (Exception e) {
 			System.out.println(e);
@@ -62,11 +64,11 @@ public class ProjectFileTest {
 
 		ProjectFile projectFileReceived = mapper.readValue(jsonifiedClass_2_03_01, ProjectFile.class);
 		assertNotNull(projectFileReceived);
-		assertTrue(projectFileReceived instanceof ModelContainerProjectFile);
+		assertTrue(projectFileReceived instanceof ProjectFile);
 	}
 
-	private ModelContainerProjectFile createTestProjectFile() {
-		ModelContainerProjectFile projectFile = new ModelContainerProjectFile();
+	private ProjectFile createTestProjectFile() {
+		ProjectFile projectFile = new ProjectFile();
 		return projectFile;
 	}
 }

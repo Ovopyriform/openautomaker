@@ -349,7 +349,7 @@ public class PrinterStatusPageController implements Initializable, PrinterListCh
 		StackPane printerStack = printerStackMap.getOrDefault(printerTypeCode, null);
 		if (printerStack == null) {
 			String printerStackFXMLName = printerTypeCode.toLowerCase() + "Stack.fxml";
-			URL printerStackURL = getClass().getResource(ApplicationConfiguration.fxmlPrinterStatusResourcePath + printerStackFXMLName);
+			URL printerStackURL = getClass().getResource(printerStackFXMLName);
 			try {
 				FXMLLoader loader = fxmlLoaderFactory.create(printerStackURL);
 				loader.setController(this);
@@ -363,8 +363,10 @@ public class PrinterStatusPageController implements Initializable, PrinterListCh
 			}
 			catch (Exception ex) {
 				LOGGER.info("Couldn't load printer stack for printer type \"" + printerTypeCode + "\" - defaulting to RBX01");
-				if (printerStackURL != null)
+				if (printerStackURL != null) {
 					LOGGER.debug("printerStackURL = " + printerStackURL.toString());
+					LOGGER.debug("Exception was: ", ex);
+				}
 				else
 					LOGGER.debug("printerStackURL = null!");
 

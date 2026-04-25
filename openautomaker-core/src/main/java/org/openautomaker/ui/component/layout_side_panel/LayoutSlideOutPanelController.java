@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 import org.openautomaker.base.printerControl.PrintJob;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -19,7 +19,7 @@ import javafx.scene.control.ListView;
  */
 public class LayoutSlideOutPanelController implements Initializable {
 
-	private ModelContainerProject currentProject = null;
+	private Project currentProject = null;
 
 	@FXML
 	private Label lastModifiedDate;
@@ -41,7 +41,7 @@ public class LayoutSlideOutPanelController implements Initializable {
 	 *
 	 * @param currentProject
 	 */
-	public void bindLoadedModels(final ModelContainerProject currentProject) {
+	public void bindLoadedModels(final Project currentProject) {
 		this.currentProject = currentProject;
 		lastModifiedDate.textProperty().unbind();
 		lastModifiedDate.textProperty().bind(currentProject.getLastModifiedDate().asString());

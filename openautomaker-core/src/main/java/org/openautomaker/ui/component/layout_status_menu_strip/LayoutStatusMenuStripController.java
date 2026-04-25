@@ -62,9 +62,9 @@ import org.openautomaker.ui.state.SelectedProject;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import celtech.appManager.Project.ProjectChangesListener;
+import celtech.appManager.ProjectManager;
 import celtech.appManager.ProjectMode;
 import celtech.appManager.TimelapseSettingsData;
 import celtech.appManager.undo.CommandStack;
@@ -301,6 +301,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	private final SelectedPrinter selectedPrinter;
 	private final SelectedProject selectedProject;
 	private final ProjectGUIStates projectGUIStates;
+	private final ProjectManager projectManager;
 	private final UndoableProjectFactory undoableProjectFactory;
 	private final CameraManager cameraManager;
 	private final PrinterManager printerManager;
@@ -322,6 +323,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 			PrinterManager printerManager,
 			PrinterUtils printerUtils,
 			ProjectGUIStates projectGUIStates,
+			ProjectManager projectManager,
 			ProjectsPathPreference projectsPathPreference,
 			ReprintPanel reprintPanel,
 			RoboxCommsManager roboxCommsManager,
@@ -352,6 +354,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 		this.selectedPrinter = selectedPrinter;
 		this.selectedProject = selectedProject;
 		this.projectGUIStates = projectGUIStates;
+		this.projectManager = projectManager;
 
 		this.undoableProjectFactory = undoableProjectFactory;
 
@@ -384,11 +387,10 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	void group(ActionEvent event) {
 		Project currentProject = selectedProject.get();
 
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			ProjectGUIState projectGUIState = projectGUIStates.get(currentProject);
 
-			ModelContainerProject projectToWorkOn = (ModelContainerProject) currentProject;
-			Set<ProjectifiableThing> modelGroups = projectToWorkOn.getTopLevelThings().stream().filter(mc -> mc instanceof ModelGroup).collect(Collectors.toSet());
+			Set<ProjectifiableThing> modelGroups = currentProject.getTopLevelThings().stream().filter(mc -> mc instanceof ModelGroup).collect(Collectors.toSet());
 			Set<ProjectifiableThing> modelContainers = projectGUIState.getProjectSelection().getSelectedModelsSnapshot();
 			Set<Groupable> thingsToGroup = (Set) modelContainers;
 			undoableSelectedProject.group(thingsToGroup);
@@ -407,7 +409,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	void ungroup(ActionEvent event) {
 		Project currentProject = selectedProject.get();
 
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			ProjectGUIState projectGUIState = projectGUIStates.get(currentProject);
 
 			Set<ProjectifiableThing> modelContainers = projectGUIState.getProjectSelection().getSelectedModelsSnapshot();
@@ -443,15 +445,14 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 		Project currentProject = selectedProject.get();
 
 		if (!currentProject.isProjectSaved())
-			currentProject.save();
+			projectManager.saveProject(currentProject);
 
-		//TODO: There should be no need for this check.  Should be a Project interface.
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			Path projectPath = projectsPathPreference.getValue().resolve(currentProject.getProjectName());
 
 			PrintableProject printableProject = new PrintableProject(currentProject.getProjectName(), currentProject.getPrintQuality(), projectPath);
 
-			PurgeResponse purgeConsent = printerUtils.offerPurgeIfNecessary(printer, ((ModelContainerProject) currentProject).getUsedExtruders(printer));
+			PurgeResponse purgeConsent = printerUtils.offerPurgeIfNecessary(printer, currentProject.getUsedExtruders(printer));
 
 			// Trigger data is used by post processor.
 			// Camera data is sent to Root.
@@ -488,10 +489,10 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 			printableProject.setCameraData(cameraData);
 
 			if (purgeConsent == PurgeResponse.PRINT_WITH_PURGE) {
-				displayManager.getPurgeInsetPanelController().purgeAndPrint((ModelContainerProject) currentProject, printer);
+				displayManager.getPurgeInsetPanelController().purgeAndPrint(currentProject, printer);
 			}
 			else if (purgeConsent == PurgeResponse.PRINT_WITHOUT_PURGE || purgeConsent == PurgeResponse.NOT_NECESSARY) {
-				ObservableList<Boolean> usedExtruders = ((ModelContainerProject) currentProject).getUsedExtruders(printer);
+				ObservableList<Boolean> usedExtruders = currentProject.getUsedExtruders(printer);
 				printableProject.setUsedExtruders(usedExtruders);
 				for (int extruderNumber = 0; extruderNumber < usedExtruders.size(); extruderNumber++) {
 					if (usedExtruders.get(extruderNumber)) {
@@ -514,7 +515,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 					@Override
 					protected Boolean call() throws Exception {
 						try {
-							Optional<GCodeGeneratorResult> potentialGCodeGenResult = currentProject.getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
+							Optional<GCodeGeneratorResult> potentialGCodeGenResult = projectGUIStates.get(currentProject).getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
 							if (potentialGCodeGenResult.isPresent()) {
 								printer.printProject(printableProject, potentialGCodeGenResult, fSafetyFeaturesPreference.getValue());
 							}
@@ -527,7 +528,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 					}
 				};
 				// Run the task from GCodeGenManager so it can be managed...
-				currentProject.getGCodeGenManager().replaceAndExecutePrintOrSaveTask(fetchGCodeResultAndPrint);
+				projectGUIStates.get(currentProject).getGCodeGenManager().replaceAndExecutePrintOrSaveTask(fetchGCodeResultAndPrint);
 			}
 		}
 	}
@@ -538,15 +539,15 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 		Project currentProject = selectedProject.get();
 
 		if (!currentProject.isProjectSaved())
-			currentProject.save();
+			projectManager.saveProject(currentProject);
 
-		if (currentProject instanceof ModelContainerProject) {
+		if (currentProject != null) {
 			Task<Boolean> fetchGCodeResultAndSave = new Task<>() {
 				@Override
 				protected Boolean call() throws Exception {
 					Path projectPath = projectsPathPreference.getValue().resolve(currentProject.getProjectName());
 
-					Optional<GCodeGeneratorResult> potentialGCodeGenResult = currentProject.getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
+					Optional<GCodeGeneratorResult> potentialGCodeGenResult = projectGUIStates.get(currentProject).getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
 
 					if (!(potentialGCodeGenResult.isPresent() && potentialGCodeGenResult.get().isSuccess()))
 						return false;
@@ -583,7 +584,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 				}
 			};
 			// Run the task from GCodeGenManager so it can be managed...
-			currentProject.getGCodeGenManager().replaceAndExecutePrintOrSaveTask(fetchGCodeResultAndSave);
+			projectGUIStates.get(currentProject).getGCodeGenManager().replaceAndExecutePrintOrSaveTask(fetchGCodeResultAndSave);
 		}
 	}
 
@@ -626,26 +627,15 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	void addModelContext(ContextMenuEvent event) {
 		ContextMenu contextMenu = new ContextMenu();
 
-		String cm1Text = "Blank 2D Project";
-		String cm2Text = "Blank 3D Project";
-
-		MenuItem cmItem1 = new MenuItem(cm1Text);
-		MenuItem cmItem2 = new MenuItem(cm2Text);
-
-		cmItem1.setOnAction((ActionEvent e) -> {
-			displayManager.initialiseBlank2DProject();
-		});
+		MenuItem cmItem2 = new MenuItem("Blank 3D Project");
 		cmItem2.setOnAction((ActionEvent e) -> {
 			displayManager.initialiseBlank3DProject();
 		});
 
-		contextMenu.getItems().add(cmItem1);
 		contextMenu.getItems().add(cmItem2);
 
-		double cm1Width = getWidthOfString(cm1Text, "lightText", 14);
-		double cm2Width = getWidthOfString(cm2Text, "lightText", 14);
-
-		contextMenu.show(addModelButton, Side.TOP, 35 - ((max(cm1Width, cm2Width) + 20) / 2.0), -25);
+		double cmWidth = getWidthOfString("Blank 3D Project", "lightText", 14);
+		contextMenu.show(addModelButton, Side.TOP, 35 - ((cmWidth + 20) / 2.0), -25);
 
 	}
 
@@ -1153,7 +1143,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 
 		doorOpenConditionalNotificationBar
 				.setAppearanceCondition(printer.getPrinterAncillarySystems().doorOpenProperty().and(FXProperty.bind(fSafetyFeaturesPreference)).and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
-		chooseACustomProfileNotificationBar.setAppearanceCondition(project.customSettingsNotChosenProperty().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
+		chooseACustomProfileNotificationBar.setAppearanceCondition(projectGUIStates.get(project).customSettingsNotChosenProperty().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
 		printHeadPowerOffNotificationBar.setAppearanceCondition(printer.headPowerOnFlagProperty().not().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)).and(printer.headProperty().isNotNull()));
 		noHeadNotificationBar.setAppearanceCondition(printer.headProperty().isNull().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
 		if (printer.headProperty().get() != null) {
@@ -1166,9 +1156,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 		else
 			headIsSingleX.set(false);
 
-		if (project instanceof ModelContainerProject) {
-			ModelContainerProject mcProject = (ModelContainerProject) project;
-
+		if (project != null) {
 			BooleanBinding oneExtruderPrinter = printer.extrudersProperty().get(1).isFittedProperty().not();
 			oneExtruderPrinter.get();
 			BooleanBinding twoExtruderPrinter = printer.extrudersProperty().get(1).isFittedProperty().not().not();
@@ -1178,7 +1166,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 			BooleanBinding noFilament1Selected = Bindings.valueAt(printer.effectiveFilamentsProperty(), 1).isEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
 			noFilament1Selected.get();
 
-			ObservableList<Boolean> usedExtruders = ((ModelContainerProject) project).getUsedExtruders(printer);
+			ObservableList<Boolean> usedExtruders = project.getUsedExtruders(printer);
 
 			oneExtruderNoFilamentSelectedNotificationBar.setAppearanceCondition(
 					oneExtruderPrinter.and(Bindings.booleanValueAt(usedExtruders, 0)).and(noFilament0Selected).and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)).and(printerConnectionOffline.not()));
@@ -1198,7 +1186,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 			twoExtrudersNoFilament1NotificationBar.setAppearanceCondition(twoExtruderPrinter.and(Bindings.booleanValueAt(usedExtruders, 1)).and(printer.extrudersProperty().get(1).filamentLoadedProperty().not())
 					.and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)).and(printerConnectionOffline.not()));
 
-			invalidMeshInProjectNotificationBar.setAppearanceCondition(mcProject.hasInvalidMeshes().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
+			invalidMeshInProjectNotificationBar.setAppearanceCondition(project.hasInvalidMeshes().and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
 
 			noModelsNotificationBar.setAppearanceCondition(Bindings.isEmpty(project.getTopLevelThings()).and(applicationStatus.modeProperty().isEqualTo(ApplicationMode.SETTINGS)));
 
@@ -1510,33 +1498,31 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 	 * This should be called whenever the printer or project changes and updates the bindings for the canPrintProject property.
 	 */
 	private void updateCanPrintProjectBindings(Printer printer, Project project) {
-		if (project instanceof ModelContainerProject) {
-			if (printer != null && project != null) {
-				printButton.disableProperty().unbind();
-				ObservableList<Boolean> usedExtruders = ((ModelContainerProject) project).getUsedExtruders(printer);
+		if (printer != null && project != null) {
+			printButton.disableProperty().unbind();
+			ObservableList<Boolean> usedExtruders = project.getUsedExtruders(printer);
 
-				if (usedExtruders.get(0) && usedExtruders.get(1)) {
-					BooleanBinding filament0Selected = Bindings.valueAt(printer.effectiveFilamentsProperty(), 0).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
-					BooleanBinding filament1Selected = Bindings.valueAt(printer.effectiveFilamentsProperty(), 1).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
+			if (usedExtruders.get(0) && usedExtruders.get(1)) {
+				BooleanBinding filament0Selected = Bindings.valueAt(printer.effectiveFilamentsProperty(), 0).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
+				BooleanBinding filament1Selected = Bindings.valueAt(printer.effectiveFilamentsProperty(), 1).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
 
-					canPrintProject.bind(Bindings.isNotEmpty(project.getTopLevelThings()).and(printer.canPrintProperty()).and(project.canPrintProperty()).and(filament0Selected).and(filament1Selected)
-							.and(printer.getPrinterAncillarySystems().doorOpenProperty().not().or(FXProperty.bind(fSafetyFeaturesPreference).not())).and(printer.extrudersProperty().get(0).filamentLoadedProperty())
-							.and(printer.extrudersProperty().get(1).filamentLoadedProperty().and(printer.headPowerOnFlagProperty())).and(modelsOffBed.not()).and(modelsOffBedWithHead.not()).and(modelsOffBedWithRaft.not())
-							.and(modelOffBedWithSpiral.not()).and(headIsSingleX.or(printer.effectiveFilamentsProperty().get(0).getFilledProperty().not().and(printer.effectiveFilamentsProperty().get(1).getFilledProperty().not())))
-							.and(printerConnectionOffline.not()));
-				}
-				else {
-					// only one extruder required, which one is it?
-					int extruderNumber = (((ModelContainerProject) project).getUsedExtruders(printer).get(0)) ? 0 : 1;
-					BooleanBinding filamentPresentBinding = Bindings.valueAt(printer.effectiveFilamentsProperty(), extruderNumber).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
-
-					canPrintProject.bind(Bindings.isNotEmpty(project.getTopLevelThings()).and(printer.canPrintProperty()).and(project.canPrintProperty()).and(filamentPresentBinding)
-							.and(printer.getPrinterAncillarySystems().doorOpenProperty().not().or(FXProperty.bind(fSafetyFeaturesPreference).not()))
-							.and(printer.extrudersProperty().get(extruderNumber).filamentLoadedProperty().and(printer.headPowerOnFlagProperty())).and(modelsOffBed.not()).and(modelsOffBedWithHead.not()).and(modelsOffBedWithRaft.not())
-							.and(modelOffBedWithSpiral.not()).and(headIsSingleX.or(printer.effectiveFilamentsProperty().get(extruderNumber).getFilledProperty().not())).and(printerConnectionOffline.not()));
-				}
-				printButton.disableProperty().bind(canPrintProject.not());
+				canPrintProject.bind(Bindings.isNotEmpty(project.getTopLevelThings()).and(printer.canPrintProperty()).and(projectGUIStates.get(project).canPrintProperty()).and(filament0Selected).and(filament1Selected)
+						.and(printer.getPrinterAncillarySystems().doorOpenProperty().not().or(FXProperty.bind(fSafetyFeaturesPreference).not())).and(printer.extrudersProperty().get(0).filamentLoadedProperty())
+						.and(printer.extrudersProperty().get(1).filamentLoadedProperty().and(printer.headPowerOnFlagProperty())).and(modelsOffBed.not()).and(modelsOffBedWithHead.not()).and(modelsOffBedWithRaft.not())
+						.and(modelOffBedWithSpiral.not()).and(headIsSingleX.or(printer.effectiveFilamentsProperty().get(0).getFilledProperty().not().and(printer.effectiveFilamentsProperty().get(1).getFilledProperty().not())))
+						.and(printerConnectionOffline.not()));
 			}
+			else {
+				// only one extruder required, which one is it?
+				int extruderNumber = project.getUsedExtruders(printer).get(0) ? 0 : 1;
+				BooleanBinding filamentPresentBinding = Bindings.valueAt(printer.effectiveFilamentsProperty(), extruderNumber).isNotEqualTo(FilamentContainer.UNKNOWN_FILAMENT);
+
+				canPrintProject.bind(Bindings.isNotEmpty(project.getTopLevelThings()).and(printer.canPrintProperty()).and(projectGUIStates.get(project).canPrintProperty()).and(filamentPresentBinding)
+						.and(printer.getPrinterAncillarySystems().doorOpenProperty().not().or(FXProperty.bind(fSafetyFeaturesPreference).not()))
+						.and(printer.extrudersProperty().get(extruderNumber).filamentLoadedProperty().and(printer.headPowerOnFlagProperty())).and(modelsOffBed.not()).and(modelsOffBedWithHead.not()).and(modelsOffBedWithRaft.not())
+						.and(modelOffBedWithSpiral.not()).and(headIsSingleX.or(printer.effectiveFilamentsProperty().get(extruderNumber).getFilledProperty().not())).and(printerConnectionOffline.not()));
+			}
+			printButton.disableProperty().bind(canPrintProject.not());
 		}
 	}
 

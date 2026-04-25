@@ -13,11 +13,11 @@ import org.openautomaker.base.services.gcodegenerator.GCodeGeneratorResult;
 import org.openautomaker.base.services.slicer.PrintQualityEnumeration;
 import org.openautomaker.environment.preference.modeling.ProjectsPathPreference;
 import org.openautomaker.environment.preference.slicer.ShowGCodePreviewPreference;
+import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedPrinter;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import org.openautomaker.ui.StandardColours;
 import celtech.services.gcodepreview.GCodePreviewExecutorService;
@@ -81,18 +81,21 @@ public class PreviewManagerController {
 	private final ShowGCodePreviewPreference showGCodePreviewPreference;
 	private final SelectedPrinter selectedPrinter;
 	private final ProjectsPathPreference projectsPathPreference;
+	private final ProjectGUIStates projectGUIStates;
 
 	@Inject
 	public PreviewManagerController(
 			ApplicationStatus applicationStatus,
 			ShowGCodePreviewPreference showGCodePreviewPreference,
 			SelectedPrinter selectedPrinter,
-			ProjectsPathPreference projectsPathPreference) {
+			ProjectsPathPreference projectsPathPreference,
+			ProjectGUIStates projectGUIStates) {
 
 		this.applicationStatus = applicationStatus;
 		this.showGCodePreviewPreference = showGCodePreviewPreference;
 		this.selectedPrinter = selectedPrinter;
 		this.projectsPathPreference = projectsPathPreference;
+		this.projectGUIStates = projectGUIStates;
 
 		//		if(BaseConfiguration.isWindows32Bit())
 		//		{
@@ -120,15 +123,15 @@ public class PreviewManagerController {
 
 	public void setProjectAndPrinter(Project project, Printer printer) {
 		if (currentProject != project) {
-			if (currentProject != null && currentProject instanceof ModelContainerProject) {
-				((ModelContainerProject) currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
-				((ModelContainerProject) currentProject).getGCodeGenManager().getPrintQualityProperty().removeListener(this.printQualityChangeListener);
+			if (currentProject != null) {
+				projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
+				projectGUIStates.get(currentProject).getGCodeGenManager().getPrintQualityProperty().removeListener(this.printQualityChangeListener);
 			}
 
 			currentProject = project;
-			if (currentProject != null && currentProject instanceof ModelContainerProject) {
-				((ModelContainerProject) currentProject).getGCodeGenManager().getDataChangedProperty().addListener(this.gCodePrepChangeListener);
-				((ModelContainerProject) currentProject).getGCodeGenManager().getPrintQualityProperty().addListener(this.printQualityChangeListener);
+			if (currentProject != null) {
+				projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().addListener(this.gCodePrepChangeListener);
+				projectGUIStates.get(currentProject).getGCodeGenManager().getPrintQualityProperty().addListener(this.printQualityChangeListener);
 				if (previewState.get() == PreviewState.OPEN ||
 						previewState.get() == PreviewState.LOADING ||
 						previewState.get() == PreviewState.SLICE_UNAVAILABLE) {
@@ -148,8 +151,8 @@ public class PreviewManagerController {
 	public void shutdown() {
 		removePreview();
 
-		if (currentProject != null && currentProject instanceof ModelContainerProject)
-			((ModelContainerProject) currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
+		if (currentProject != null)
+			projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
 		currentProject = null;
 
 		applicationStatus.modeProperty().removeListener(applicationModeChangeListener);
@@ -157,8 +160,7 @@ public class PreviewManagerController {
 
 	private boolean modelIsSuitable() {
 		return (currentProject != null &&
-				currentProject instanceof ModelContainerProject &&
-				((ModelContainerProject) currentProject).getGCodeGenManager().modelIsSuitable());
+				projectGUIStates.get(currentProject).getGCodeGenManager().modelIsSuitable());
 	}
 
 	private void clearPreview() {
@@ -248,9 +250,9 @@ public class PreviewManagerController {
 					startPreview();
 				else
 					clearPreview();
-				ModelContainerProject mProject = (ModelContainerProject) currentProject;
+				Project mProject = (Project) currentProject;
 				//LOGGER.info("Waiting for prep result");
-				Optional<GCodeGeneratorResult> resultOpt = mProject.getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
+				Optional<GCodeGeneratorResult> resultOpt = projectGUIStates.get(mProject).getGCodeGenManager().getPrepResult(currentProject.getPrintQuality());
 				//LOGGER.info("Got prep result - ifPresent() = " + Boolean.toString(resultOpt.isPresent()));
 				//LOGGER.info("                  isSuccess() = " + (resultOpt.isPresent() ? Boolean.toString(resultOpt.get().isSuccess()) : "---"));
 				if (resultOpt.isPresent() && resultOpt.get().isSuccess()) {

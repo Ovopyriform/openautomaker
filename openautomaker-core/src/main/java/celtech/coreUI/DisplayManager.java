@@ -33,8 +33,9 @@ import org.openautomaker.ui.component.printer_side_panel.PrinterSidePanel;
 import org.openautomaker.ui.component.printer_status_page.PrinterStatusPageController;
 import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
 import org.openautomaker.ui.component.purge_panel.PurgeInsetPanelController;
-import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
+
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
+import org.openautomaker.ui.project.robox.RoboxFile;
 import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;
@@ -43,6 +44,7 @@ import org.openautomaker.ui.state.SelectedSpinnerControl;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
+import org.openautomaker.ui.inject.project.ProjectFactory;
 import celtech.appManager.Project;
 import celtech.appManager.ProjectCallback;
 import celtech.appManager.ProjectManager;
@@ -205,7 +207,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 
 	private final SelectedSpinnerControl selectedSpinnerControl;
 
-	private final ModelContainerProjectFactory modelContainerProjectFactory;
+	private final ProjectFactory projectFactory;
 	private final ModelLoader modelLoader;
 	private final StageManager stageManager;
 	private final ProjectsPathPreference projectsPathPreference;
@@ -228,7 +230,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 			ProjectGUIStates projectGUIStates,
 			RoboxCommsManager roboxCommsManager,
 			SelectedSpinnerControl selectedSpinnerControl,
-			ModelContainerProjectFactory modelContainerProjectFactory,
+			ProjectFactory projectFactory,
 			ModelLoader modelLoader,
 			NotificationArea notificationArea,
 			StageManager stageManager,
@@ -252,7 +254,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		this.projectGUIStates = projectGUIStates;
 		this.roboxCommsManager = roboxCommsManager;
 		this.selectedSpinnerControl = selectedSpinnerControl;
-		this.modelContainerProjectFactory = modelContainerProjectFactory;
+		this.projectFactory = projectFactory;
 		this.modelLoader = modelLoader;
 		this.notificationArea = notificationArea;
 		this.stageManager = stageManager;
@@ -751,15 +753,10 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 			previewManager.shutdown();
 		}
 
+		// Save all the projects.
 		if (projectManager != null) {
+			projectManager.saveAllProjects();
 			projectManager.rememberOpenProjects();
-		}
-
-		if (tabDisplay != null) {
-			tabDisplay.getTabs().stream().filter((tab) -> (tab instanceof ProjectTab)).forEach(
-					(tab) -> {
-						((ProjectTab) tab).saveAndCloseProject();
-					});
 		}
 	}
 
@@ -974,7 +971,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 						boolean extensionFound = false;
 
 						if (file.getName().toUpperCase().endsWith(
-								ApplicationConfiguration.projectFileExtension
+								RoboxFile.EXTENSION
 										.toUpperCase())) {
 							extensionFound = true;
 							break;
@@ -1007,7 +1004,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 						for (File file : fileList) {
 							boolean extensionFound = false;
 							if (file.getName().toUpperCase().endsWith(
-									ApplicationConfiguration.projectFileExtension
+									RoboxFile.EXTENSION
 											.toUpperCase())) {
 								extensionFound = true;
 								break;
@@ -1078,7 +1075,8 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		}
 
 		Runnable loaderRunnable = () -> {
-			Project newProject = modelContainerProjectFactory.create();
+			Project newProject = projectFactory.create();
+			newProject.initialiseExtruderFilaments(selectedPrinter.get());
 			newProject.setProjectName(projectName);
 
 			modelLoader.loadExternalModels(newProject, listOfFiles, false, null, false);
@@ -1092,7 +1090,8 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		if (firstUsePreference.getValue()) {
 			File firstUsePrintFile = modelsPathPreference.getAppValue().resolve("RBX_ROBOT_MM.stl").toFile();
 
-			Project newProject = modelContainerProjectFactory.create();
+			Project newProject = projectFactory.create();
+			newProject.initialiseExtruderFilaments(selectedPrinter.get());
 			newProject.setProjectName(i18n.t("myFirstPrintTitle"));
 
 			List<File> fileToLoad = new ArrayList<>();
@@ -1138,10 +1137,6 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 
 	public void initialiseBlank3DProject() {
 		((ProjectTab) tabDisplay.getSelectionModel().getSelectedItem()).initialiseBlank3DProject();
-	}
-
-	public void initialiseBlank2DProject() {
-		((ProjectTab) tabDisplay.getSelectionModel().getSelectedItem()).initialiseBlank2DProject();
 	}
 
 	public BooleanProperty libraryModeEnteredProperty() {

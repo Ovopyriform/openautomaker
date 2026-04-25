@@ -6,7 +6,7 @@ package celtech.appManager.undo;
 import java.util.HashSet;
 import java.util.Set;
 
-import celtech.appManager.ModelContainerProject;
+import celtech.appManager.Project;
 import celtech.modelcontrol.ModelContainer;
 
 /**
@@ -15,11 +15,11 @@ import celtech.modelcontrol.ModelContainer;
  */
 public class AssignModelToExtruderCommand implements Command {
 
-	ModelContainerProject project;
+	Project project;
 	private final Set<ModelContainer> modelContainersToAssignToExtruder0;
 	private final Set<ModelContainer> modelContainersToAssignToExtruder1;
 
-	public AssignModelToExtruderCommand(ModelContainerProject project,
+	public AssignModelToExtruderCommand(Project project,
 			ModelContainer modelContainerToChangeExtruderAssociation,
 			boolean assignToExtruder0) {
 		this.project = project;
@@ -35,7 +35,7 @@ public class AssignModelToExtruderCommand implements Command {
 		}
 	}
 
-	public AssignModelToExtruderCommand(ModelContainerProject project,
+	public AssignModelToExtruderCommand(Project project,
 			Set<ModelContainer> modelContainersToAssignToExtruder0,
 			Set<ModelContainer> modelContainersToAssignToExtruder1) {
 		this.project = project;

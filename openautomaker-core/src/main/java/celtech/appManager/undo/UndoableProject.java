@@ -12,7 +12,6 @@ import org.openautomaker.ui.state.ProjectGUIStates;
 
 import com.google.inject.assistedinject.Assisted;
 
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import celtech.modelcontrol.Groupable;
 import celtech.modelcontrol.ModelContainer;
@@ -135,27 +134,21 @@ public class UndoableProject {
 	}
 
 	public void rotateLeanModels(Set<RotatableThreeD> modelContainers, double rotation) {
-		if (project instanceof ModelContainerProject) {
-			doTransformCommand(() -> {
-				((ModelContainerProject) project).rotateLeanModels(modelContainers, rotation);
-			});
-		}
+		doTransformCommand(() -> {
+			project.rotateLeanModels(modelContainers, rotation);
+		});
 	}
 
 	public void rotateTwistModels(Set<RotatableThreeD> modelContainers, double rotation) {
-		if (project instanceof ModelContainerProject) {
-			doTransformCommand(() -> {
-				((ModelContainerProject) project).rotateTwistModels(modelContainers, rotation);
-			});
-		}
+		doTransformCommand(() -> {
+			project.rotateTwistModels(modelContainers, rotation);
+		});
 	}
 
 	public void rotateTurnModels(Set<RotatableTwoD> modelContainers, double rotation) {
-		if (project instanceof ModelContainerProject) {
-			doTransformCommand(() -> {
-				((ModelContainerProject) project).rotateTurnModels(modelContainers, rotation);
-			});
-		}
+		doTransformCommand(() -> {
+			project.rotateTurnModels(modelContainers, rotation);
+		});
 	}
 
 	public void translateModelsBy(Set<TranslateableTwoD> modelContainers, double x, double y,
@@ -179,19 +172,15 @@ public class UndoableProject {
 	}
 
 	public void dropToBed(Set<ModelContainer> modelContainers) {
-		if (project instanceof ModelContainerProject) {
-			doTransformCommand(() -> {
-				((ModelContainerProject) project).dropToBed(modelContainers);
-			});
-		}
+		doTransformCommand(() -> {
+			project.dropToBed(modelContainers);
+		});
 	}
 
 	public void snapToGround(ModelContainer modelContainer, MeshView meshView, int faceNumber) {
-		if (project instanceof ModelContainerProject) {
-			doTransformCommand(() -> {
-				((ModelContainerProject) project).snapToGround(modelContainer, meshView, faceNumber);
-			});
-		}
+		doTransformCommand(() -> {
+			project.snapToGround(modelContainer, meshView, faceNumber);
+		});
 	}
 
 	//TOOO: All commands need a factory
@@ -212,40 +201,32 @@ public class UndoableProject {
 
 	public void assignModelToExtruder(ModelContainer modelContainer,
 			boolean assignToExtruder0) {
-		if (project instanceof ModelContainerProject) {
-			Command setUserExtruder0Command = new AssignModelToExtruderCommand((ModelContainerProject) project,
-					modelContainer,
-					assignToExtruder0);
-			commandStack.do_(setUserExtruder0Command);
-		}
+		Command setUserExtruder0Command = new AssignModelToExtruderCommand(project,
+				modelContainer,
+				assignToExtruder0);
+		commandStack.do_(setUserExtruder0Command);
 	}
 
 	public void assignModelsToExtruders(Set<ModelContainer> modelContainersToAssignToExtruder0,
 			Set<ModelContainer> modelContainersToAssignToExtruder1) {
-		Command setUserExtruder0Command = new AssignModelToExtruderCommand((ModelContainerProject) project,
+		Command setUserExtruder0Command = new AssignModelToExtruderCommand(project,
 				modelContainersToAssignToExtruder0,
 				modelContainersToAssignToExtruder1);
 		commandStack.do_(setUserExtruder0Command);
 	}
 
 	public void group(Set<Groupable> modelContainers) {
-		if (project instanceof ModelContainerProject) {
-			Command groupCommand = new GroupCommand((project), modelContainers);
-			commandStack.do_(groupCommand);
-		}
+		Command groupCommand = new GroupCommand(project, modelContainers);
+		commandStack.do_(groupCommand);
 	}
 
 	public void ungroup(Set<ModelContainer> modelContainers) {
-		if (project instanceof ModelContainerProject) {
-			Command ungroupCommand = new UngroupCommand(((ModelContainerProject) project), modelContainers);
-			commandStack.do_(ungroupCommand);
-		}
+		Command ungroupCommand = new UngroupCommand(project, modelContainers);
+		commandStack.do_(ungroupCommand);
 	}
 
 	public void cut(Set<ModelContainer> modelContainers, float cutHeightValue) {
-		if (project instanceof ModelContainerProject) {
-			Command cutCommand = cutCommandFactory.create(((ModelContainerProject) project), modelContainers, cutHeightValue);
-			commandStack.do_(cutCommand);
-		}
+		Command cutCommand = cutCommandFactory.create(project, modelContainers, cutHeightValue);
+		commandStack.do_(cutCommand);
 	}
 }

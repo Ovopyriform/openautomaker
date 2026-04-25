@@ -1,20 +1,26 @@
 package org.openautomaker.project.api;
 
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.openautomaker.project.data.ModelTransformData;
+import org.openautomaker.project.rbxproj.data.ModelTransformData;
 
 /**
  * A 3D print project that can be serialised to a {@code .rbxproj} archive.
- * Abstracts over {@code ModelContainerProject} from openautomaker-core.
+ * Abstracts over {@code Project} from openautomaker-core.
  */
 public interface IProject {
 
 	String getProjectName();
 
 	void setProjectName(String name);
+
+	/** Path on the base filesystem to the {@code .rbxproj} archive this project was loaded from. {@code null} for unsaved/new projects. */
+	Path getProjectPath();
+
+	void setProjectPath(Path projectPath);
 
 	IProjectSettings getSettings();
 

@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import celtech.coreUI.components.*?>
+<?import org.openautomaker.ui.component.controls.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<ImageView fx:id="reel1Background" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/reel_1_background.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="reel2Background" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/reel_2_background.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="baseNoReels" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/base_render_no_reels.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="baseReel2" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/base_render_reel_2.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="baseReel1" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/base_render_reel_1.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="baseReelBoth" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/base_render_both_reels.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="doorClosed" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/door_closed.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="doorOpen" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/door_open.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="ambientLight" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/ambient_light_white.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="singleMaterialHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/roboxpro_quickfill_head.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="dualMaterialHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/roboxpro_dualmaterial_head.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="singleNozzleHead" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/roboxpro_singleex_head.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="bed" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/bed.png" />
+		   </image>
+		</ImageView>
+		<ImageView fx:id="temperatureWarning" fitHeight="0.0" fitWidth="0.0" mouseTransparent="true" preserveRatio="true" visible="true">
+		   <image>
+			  <Image url="@/org/openautomaker/ui/images/status_render/RBX10/bed_hot_warning.png" />
+		   </image>
+		</ImageView>
+		<HBox fx:id="xAxisControls" translateX="25.0" translateY="184.0" alignment="CENTER" fillHeight="false" maxWidth="288.0" maxHeight="52.0" StackPane.alignment="CENTER" visible="true">
+		   <children>
+				  <JogButton axis="X" distance="-100.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_minus100">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_minus100_64x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton axis="X" distance="-10.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_minus10">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_minus10_42x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton axis="X" distance="-1.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_minus1">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_minus1_35x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton axis="X" distance="1.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_plus1">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_1_35x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton axis="X" distance="10.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_plus10">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_10_42x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton axis="X" distance="100.0" onAction="#jogButton" pickOnBounds="false" fx:id="x_plus100">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_x_axis_100_67x52px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+		   </children>
+		</HBox>
+		<VBox fx:id="yAxisControls" translateX="-228.0" translateY="295.0" alignment="CENTER" fillWidth="false" maxWidth="195.0" maxHeight="184.0" pickOnBounds="false" visible="true">
+		   <children>
+				  <JogButton fx:id="y_minus100" axis="Y" distance="-100.0" onAction="#jogButton" pickOnBounds="false" translateX="65.5">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_minus100_64x31px_tx65.5.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="y_minus10" axis="Y" distance="-10.0" onAction="#jogButton" pickOnBounds="false" translateX="44.5">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_minus10_61x23px_tx44.5.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="y_minus1" axis="Y" distance="-1.0" onAction="#jogButton" pickOnBounds="false" translateX="28">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_minus1_64x24px_tx28.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="y_plus1" axis="Y" distance="1.0" onAction="#jogButton" pickOnBounds="false" translateX="6.5">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_1_69x25px_tx6.5.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="y_plus10" axis="Y" distance="10.0" onAction="#jogButton" pickOnBounds="false" translateX="-14.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_10_79x29px_txminus14.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="y_plus100" axis="Y" distance="100.0" onAction="#jogButton" pickOnBounds="false" translateX="-46.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_y_axis_100_103x52px_txminus46.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+		   </children>
+		</VBox>
+		<VBox fx:id="zAxisControls" translateX="-152.0" translateY="16.0" alignment="CENTER" fillWidth="false" maxWidth="68.0" maxHeight="300.0" visible="true">
+		   <children>
+				  <JogButton fx:id="z_plus100" axis="Z" distance="100.0" onAction="#jogButton">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_100_68x71px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="z_plus10" axis="Z" distance="10.0" onAction="#jogButton" translateX="1.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_10_68x42px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="z_plus1" axis="Z" distance="1.0" onAction="#jogButton" translateX="1.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_1_68x37px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="z_minus1" axis="Z" distance="-1.0" onAction="#jogButton" translateX="1.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_minus1_68x37px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="z_minus10" axis="Z" distance="-10.0" onAction="#jogButton" translateX="2.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_minus10_68x42px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+				  <JogButton fx:id="z_minus100" axis="Z" distance="-100.0" onAction="#jogButton" translateX="3.0">
+					  <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							  <image>
+								  <Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_z_axis_minus100_68x71px.png" />
+							  </image>
+						  </ImageView>
+					  </graphic>
+				  </JogButton>
+		   </children>
+		</VBox>
+		<VBox fx:id="extruder1Controls" translateX="-381.0" translateY="-175.0" maxWidth="153.0" maxHeight="104.0" visible="true">
+		   <children>
+		   	  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity">
+				 <children>
+						<JogButton fx:id="extruder1_plus5" axis="E" distance="12.0" feedRate="300" onAction="#jogButton" style="-fx-padding: 0 0 0 33;" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_5_27x52px_pad33l.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+						<JogButton fx:id="extruder1_plus20" axis="E" distance="48.0" feedRate="300" onAction="#jogButton" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_20_40x52px.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+						<JogButton fx:id="extruder1_plus100" axis="E" distance="240.0" feedRate="300" onAction="#jogButton" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_100_53x52px.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+				 </children>
+			  </HBox>
+			  <HBox alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity">
+				 <children>
+						<JogButton fx:id="extruder1_minus100" axis="E" distance="-240.0" feedRate="300" onAction="#jogButton" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_minus100_53x52px.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+						<JogButton fx:id="extruder1_minus20" axis="E" distance="-48.0" feedRate="300" onAction="#jogButton" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_minus20_40x52px.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+						<JogButton fx:id="extruder1_minus5" axis="E" distance="-12.0" feedRate="300" onAction="#jogButton" useG1="true">
+							<graphic>
+								<ImageView pickOnBounds="true" preserveRatio="true">
+									<image>
+										<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder1_minus5_27x52px.png" />
+									</image>
+								</ImageView>
+							</graphic>
+						</JogButton>
+				 </children>
+			  </HBox>
+		   </children>
+		</VBox>
+		<VBox fx:id="extruder2Controls" translateX="-381.0" translateY="35.0" maxWidth="153.0" maxHeight="104.0" visible="true">
+		   <children>
+		   	  <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity">
+				 <children>
+					<JogButton fx:id="extruder2_plus5" axis="D" distance="12.0" feedRate="300" onAction="#jogButton" style="-fx-padding: 0 0 0 33;" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_5_27x52px_pad33l.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+					<JogButton fx:id="extruder2_plus20" axis="D" distance="48.0" feedRate="300" onAction="#jogButton" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_20_40x52px.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+					<JogButton fx:id="extruder2_plus100" axis="D" distance="240.0" feedRate="300" onAction="#jogButton" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_100_53x52px.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+				 </children>
+			  </HBox>
+			  <HBox alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity">
+				 <children>
+					<JogButton fx:id="extruder2_minus100" axis="D" distance="-240.0" feedRate="300" onAction="#jogButton" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_minus100_53x52px.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+					<JogButton fx:id="extruder2_minus20" axis="D" distance="-48.0" feedRate="300" onAction="#jogButton" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_minus20_40x52px.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+					<JogButton fx:id="extruder2_minus5" axis="D" distance="-12.0" feedRate="300" onAction="#jogButton" useG1="true">
+					   <graphic>
+						  <ImageView pickOnBounds="true" preserveRatio="true">
+							 <image>
+								<Image url="@/org/openautomaker/ui/images/jog_arrows/rbx10_extruder2_minus5_27x52px.png" />
+							 </image>
+						  </ImageView>
+					   </graphic>
+					</JogButton>
+				 </children>
+			  </HBox>
+		   </children>
+		</VBox>
+	</children>
+</StackPane>

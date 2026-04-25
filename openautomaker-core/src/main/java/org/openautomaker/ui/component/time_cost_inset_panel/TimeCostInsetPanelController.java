@@ -21,13 +21,13 @@ import org.openautomaker.base.task_executor.TaskExecutor;
 import org.openautomaker.environment.I18N;
 import org.openautomaker.environment.preference.slicer.SlicerPreference;
 import org.openautomaker.ui.ProjectAwareController;
+import org.openautomaker.ui.state.ProjectGUIStates;
 import org.openautomaker.ui.state.SelectedPrinter;
 import org.openautomaker.ui.state.SelectedProject;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
 import celtech.appManager.GCodeGeneratorManager;
-import celtech.appManager.ModelContainerProject;
 import celtech.appManager.Project;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
@@ -115,6 +115,7 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 	private final TaskExecutor taskExecutor;
 	private final ApplicationStatus applicationStatus;
 	private final SelectedPrinter selectedPrinter;
+	private final ProjectGUIStates projectGUIStates;
 
 	@Inject
 	protected TimeCostInsetPanelController(
@@ -123,13 +124,15 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 			ApplicationStatus applicationStatus,
 			SelectedPrinter selectedPrinter,
 			SelectedProject selectedProject,
-			SlicerPreference slicerPreference) {
+			SlicerPreference slicerPreference,
+			ProjectGUIStates projectGUIStates) {
 
 		this.i18n = i18n;
 		this.taskExecutor = taskExecutor;
 		this.applicationStatus = applicationStatus;
 		this.selectedPrinter = selectedPrinter;
 		this.slicerPreference = slicerPreference;
+		this.projectGUIStates = projectGUIStates;
 
 		gCodePrepChangeListener = (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			currentPrinter = selectedPrinter.get();
@@ -214,16 +217,16 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 		qualityToggleGroup.selectedToggleProperty().addListener(
 				(ObservableValue<? extends Toggle> observable, Toggle oldValue, Toggle newValue) -> {
 					settingPrintQuality = true;
-					GCodeGeneratorManager gCodeGeneratorManager = currentProject.getGCodeGenManager();
+					GCodeGeneratorManager gCodeGeneratorManager = projectGUIStates.get(currentProject).getGCodeGenManager();
 					changeSlicingOrder((PrintQualityEnumeration) newValue.getUserData(), gCodeGeneratorManager);
 
-					if (currentProject != null && currentProject instanceof ModelContainerProject) {
+					if (currentProject != null) {
 						gCodeGeneratorManager.setSuppressReaction(true);
 					}
 
 					currentProject.getPrinterSettings().setPrintQuality((PrintQualityEnumeration) newValue.getUserData());
 
-					if (currentProject != null && currentProject instanceof ModelContainerProject) {
+					if (currentProject != null) {
 						gCodeGeneratorManager.setSuppressReaction(false);
 					}
 
@@ -246,16 +249,16 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 
 	@Override
 	public void setProject(Project project) {
-		if (currentProject != null && currentProject instanceof ModelContainerProject)
-			currentProject.getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
+		if (currentProject != null)
+			projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
 
 		currentProject = project;
 		if (currentProject != null) {
 			selectPrintProfile(currentProject.getPrintQuality());
 		}
 
-		if (currentProject != null && currentProject instanceof ModelContainerProject)
-			currentProject.getGCodeGenManager().getDataChangedProperty().addListener(this.gCodePrepChangeListener);
+		if (currentProject != null)
+			projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().addListener(this.gCodePrepChangeListener);
 	}
 
 	private void selectPrintProfile(PrintQualityEnumeration printQuality) {
@@ -357,20 +360,18 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 	private void updateFieldsForQuality(Project project, PrintQualityEnumeration printQuality,
 			Label lblTime, Label lblWeight, Label lblCost, Cancellable cancellable) {
 		if (!modelOutOfBounds(project, printQuality)) {
-			if (project instanceof ModelContainerProject) {
-				String working = i18n.t("timeCost.working");
-				taskExecutor.runOnGUIThread(() -> {
-					lblTime.setText(working);
-					lblWeight.setText(working);
-					lblCost.setText(working);
-				});
+			String working = i18n.t("timeCost.working");
+			taskExecutor.runOnGUIThread(() -> {
+				lblTime.setText(working);
+				lblWeight.setText(working);
+				lblCost.setText(working);
+			});
 
-				GetTimeWeightCost updateDetails = new GetTimeWeightCost((ModelContainerProject) project,
-						lblTime, lblWeight,
-						lblCost, cancellable);
+			GetTimeWeightCost updateDetails = new GetTimeWeightCost(project,
+					lblTime, lblWeight,
+					lblCost, cancellable);
 
-				updateDetails.updateFromProject(printQuality);
-			}
+			updateDetails.updateFromProject(printQuality);
 		}
 	}
 
@@ -435,8 +436,8 @@ public class TimeCostInsetPanelController implements ProjectAwareController {
 	@Override
 	public void shutdownController() {
 
-		if (currentProject != null && currentProject instanceof ModelContainerProject)
-			currentProject.getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
+		if (currentProject != null)
+			projectGUIStates.get(currentProject).getGCodeGenManager().getDataChangedProperty().removeListener(this.gCodePrepChangeListener);
 		currentProject = null;
 
 		applicationStatus.modeProperty().removeListener(applicationModeChangeListener);

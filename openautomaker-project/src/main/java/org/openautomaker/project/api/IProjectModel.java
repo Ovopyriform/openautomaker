@@ -1,9 +1,9 @@
 package org.openautomaker.project.api;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.Set;
 
-import org.openautomaker.project.data.ModelTransformData;
+import org.openautomaker.project.rbxproj.data.ModelTransformData;
 
 /**
  * A model that can be placed on the print bed and stored in a {@code .rbxproj} archive.
@@ -13,8 +13,18 @@ public interface IProjectModel {
 
 	int getModelId();
 
-	/** Original source file from which this model was imported. May be {@code null}. */
-	File getSourceFile();
+	/** Original source path from which this model was imported. May be {@code null}. */
+	Path getSourcePath();
+
+	/** Entry path within the {@code .rbxproj} archive this model was loaded from. {@code null} for freshly imported models. */
+	String getRbxprojEntryPath();
+
+	void setRbxprojEntryPath(String entryPath);
+
+	/** SHA-256 hex hash of the model file content as stored in the {@code .rbxproj} archive. {@code null} for freshly imported models. */
+	String getRbxprojContentHash();
+
+	void setRbxprojContentHash(String hash);
 
 	String getModelName();
 

@@ -13,7 +13,8 @@ import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
 import org.openautomaker.base.configuration.fileRepresentation.SupportType;
 import org.openautomaker.test_library.GuiceExtension;
-import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
+import org.openautomaker.ui.inject.project.ProjectFactory;
+import org.openautomaker.ui.project.robox.RoboxWriter;
 import org.testfx.framework.junit5.Start;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -39,10 +40,13 @@ public class ProjectTest {
 	private FilamentContainer filamentContainer;
 
 	@Inject
-	ModelContainerProjectFactory modelContainerProjectFactory;
+	ProjectFactory projectFactory;
 
 	@Inject
 	private ProjectManager projectManager;
+
+	@Inject
+	private RoboxWriter roboxWriter;
 
 	@Inject
 	private TestUtils testUtils;
@@ -64,7 +68,7 @@ public class ProjectTest {
 		Filament FILAMENT_0 = filamentContainer.getFilamentByID("RBX-ABS-GR499");
 		Filament FILAMENT_1 = filamentContainer.getFilamentByID("RBX-PLA-PP157");
 
-		ModelContainerProject project = makeProject().getKey();
+		Project project = makeProject().getKey();
 		project.setProjectName(PROJECT_NAME);
 		project.getPrinterSettings().setBrimOverride(BRIM);
 		project.getPrinterSettings().setFillDensityOverride(FILL_DENSITY);
@@ -74,9 +78,9 @@ public class ProjectTest {
 		project.setExtruder1Filament(FILAMENT_1);
 
 		Path tempFilePath = tempDir.resolve("testSaveOneProject.robox");
-		project.save(tempFilePath);
+		roboxWriter.write(project, tempFilePath);
 
-		ModelContainerProject newProject = (ModelContainerProject) projectManager.loadProject(tempFilePath);
+		Project newProject = projectManager.loadProject(tempFilePath);
 
 		assertEquals(PROJECT_NAME, newProject.getProjectName());
 		assertEquals(BRIM, newProject.getPrinterSettings().getBrimOverride());
@@ -86,12 +90,12 @@ public class ProjectTest {
 		assertEquals(FILAMENT_1, newProject.getExtruder1FilamentProperty().get());
 	}
 
-	private Pair<ModelContainerProject, ModelGroup> makeProject() {
+	private Pair<Project, ModelGroup> makeProject() {
 		ModelContainer mc1 = testUtils.makeModelContainer(true);
 		ModelContainer mc2 = testUtils.makeModelContainer(true);
 		ModelContainer mc3 = testUtils.makeModelContainer(true);
 		mc3.setId("mc3");
-		ModelContainerProject project = modelContainerProjectFactory.create();
+		Project project = projectFactory.create();
 		project.addModel(mc1);
 		project.addModel(mc2);
 		project.addModel(mc3);
@@ -108,12 +112,12 @@ public class ProjectTest {
 		return new Pair<>(project, group);
 	}
 
-	private Pair<ModelContainerProject, ModelGroup> makeProjectWithGroupOfGroups() {
+	private Pair<Project, ModelGroup> makeProjectWithGroupOfGroups() {
 		ModelContainer mc1 = testUtils.makeModelContainer(true);
 		ModelContainer mc2 = testUtils.makeModelContainer(true);
 		ModelContainer mc3 = testUtils.makeModelContainer(true);
 		ModelContainer mc4 = testUtils.makeModelContainer(true);
-		ModelContainerProject project = modelContainerProjectFactory.create();
+		Project project = projectFactory.create();
 		project.addModel(mc1);
 		project.addModel(mc2);
 		project.addModel(mc3);
@@ -138,15 +142,15 @@ public class ProjectTest {
 	//	@Test
 	//	public void testSaveProjectWithGroup(@TempDir Path tempDir) throws IOException {
 	//
-	//		Pair<ModelContainerProject, ModelGroup> pair = makeProject();
-	//		ModelContainerProject project = pair.getKey();
+	//		Pair<Project, ModelGroup> pair = makeProject();
+	//		Project project = pair.getKey();
 	//		Set<Integer> expectedIds = project.getTopLevelThings().stream().map(
 	//				x -> x.getModelId()).collect(Collectors.toSet());
 	//
 	//		Path projectFilePath = tempDir.resolve("testSaveProjectWithGroup.robox");
 	//		project.save(projectFilePath);
 	//
-	//		ModelContainerProject newProject = (ModelContainerProject) projectManager.loadProject(projectFilePath);
+	//		Project newProject = (Project) projectManager.loadProject(projectFilePath);
 	//
 	//		assertEquals(2, newProject.getTopLevelThings().size());
 	//
@@ -158,8 +162,8 @@ public class ProjectTest {
 	//	@Test
 	//	public void testSaveProjectWithGroupOfGroupsThenLoadAndUngroup(@TempDir Path tempDir) throws IOException {
 	//
-	//		Pair<ModelContainerProject, ModelGroup> pair = makeProjectWithGroupOfGroups();
-	//		ModelContainerProject project = pair.getKey();
+	//		Pair<Project, ModelGroup> pair = makeProjectWithGroupOfGroups();
+	//		Project project = pair.getKey();
 	//		ModelGroup superGroup = pair.getValue();
 	//		Set<Integer> expectedIds = superGroup.getChildModelContainers().stream().map(
 	//				x -> x.getModelId()).collect(Collectors.toSet());
@@ -167,7 +171,7 @@ public class ProjectTest {
 	//		Path projectFilePath = tempDir.resolve("testSaveProjectWithGroupOfGroupsThenLoadAndUngroup.robox");
 	//		project.save(projectFilePath);
 	//
-	//		ModelContainerProject newProject = (ModelContainerProject) projectManager.loadProject(projectFilePath);
+	//		Project newProject = (Project) projectManager.loadProject(projectFilePath);
 	//
 	//		assertEquals(1, newProject.getTopLevelThings().size());
 	//
@@ -193,8 +197,8 @@ public class ProjectTest {
 	//
 	//		double ROTATION = 20.1f;
 	//
-	//		Pair<ModelContainerProject, ModelGroup> pair = makeProject();
-	//		ModelContainerProject project = pair.getKey();
+	//		Pair<Project, ModelGroup> pair = makeProject();
+	//		Project project = pair.getKey();
 	//		ModelGroup group = pair.getValue();
 	//		group.setRotationLean(ROTATION);
 	//
@@ -202,7 +206,7 @@ public class ProjectTest {
 	//
 	//		project.save(projectFilePath);
 	//
-	//		ModelContainerProject newProject = (ModelContainerProject) projectManager.loadProject(projectFilePath);
+	//		Project newProject = (Project) projectManager.loadProject(projectFilePath);
 	//
 	//		Set<ModelGroup> modelGroups = newProject.getTopLevelThings().stream().filter(x -> x instanceof ModelGroup).map(x -> (ModelGroup) x).collect(Collectors.toSet());
 	//

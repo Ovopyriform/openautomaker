@@ -12,16 +12,16 @@ import java.util.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.notification_manager.SystemNotificationManager;
+import org.openautomaker.environment.I18N;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.utils.RectangularBounds;
 import org.openautomaker.environment.preference.modeling.SplitLoosePartsOnLoadPreference;
 import org.openautomaker.ui.inject.model.ModelGroupFactory;
-import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
-import org.openautomaker.ui.inject.project.ShapeContainerProjectFactory;
+
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
 import org.openautomaker.ui.state.SelectedPrinter;
 
-import celtech.appManager.ModelContainerProject;
+import org.openautomaker.ui.inject.project.ProjectFactory;
 import celtech.appManager.Project;
 import celtech.appManager.ProjectCallback;
 import celtech.appManager.ProjectMode;
@@ -57,31 +57,31 @@ public class ModelLoader {
 
 	private final SystemNotificationManager systemNotificationManager;
 	private final SelectedPrinter selectedPrinter;
-	private final ModelContainerProjectFactory modelContainerProjectFactory;
-	private final ShapeContainerProjectFactory shapeContainerProjectFactory;
+	private final ProjectFactory projectFactory;
 	private final UndoableProjectFactory undoableProjectFactory;
 	private final ModelGroupFactory modelGroupFactory;
 	private final SplitLoosePartsOnLoadPreference splitLoosePartsOnLoadPreference;
+	private final I18N i18n;
 
 	@Inject
 	protected ModelLoader(
 			SystemNotificationManager systemNotificationManager,
 			ModelLoaderService modelLoaderService,
 			SelectedPrinter selectedPrinter,
-			ModelContainerProjectFactory modelContainerProjectFactory,
-			ShapeContainerProjectFactory shapeContainerProjectFactory,
+			ProjectFactory projectFactory,
 			UndoableProjectFactory undoableProjectFactory,
 			ModelGroupFactory modelGroupFactory,
-			SplitLoosePartsOnLoadPreference splitLoosePartsOnLoadPreference) {
+			SplitLoosePartsOnLoadPreference splitLoosePartsOnLoadPreference,
+			I18N i18n) {
 
 		this.systemNotificationManager = systemNotificationManager;
 		this.modelLoaderService = modelLoaderService;
 		this.selectedPrinter = selectedPrinter;
-		this.modelContainerProjectFactory = modelContainerProjectFactory;
-		this.shapeContainerProjectFactory = shapeContainerProjectFactory;
+		this.projectFactory = projectFactory;
 		this.undoableProjectFactory = undoableProjectFactory;
 		this.modelGroupFactory = modelGroupFactory;
 		this.splitLoosePartsOnLoadPreference = splitLoosePartsOnLoadPreference;
+		this.i18n = i18n;
 	}
 
 	public ModelLoaderService getModelLoaderService() {
@@ -93,6 +93,9 @@ public class ModelLoader {
 			Printer printer) {
 		ModelLoadResults loadResults = modelLoaderService.getValue();
 		if (loadResults.getResults().isEmpty()) {
+			systemNotificationManager.showErrorNotification(
+					i18n.t("dialogs.loadModelFailedTitle"),
+					i18n.t("dialogs.loadModelFailedMessage"));
 			return;
 		}
 
@@ -165,17 +168,6 @@ public class ModelLoader {
 				//            project.autoLayout();
 			}
 		}
-		else if (loadResults.getType() == ModelLoadResultType.SVG) {
-
-			project.setMode(ProjectMode.SVG);
-			Set<ProjectifiableThing> allProjectifiableThings = new HashSet<>();
-			for (ModelLoadResult result : loadResults.getResults()) {
-				allProjectifiableThings.addAll(result.getProjectifiableThings());
-			}
-
-			addToProject(project, allProjectifiableThings, false, dontGroupModelsOverride, printer);
-
-		}
 
 		if (project != null
 				&& callMeBack != null) {
@@ -210,6 +202,12 @@ public class ModelLoader {
 			boolean dontGroupModelsOverride) {
 		modelLoaderService.reset();
 		modelLoaderService.setModelFilesToLoad(modelsToLoad);
+		modelLoaderService.setOnFailed((WorkerStateEvent t) -> {
+			LOGGER.error("Model loader service failed", t.getSource().getException());
+			systemNotificationManager.showErrorNotification(
+					i18n.t("dialogs.loadModelFailedTitle"),
+					i18n.t("dialogs.loadModelFailedMessage"));
+		});
 		modelLoaderService.setOnSucceeded((WorkerStateEvent t) -> {
 			Project projectToUse = null;
 
@@ -218,10 +216,8 @@ public class ModelLoader {
 				if (!loadResults.getResults().isEmpty()) {
 					switch (loadResults.getType()) {
 						case Mesh:
-							projectToUse = modelContainerProjectFactory.create();
-							break;
-						case SVG:
-							projectToUse = shapeContainerProjectFactory.create();
+							projectToUse = projectFactory.create();
+							projectToUse.initialiseExtruderFilaments(selectedPrinter.get());
 							break;
 					}
 				}
@@ -243,26 +239,21 @@ public class ModelLoader {
 			Printer printer) {
 		UndoableProject undoableProject = undoableProjectFactory.create(project);
 
-		if (project instanceof ModelContainerProject) {
-			ModelContainer modelContainer;
+		ModelContainer modelContainer;
 
-			if (modelContainers.size() == 1) {
-				modelContainer = (ModelContainer) modelContainers.iterator().next();
-				addModelSequence(undoableProject, modelContainer, shouldCentre, printer);
-			}
-			else if (!dontGroupModelsOverride) {
-				Set<Groupable> thingsToGroup = (Set) modelContainers;
-				modelContainer = ((ModelContainerProject) project).createNewGroupAndAddModelListeners(thingsToGroup);
-				addModelSequence(undoableProject, modelContainer, shouldCentre, printer);
-			}
-			else {
-				modelContainers.iterator().forEachRemaining(mc -> {
-					addModelSequence(undoableProject, mc, shouldCentre, printer);
-				});
-			}
+		if (modelContainers.size() == 1) {
+			modelContainer = (ModelContainer) modelContainers.iterator().next();
+			addModelSequence(undoableProject, modelContainer, shouldCentre, printer);
+		}
+		else if (!dontGroupModelsOverride) {
+			Set<Groupable> thingsToGroup = (Set) modelContainers;
+			modelContainer = project.createNewGroupAndAddModelListeners(thingsToGroup);
+			addModelSequence(undoableProject, modelContainer, shouldCentre, printer);
 		}
 		else {
-			addModelSequence(undoableProject, modelContainers.iterator().next(), shouldCentre, printer);
+			modelContainers.iterator().forEachRemaining(mc -> {
+				addModelSequence(undoableProject, mc, shouldCentre, printer);
+			});
 		}
 	}
 

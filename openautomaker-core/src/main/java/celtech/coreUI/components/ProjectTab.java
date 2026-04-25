@@ -14,8 +14,7 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.FXMLLoaderFactory;
 import org.openautomaker.guice.GuiceContext;
 import org.openautomaker.ui.ProjectAwareController;
-import org.openautomaker.ui.inject.project.ModelContainerProjectFactory;
-import org.openautomaker.ui.inject.project.ShapeContainerProjectFactory;
+
 import org.openautomaker.ui.inject.visualisation.DimensionLineManagerFactory;
 import org.openautomaker.ui.inject.visualisation.ThreeDViewManagerFactory;
 import org.openautomaker.ui.state.ProjectGUIStates;
@@ -30,20 +29,17 @@ import org.openautomaker.ui.component.controls.RestrictedTextField;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import celtech.appManager.ModelContainerProject;
+import org.openautomaker.ui.inject.project.ProjectFactory;
 import celtech.appManager.Project;
 import celtech.appManager.ProjectCallback;
 import celtech.appManager.ProjectManager;
 import celtech.appManager.ProjectMode;
-import celtech.appManager.ProjectPersistance;
-import celtech.appManager.ShapeContainerProject;
 import celtech.configuration.ApplicationConfiguration;
 import celtech.coreUI.LayoutSubmode;
 import celtech.coreUI.visualisation.BedAxes;
 import celtech.coreUI.visualisation.DimensionLineManager;
 import celtech.coreUI.visualisation.DragMode;
 import celtech.coreUI.visualisation.ModelLoader;
-import celtech.coreUI.visualisation.SVGViewManager;
 import celtech.coreUI.visualisation.ThreeDViewManager;
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
@@ -83,7 +79,6 @@ public class ProjectTab extends Tab implements ProjectCallback {
 	private AnchorPane basePane = null;
 	private AnchorPane overlayPane = null;
 	private ThreeDViewManager viewManager = null;
-	private SVGViewManager svgViewManager = null;
 	private boolean titleBeingEdited = false;
 
 	private DimensionLineManager dimensionLineManager = null;
@@ -132,19 +127,13 @@ public class ProjectTab extends Tab implements ProjectCallback {
 	private ProjectManager projectManager;
 
 	@Inject
-	private ProjectPersistance projectPersistance;
-
-	@Inject
 	private ApplicationStatus applicationStatus;
 
 	@Inject
 	private SelectedProject selectedProject;
 
 	@Inject
-	private ModelContainerProjectFactory modelContainerProjectFactory;
-
-	@Inject
-	private ShapeContainerProjectFactory shapeContainerProjectFactory;
+	private ProjectFactory projectFactory;
 
 	@Inject
 	private FXMLLoaderFactory fxmlLoaderFactroy;
@@ -161,6 +150,9 @@ public class ProjectTab extends Tab implements ProjectCallback {
 	@Inject
 	private ModelLoader modelLoader;
 
+	@Inject
+	private org.openautomaker.ui.state.SelectedPrinter selectedPrinter;
+
 	public ProjectTab(ReadOnlyDoubleProperty tabDisplayWidthProperty, ReadOnlyDoubleProperty tabDisplayHeightProperty) {
 		GuiceContext.get().injectMembers(this);
 
@@ -169,7 +161,8 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		coreInitialisation();
 	}
 
-	public ProjectTab(Project inboundProject, ReadOnlyDoubleProperty tabDisplayWidthProperty, ReadOnlyDoubleProperty tabDisplayHeightProperty, boolean loadingAtStartup) {
+	public ProjectTab(Project inboundProject, ReadOnlyDoubleProperty tabDisplayWidthProperty, ReadOnlyDoubleProperty tabDisplayHeightProperty,
+			boolean loadingAtStartup) {
 		GuiceContext.get().injectMembers(this);
 
 		project = inboundProject;
@@ -179,17 +172,12 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		initialiseWithProject(loadingAtStartup);
 	}
 
-
 	public Project getProject() {
 		return project;
 	}
 
 	public ThreeDViewManager getThreeDViewManager() {
 		return viewManager;
-	}
-
-	public SVGViewManager getSVGViewManager() {
-		return svgViewManager;
 	}
 
 	private void primeTabInsetPanels(boolean tabIsSelected) {
@@ -236,7 +224,6 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			LOGGER.debug("Beginning project save");
 			saveAndCloseProject();
 			LOGGER.debug("Completed project save");
-			projectManager.rememberOpenProjects();
 		});
 
 		setOnSelectionChanged((Event t) -> {
@@ -286,12 +273,12 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		rhInsetContainer.mouseTransparentProperty().bind(applicationStatus.modeProperty().isNotEqualTo(ApplicationMode.SETTINGS));
 		basePane.getChildren().add(rhInsetContainer);
 
-		//        VBox dimensionContainer = new VBox();
-		//        dimensionContainer.setMouseTransparent(true);
-		//        AnchorPane.setBottomAnchor(dimensionContainer, 0.0);
-		//        AnchorPane.setTopAnchor(dimensionContainer, 0.0);
-		//        AnchorPane.setRightAnchor(dimensionContainer, 0.0);
-		//        AnchorPane.setLeftAnchor(dimensionContainer, 0.0);
+		// VBox dimensionContainer = new VBox();
+		// dimensionContainer.setMouseTransparent(true);
+		// AnchorPane.setBottomAnchor(dimensionContainer, 0.0);
+		// AnchorPane.setTopAnchor(dimensionContainer, 0.0);
+		// AnchorPane.setRightAnchor(dimensionContainer, 0.0);
+		// AnchorPane.setLeftAnchor(dimensionContainer, 0.0);
 
 		modelActionsInsetPanelData = loadInsetPanel(ModelEditInsetPanelController.class.getResource("modelEditInsetPanel.fxml"), project);
 		AnchorPane.setTopAnchor(modelActionsInsetPanelData.getNode(), 30.0);
@@ -306,11 +293,10 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			@Override
 			public void changed(ObservableValue<? extends LayoutSubmode> observable, LayoutSubmode oldValue, LayoutSubmode newValue) {
 				if (newValue == LayoutSubmode.Z_CUT) {
-					Set<ProjectifiableThing> selectedModelContainers = projectGUIStates.get(project).getProjectSelection().getSelectedModelsSnapshot();
-					if (project instanceof ModelContainerProject) {
-						zCutEntryBox.prime((ModelContainer) selectedModelContainers.iterator().next());
-						overlayPane.getChildren().add(zCutEntryBox);
-					}
+					Set<ProjectifiableThing> selectedModelContainers = projectGUIStates.get(project).getProjectSelection()
+							.getSelectedModelsSnapshot();
+					zCutEntryBox.prime((ModelContainer) selectedModelContainers.iterator().next());
+					overlayPane.getChildren().add(zCutEntryBox);
 				}
 				else {
 					if (overlayPane.getChildren().contains(zCutEntryBox)) {
@@ -325,12 +311,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 
 		setupNameFields();
 
-		if (project instanceof ModelContainerProject) {
-			setup3DView();
-		}
-		else if (project instanceof ShapeContainerProject) {
-			setupSVGView();
-		}
+		setup3DView();
 
 		fireProjectSelected();
 
@@ -343,13 +324,11 @@ public class ProjectTab extends Tab implements ProjectCallback {
 
 	private void setup3DView() {
 		nonSpecificModelIndicator.setVisible(false);
-		viewManager = threeDViewManagerFactory.create((ModelContainerProject) project,
-				tabDisplayWidthProperty,
-				tabDisplayHeightProperty);
+		viewManager = threeDViewManagerFactory.create((Project) project, tabDisplayWidthProperty, tabDisplayHeightProperty);
 
 		modelActionsInsetPanelData.getNode().mouseTransparentProperty().bind(viewManager.getDragModeProperty().isNotEqualTo(DragMode.IDLE));
 
-		zCutEntryBox = new ZCutEntryBox(overlayPane, layoutSubmode, viewManager, (ModelContainerProject) project);
+		zCutEntryBox = new ZCutEntryBox(overlayPane, layoutSubmode, viewManager, (Project) project);
 		bedAxes = new BedAxes(viewManager);
 		viewManager.addCameraViewChangeListener(bedAxes);
 
@@ -358,20 +337,6 @@ public class ProjectTab extends Tab implements ProjectCallback {
 
 		hideDimensions.bind(viewManager.getDragModeProperty().isNotEqualTo(DragMode.IDLE));
 
-	}
-
-	private void setupSVGView() {
-		nonSpecificModelIndicator.setVisible(false);
-		svgViewManager = new SVGViewManager(project);
-		svgViewManager.setMaxWidth(basePane.getWidth());
-		svgViewManager.setMaxHeight(basePane.getHeight());
-
-		AnchorPane.setBottomAnchor(svgViewManager, 0.0);
-		AnchorPane.setTopAnchor(svgViewManager, 0.0);
-		AnchorPane.setLeftAnchor(svgViewManager, 0.0);
-		AnchorPane.setRightAnchor(svgViewManager, 0.0);
-
-		basePane.getChildren().add(0, svgViewManager);
 	}
 
 	private LoadedPanelData loadInsetPanel(URL fxmlUrl, Project project) {
@@ -395,13 +360,11 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		editableProjectNameField.setRestrict(" -_0-9a-zA-Z\\p{L}\\p{M}*+");
 		editableProjectNameField.setMaxLength(25);
 
-		nonEditableProjectNameField.textProperty().bind(
-				project.projectNameProperty());
+		nonEditableProjectNameField.textProperty().bind(project.projectNameProperty());
 
 		nonEditableProjectNameField.setOnMouseClicked((MouseEvent event) -> {
 			if (event.getClickCount() == 2) {
-				editableProjectNameField.setText(
-						nonEditableProjectNameField.getText());
+				editableProjectNameField.setText(nonEditableProjectNameField.getText());
 				setGraphic(editableProjectNameField);
 				editableProjectNameField.selectAll();
 				editableProjectNameField.requestFocus();
@@ -409,16 +372,14 @@ public class ProjectTab extends Tab implements ProjectCallback {
 			}
 		});
 
-		editableProjectNameField.focusedProperty().addListener(
-				new ChangeListener<Boolean>() {
-					@Override
-					public void changed(ObservableValue<? extends Boolean> ov,
-							Boolean t, Boolean t1) {
-						if (!t1) {
-							switchToNonEditableTitle();
-						}
-					}
-				});
+		editableProjectNameField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> ov, Boolean t, Boolean t1) {
+				if (!t1) {
+					switchToNonEditableTitle();
+				}
+			}
+		});
 
 		editableProjectNameField.setOnAction((ActionEvent event) -> {
 			switchToNonEditableTitle();
@@ -444,8 +405,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 								List<String> extensions = ApplicationConfiguration.getSupportedFileExtensions(projectMode);
 
 								for (String extension : extensions) {
-									if (file.getName().toUpperCase().endsWith(
-											extension.toUpperCase())) {
+									if (file.getName().toUpperCase().endsWith(extension.toUpperCase())) {
 										extensionFound = true;
 										break;
 									}
@@ -563,11 +523,17 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		if (viewManager != null)
 			viewManager.shutdown();
 		if (project != null) {
-			projectPersistance.saveProject(project);
+			projectManager.saveProject(project);
 			if (projectAwareController != null)
 				projectAwareController.setProject(null);
+			// Shutdown the GCodeGeneratorManager before removing state
+			org.openautomaker.ui.ProjectGUIState guiState = projectGUIStates.get(project);
+			if (guiState != null) {
+				guiState.getGCodeGenManager().shutdown();
+			}
 			if (projectManager != null)
 				projectManager.projectClosed(project);
+			projectGUIStates.remove(project);
 			project = null;
 		}
 	}
@@ -578,7 +544,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 
 	public void fireProjectDeselected() {
 		if (project != null && !project.isProjectSaved()) {
-			projectPersistance.saveProject(project);
+			projectManager.saveProject(project);
 		}
 	}
 
@@ -592,15 +558,8 @@ public class ProjectTab extends Tab implements ProjectCallback {
 
 	public void initialiseBlank3DProject() {
 		if (this.project == null) {
-			ModelContainerProject newProject = modelContainerProjectFactory.create();
-			this.project = newProject;
-			initialiseWithProject(false);
-		}
-	}
-
-	public void initialiseBlank2DProject() {
-		if (this.project == null) {
-			ShapeContainerProject newProject = shapeContainerProjectFactory.create();
+			Project newProject = projectFactory.create();
+			newProject.initialiseExtruderFilaments(selectedPrinter.get());
 			this.project = newProject;
 			initialiseWithProject(false);
 		}
@@ -613,9 +572,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 		Bounds rhBounds = rhInsetContainer.localToScreen(rhInsetContainer.getBoundsInLocal());
 
 		double w = rhBounds.getWidth(); // Width of the rhs is a measure of the size of the app.
-		nRectangle = new Rectangle2D(ssBounds.getMinX() + 0.05 * w,
-				ssBounds.getMinY() + 0.05 * w,
-				ssBounds.getWidth() - 1.2 * w,
+		nRectangle = new Rectangle2D(ssBounds.getMinX() + 0.05 * w, ssBounds.getMinY() + 0.05 * w, ssBounds.getWidth() - 1.2 * w,
 				ssBounds.getHeight() - 0.35 * w);
 		return nRectangle;
 	}

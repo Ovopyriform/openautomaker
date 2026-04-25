@@ -63,19 +63,15 @@ public class ApplicationConfiguration {
 
 	public static String projectGCodeDirectory = "GCode";
 
-	public static final String projectFileExtension = ".robox";
-	public static final String projectModelsFileExtension = ".models";
 	public static final String demoPrintFilename = "demoPrint.gcode";
-	private static final String supportedProjectFileExtension = projectFileExtension.replaceFirst("\\.", "");
+	private static final String supportedProjectFileExtension = org.openautomaker.ui.project.robox.RoboxFile.EXTENSION_WITHOUT_DOT;
+	private static final String supportedRbxProjFileExtension = "rbxproj";
 
 	public static final String[] supportedModelExtensions = {
 			"stl",
 			"obj",
+			//"svg",
 			"zip"
-	};
-
-	public static final String[] supported2DModelExtensions = {
-			//        "svg"
 	};
 
 	public static final String[] supportedProcessedModelExtensions = {
@@ -118,20 +114,12 @@ public class ApplicationConfiguration {
 				for (String extension : supportedModelExtensions) {
 					addExtension(returnVal, "*." + extension);
 				}
-				for (String extension : supported2DModelExtensions) {
-					addExtension(returnVal, "*." + extension);
-				}
 				for (String extension : supportedProcessedModelExtensions) {
 					addExtension(returnVal, "*." + extension);
 				}
 				break;
 			case MESH:
 				for (String extension : supportedModelExtensions) {
-					addExtension(returnVal, "*." + extension);
-				}
-				break;
-			case SVG:
-				for (String extension : supported2DModelExtensions) {
 					addExtension(returnVal, "*." + extension);
 				}
 				break;
@@ -150,18 +138,11 @@ public class ApplicationConfiguration {
 				for (String extension : supportedModelExtensions) {
 					addExtension(returnVal, extension);
 				}
-				for (String extension : supported2DModelExtensions) {
-					addExtension(returnVal, extension);
-				}
 				returnVal.add(supportedProjectFileExtension);
+				returnVal.add(supportedRbxProjFileExtension);
 				break;
 			case MESH:
 				for (String extension : supportedModelExtensions) {
-					addExtension(returnVal, extension);
-				}
-				break;
-			case SVG:
-				for (String extension : supported2DModelExtensions) {
 					addExtension(returnVal, extension);
 				}
 				break;

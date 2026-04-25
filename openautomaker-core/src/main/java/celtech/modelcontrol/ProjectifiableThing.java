@@ -1,6 +1,6 @@
 package celtech.modelcontrol;
 
-import java.io.File;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +32,9 @@ import javafx.scene.transform.Translate;
 
 public abstract class ProjectifiableThing extends Group implements ScreenExtentsProviderTwoD, ShapeProviderTwoD {
 
-	private File modelFile;
+	private Path modelFile;
+	private String rbxprojEntryPath;
+	private String rbxprojContentHash;
 	protected boolean isCollided = false;
 	protected BooleanProperty isSelected = new SimpleBooleanProperty(false);
 	protected BooleanProperty isOffBed = new SimpleBooleanProperty(false);
@@ -91,7 +93,7 @@ public abstract class ProjectifiableThing extends Group implements ScreenExtents
 		screenExtentsChangeListeners = new ArrayList<>();
 	}
 
-	public ProjectifiableThing(File modelFile) {
+	public ProjectifiableThing(Path modelFile) {
 		this();
 		this.modelFile = modelFile;
 	}
@@ -122,12 +124,28 @@ public abstract class ProjectifiableThing extends Group implements ScreenExtents
 
 	public abstract void clearElements();
 
-	public void setModelFile(File modelFile) {
+	public void setModelFile(Path modelFile) {
 		this.modelFile = modelFile;
 	}
 
-	public File getModelFile() {
+	public Path getModelFile() {
 		return modelFile;
+	}
+
+	public String getRbxprojEntryPath() {
+		return rbxprojEntryPath;
+	}
+
+	public void setRbxprojEntryPath(String rbxprojEntryPath) {
+		this.rbxprojEntryPath = rbxprojEntryPath;
+	}
+
+	public String getRbxprojContentHash() {
+		return rbxprojContentHash;
+	}
+
+	public void setRbxprojContentHash(String rbxprojContentHash) {
+		this.rbxprojContentHash = rbxprojContentHash;
 	}
 
 	public final void addChildNodes(ObservableList<Node> nodes) {

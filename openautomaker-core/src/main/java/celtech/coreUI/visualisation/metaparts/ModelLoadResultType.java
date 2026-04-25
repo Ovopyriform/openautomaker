@@ -11,10 +11,5 @@ public enum ModelLoadResultType {
 	 */
 	Mesh,
 
-	/**
-	 *
-	 */
-	SVG,
-
 	Image
 }
