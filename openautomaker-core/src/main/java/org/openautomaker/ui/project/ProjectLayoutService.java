@@ -63,13 +63,13 @@ public class ProjectLayoutService {
 
 		Printer selPrinter = selectedPrinter.get();
 		if (selPrinter != null && selPrinter.printerConfigurationProperty().get() != null) {
-			printVolumeWidth = selPrinter.printerConfigurationProperty().get().getPrintVolumeWidth();
-			printVolumeDepth = selPrinter.printerConfigurationProperty().get().getPrintVolumeDepth();
+			printVolumeWidth = selPrinter.printerConfigurationProperty().get().printVolumeWidth;
+			printVolumeDepth = selPrinter.printerConfigurationProperty().get().printVolumeDepth;
 		}
 		else {
 			PrinterDefinitionFile defaultPrinter = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
-			printVolumeWidth = defaultPrinter.getPrintVolumeWidth();
-			printVolumeDepth = defaultPrinter.getPrintVolumeDepth();
+			printVolumeWidth = defaultPrinter.printVolumeWidth;
+			printVolumeDepth = defaultPrinter.printVolumeDepth;
 		}
 
 		Dimension binDimension = new Dimension((int) printVolumeWidth, (int) printVolumeDepth);

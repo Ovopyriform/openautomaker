@@ -145,7 +145,7 @@ public class CameraTriggerManager {
 							// Synchronized access with CameraAPI::takeSnapshot, so both are not trying to access the
 							// camera at the same time. Synchronize on the CameraSettings class object as it
 							// is easily accessable to both methods.
-							if (cameraData.getProfile().isAmbientLightOff()) {
+							if (cameraData.profile.ambientLightOff) {
 								try {
 									associatedPrinter.setAmbientLEDColour(Color.BLACK);
 									// Apparently have to wait a couple of seconds for the light to turn off.
@@ -163,7 +163,7 @@ public class CameraTriggerManager {
 										SCRIPT_TIMEOUT,
 										parameters.toArray(new String[0]));
 							}
-							if (!cameraData.getProfile().isAmbientLightOff()) {
+							if (!cameraData.profile.ambientLightOff) {
 								try {
 									associatedPrinter.setAmbientLEDColour(associatedPrinter.getPrinterIdentity()
 											.printerColourProperty()

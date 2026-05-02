@@ -64,7 +64,7 @@ public class HeadContainer {
 				HeadFile headFileData = mapper.readValue(headFile, HeadFile.class);
 
 				headList.add(headFileData);
-				completeHeadMap.put(headFileData.getTypeCode(), headFileData);
+				completeHeadMap.put(headFileData.typeCode, headFileData);
 
 			}
 			catch (IOException ex) {

@@ -287,18 +287,18 @@ public class ProfileLibraryPanelController implements MenuInnerPanel {
 
 	private void setupHeadType() {
 		headContainer.getCompleteHeadList().forEach((head) -> {
-			cmbHeadType.getItems().add(head.getTypeCode());
+			cmbHeadType.getItems().add(head.typeCode);
 		});
 
 		cmbHeadType.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
 			HeadFile headDetails = headContainer.getHeadByID(newValue);
 			currentHeadType.set(newValue);
-			numNozzleHeaters.set(headDetails.getNozzleHeaters().size());
-			numNozzles.set(headDetails.getNozzles().size());
+			numNozzleHeaters.set(headDetails.nozzleHeaters.size());
+			numNozzles.set(headDetails.nozzles.size());
 
-			List<Float> nozzleSizes = headDetails.getNozzles()
+			List<Float> nozzleSizes = headDetails.nozzles
 					.stream()
-					.map(n -> n.getDiameter())
+					.map(n -> n.diameter)
 					.collect(Collectors.toList());
 
 			List<String> nozzleSizeStrings = nozzleSizes.stream()

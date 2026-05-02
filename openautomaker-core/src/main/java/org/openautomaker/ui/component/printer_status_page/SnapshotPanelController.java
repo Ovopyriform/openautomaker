@@ -1,8 +1,7 @@
 package org.openautomaker.ui.component.printer_status_page;
 
 import org.openautomaker.base.camera.CameraInfo;
-import org.openautomaker.base.comms.print_server.PrintServerConnection.CameraTag;
-import org.openautomaker.base.configuration.CoreMemory;
+import org.openautomaker.base.comms.print_server.data.CameraTag;
 import org.openautomaker.base.configuration.datafileaccessors.CameraProfileContainer;
 import org.openautomaker.base.configuration.fileRepresentation.CameraProfile;
 import org.openautomaker.base.device.CameraManager;
@@ -41,11 +40,9 @@ public class SnapshotPanelController extends SnapshotController {
 
 	private final SelectedPrinter selectedPrinter;
 	private final ApplicationStatus applicationStatus;
-	private final CoreMemory coreMemory;
 
 	@Inject
 	protected SnapshotPanelController(
-			CoreMemory coreMemory,
 			CameraManager cameraManager,
 			TaskExecutor taskExecutor,
 			ApplicationStatus applicationStatus,
@@ -54,7 +51,6 @@ public class SnapshotPanelController extends SnapshotController {
 
 		super(cameraManager, taskExecutor, cameraProfileContainer);
 
-		this.coreMemory = coreMemory;
 		this.selectedPrinter = selectedPrinter;
 		this.applicationStatus = applicationStatus;
 	}
@@ -113,7 +109,7 @@ public class SnapshotPanelController extends SnapshotController {
 				selectCameraAndProfile(profileName, cameraName);
 			}
 			else if (selectedProfile != null && selectedCamera != null) {
-				connectedServer.setCameraTag(selectedProfile.getProfileName(), selectedCamera.getCameraName());
+				connectedServer.setCameraTag(selectedProfile.profileName, selectedCamera.getCameraName());
 			}
 		}
 		controlSnapshotTask();
@@ -141,8 +137,7 @@ public class SnapshotPanelController extends SnapshotController {
 	protected void selectProfile(CameraProfile profile) {
 		super.selectProfile(profile);
 		if (connectedServer != null && profile != null && selectedCamera != null) {
-			connectedServer.setCameraTag(profile.getProfileName(), selectedCamera.getCameraName());
-			coreMemory.updateRoboxRoot(connectedServer);
+			connectedServer.setCameraTag(profile.profileName, selectedCamera.getCameraName());
 		}
 	}
 
@@ -150,8 +145,7 @@ public class SnapshotPanelController extends SnapshotController {
 	protected void selectCamera(CameraInfo camera) {
 		super.selectCamera(camera);
 		if (connectedServer != null && selectedProfile != null && camera != null) {
-			connectedServer.setCameraTag(selectedProfile.getProfileName(), camera.getCameraName());
-			coreMemory.updateRoboxRoot(connectedServer);
+			connectedServer.setCameraTag(selectedProfile.profileName, camera.getCameraName());
 		}
 	}
 }

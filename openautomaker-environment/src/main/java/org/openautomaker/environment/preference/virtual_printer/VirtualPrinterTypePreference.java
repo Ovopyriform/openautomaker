@@ -18,7 +18,7 @@ public class VirtualPrinterTypePreference extends APreference<PrinterType> {
 	}
 
 	@Override
-	public List<PrinterType> values() {
+	public List<PrinterType> validValues() {
 		return List.of(PrinterType.values());
 	}
 

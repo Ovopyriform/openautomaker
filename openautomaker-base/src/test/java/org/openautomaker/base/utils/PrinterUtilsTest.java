@@ -66,11 +66,9 @@ public class PrinterUtilsTest {
 		printer.overrideFilament(0, filament);
 		printer.loadFilament(0);
 
-		HeadFile headFile = new HeadFile();
-		headFile.setTypeCode("RBX01-SM");
-
-		NozzleHeaterData nozzleHeaterData = new NozzleHeaterData();
-		headFile.getNozzleHeaters().add(nozzleHeaterData);
+		List<NozzleHeaterData> nozzleHeaters = new ArrayList<>();
+		nozzleHeaters.add(new NozzleHeaterData(0, 0, 0));
+		HeadFile headFile = new HeadFile(2, "RBX01-SM", null, null, 0.0f, nozzleHeaters, new ArrayList<>());
 
 		printer.addHeadForHeadFile(headFile);
 
@@ -102,15 +100,10 @@ public class PrinterUtilsTest {
 		filament1.getNozzleTemperatureProperty().set(NOZZLE_TEMP_0);
 
 		MockPrinter printer = testPrinterFactory.create(2);
-		HeadFile headFile = new HeadFile();
-		headFile.setTypeCode("RBX01-DM");
-		headFile.setType(Head.HeadType.DUAL_MATERIAL_HEAD);
-
-		NozzleHeaterData nozzleHeaterData0 = new NozzleHeaterData();
-		headFile.getNozzleHeaters().add(nozzleHeaterData0);
-
-		NozzleHeaterData nozzleHeaterData1 = new NozzleHeaterData();
-		headFile.getNozzleHeaters().add(nozzleHeaterData1);
+		List<NozzleHeaterData> nozzleHeaters2 = new ArrayList<>();
+		nozzleHeaters2.add(new NozzleHeaterData(0, 0, 0));
+		nozzleHeaters2.add(new NozzleHeaterData(0, 0, 0));
+		HeadFile headFile = new HeadFile(2, "RBX01-DM", Head.HeadType.DUAL_MATERIAL_HEAD, null, 0.0f, nozzleHeaters2, new ArrayList<>());
 
 		printer.addHeadForHeadFile(headFile);
 

@@ -137,7 +137,7 @@ public class AdminAPI {
 
 			String serialToUse = Utils.cleanInboundJSONString(printerSerial);
 			if (serialToUse != null) {
-				for (Printer printer : PrinterRegistry.getInstance().getRemotePrinters().values()) {
+				for (Printer printer : PrinterRegistry.getInstance().getRemotePrinters().validValues()) {
 					if (printer.getPrinterIdentity().printerUniqueIDProperty().get().toLowerCase().endsWith(serialToUse.toLowerCase())) {
 						serialMatches = true;
 						break;

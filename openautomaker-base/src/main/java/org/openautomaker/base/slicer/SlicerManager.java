@@ -120,6 +120,6 @@ public class SlicerManager {
 	}
 
 	public SlicerMappingData getMappings() {
-		return slicerMappingsContainer.getSlicerMappings().getMappings().get(getSlicer());
+		return slicerMappingsContainer.getSlicerMappings().mappings.get(getSlicer());
 	}
 }

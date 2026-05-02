@@ -14,6 +14,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.camera.CameraInfo;
+import org.openautomaker.base.comms.print_server.data.CameraTag;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.fileRepresentation.CameraSettings;
 import org.openautomaker.base.inject.comms.PrintServerConnectionFactory;
@@ -78,32 +79,6 @@ public final class PrintServerConnection {
 		static final String CAMERA_CONTROL = "/api/cameraControl";
 
 		static final String TAKE_SNAPSHOT = "/snapshot";
-	}
-
-	// The current camera profile name and current camera name are stored in a tag structure which is immutable
-	// so the whole tag must be replaced to update them, thus notifying any property listeners if either the
-	// profile name or the camera name are changed.
-	public class CameraTag {
-		private final String cameraProfileName;
-		private final String cameraName;
-
-		public CameraTag() {
-			cameraProfileName = "";
-			cameraName = "";
-		}
-
-		public CameraTag(String cameraProfileName, String cameraName) {
-			this.cameraProfileName = cameraProfileName;
-			this.cameraName = cameraName;
-		}
-
-		public String getCameraProfileName() {
-			return cameraProfileName;
-		}
-
-		public String getCameraName() {
-			return cameraName;
-		}
 	}
 
 	private static final Logger LOGGER = LogManager.getLogger();
@@ -331,11 +306,11 @@ public final class PrintServerConnection {
 	}
 
 	public String getCameraProfileName() {
-		return fCameraTag.get().cameraProfileName;
+		return fCameraTag.get().getCameraProfileName();
 	}
 
 	public String getCameraName() {
-		return fCameraTag.get().cameraName;
+		return fCameraTag.get().getCameraName();
 	}
 
 	public String getRootUUID() {
@@ -688,7 +663,7 @@ public final class PrintServerConnection {
 				+ Configuration.remotePort
 				+ COMMAND.CAMERA_CONTROL
 				+ "/"
-				+ Integer.toString(settings.getCamera().getCameraNumber())
+				+ Integer.toString(settings.camera.getCameraNumber())
 				+ COMMAND.TAKE_SNAPSHOT;
 		Image snapshotImage = null;
 		long t1 = System.currentTimeMillis();

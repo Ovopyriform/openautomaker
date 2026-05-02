@@ -21,7 +21,7 @@ public class SlicerPreference extends APreference<Slicer> {
 	}
 
 	@Override
-	public List<Slicer> values() {
+	public List<Slicer> validValues() {
 		return List.of(Slicer.values());
 	}
 

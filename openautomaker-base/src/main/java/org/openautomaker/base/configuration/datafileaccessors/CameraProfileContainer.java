@@ -42,9 +42,9 @@ public class CameraProfileContainer {
 		this.cameraProfilesPathPreference = cameraProfilesPathPreference;
 
 		cameraProfilesMap = new HashMap<>();
-		defaultCameraProfile = new CameraProfile();
-		defaultCameraProfile.setSystemProfile(true);
-		cameraProfilesMap.put(defaultCameraProfile.getProfileName().toLowerCase(), defaultCameraProfile);
+		defaultCameraProfile = new CameraProfile(null, 720, 1080, true, false, true, 50, 50, null, null);
+		defaultCameraProfile.systemProfile = true;
+		cameraProfilesMap.put(defaultCameraProfile.profileName.toLowerCase(), defaultCameraProfile);
 		loadCameraProfiles();
 	}
 
@@ -69,8 +69,8 @@ public class CameraProfileContainer {
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(appCameraProfilesPath, cameraProfileSearchString)) {
 			for (Path path : stream) {
 				CameraProfile cameraProfile = objectMapper.readValue(path.toFile(), CameraProfile.class);
-				cameraProfile.setSystemProfile(true);
-				cameraProfilesMap.put(cameraProfile.getProfileName().toLowerCase(), cameraProfile);
+				cameraProfile.systemProfile = true;
+				cameraProfilesMap.put(cameraProfile.profileName.toLowerCase(), cameraProfile);
 			}
 		}
 		catch (IOException ex) {
@@ -80,7 +80,7 @@ public class CameraProfileContainer {
 		try (DirectoryStream<Path> stream = Files.newDirectoryStream(userCameraProfilePath, cameraProfileSearchString)) {
 			for (Path path : stream) {
 				CameraProfile cameraProfile = objectMapper.readValue(path.toFile(), CameraProfile.class);
-				cameraProfilesMap.put(cameraProfile.getProfileName().toLowerCase(), cameraProfile);
+				cameraProfilesMap.put(cameraProfile.profileName.toLowerCase(), cameraProfile);
 			}
 		}
 		catch (IOException ex) {
@@ -89,7 +89,7 @@ public class CameraProfileContainer {
 	}
 
 	public void saveCameraProfile(CameraProfile cameraProfile) {
-		if (cameraProfile.isSystemProfile()) {
+		if (cameraProfile.systemProfile) {
 			LOGGER.warn("Can't save system camera profile.");
 			return;
 		}
@@ -97,12 +97,12 @@ public class CameraProfileContainer {
 		ObjectMapper objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new Jdk8Module());
 
-		String cameraProfileFileName = cameraProfile.getProfileName() + BaseConfiguration.cameraProfileFileExtention;
+		String cameraProfileFileName = cameraProfile.profileName + BaseConfiguration.cameraProfileFileExtention;
 		Path cameraProfilePath = cameraProfilesPathPreference.getValue().resolve(cameraProfileFileName);
 
 		try {
 			objectMapper.writerWithDefaultPrettyPrinter().writeValue(cameraProfilePath.toFile(), cameraProfile);
-			cameraProfilesMap.put(cameraProfile.getProfileName().toLowerCase(), cameraProfile);
+			cameraProfilesMap.put(cameraProfile.profileName.toLowerCase(), cameraProfile);
 		}
 		catch (IOException ex) {
 			LOGGER.error("Error when trying to save profile of " + cameraProfilePath.toString(), ex);
@@ -111,12 +111,12 @@ public class CameraProfileContainer {
 	}
 
 	public void deleteCameraProfile(CameraProfile cameraProfile) {
-		if (cameraProfile.isSystemProfile()) {
+		if (cameraProfile.systemProfile) {
 			LOGGER.warn("Can't delete system camera profile.");
 			return;
 		}
 
-		String profileName = cameraProfile.getProfileName();
+		String profileName = cameraProfile.profileName;
 		String profileNameLC = profileName.toLowerCase();
 
 		if (cameraProfilesMap.containsKey(profileNameLC)) {

@@ -1,13 +1,11 @@
 package celtech.roboxbase.comms;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import org.openautomaker.base.camera.CameraInfo;
+import org.openautomaker.base.comms.print_server.ConnectedServersPreference;
 import org.openautomaker.base.comms.print_server.PrintServerConnection;
-import org.openautomaker.environment.preference.ConnectedServersPreference;
 
 import jakarta.inject.Inject;
 
@@ -31,11 +29,11 @@ public class RemoteCameraDetector {
 
 	public List<CameraInfo> searchForDevices() {
 		//Take a copy of the list in case it gets changed under our feet
-		Map<InetAddress, PrintServerConnection> activeRoboxRoots = connectedServersPreference.getValue();
+		List<PrintServerConnection> activeRoboxRoots = connectedServersPreference.getValue();
 		List<CameraInfo> allConnectedCameras = new ArrayList<>();
 
 		// Search the roots that have been registered in core memory
-		activeRoboxRoots.values().stream()
+		activeRoboxRoots.stream()
 				.filter(server -> (server.getServerStatus() == PrintServerConnection.ServerStatus.CONNECTED))
 				.forEachOrdered((server) -> {
 					List<CameraInfo> attachedCameras = server.listAttachedCameras();

@@ -1,40 +1,26 @@
 package org.openautomaker.base.configuration.fileRepresentation;
 
-/**
- *
- * @author Ian
- */
-public class PrinterEdition
-{
-    private String typeCode;
-    private String friendlyName;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public String getTypeCode()
-    {
-        return typeCode;
-    }
+public class PrinterEdition {
 
-    public void setTypeCode(String typeCode)
-    {
-        this.typeCode = typeCode;
-    }
+	public final String typeCode;
+	public final String friendlyName;
 
-    public String getFriendlyName()
-    {
-        return friendlyName;
-    }
+	@JsonCreator
+	public PrinterEdition(
+			@JsonProperty("typeCode") String typeCode,
+			@JsonProperty("friendlyName") String friendlyName) {
+		this.typeCode = typeCode;
+		this.friendlyName = friendlyName;
+	}
 
-    public void setFriendlyName(String friendlyName)
-    {
-        this.friendlyName = friendlyName;
-    }
-    
-    @Override
-    public String toString()
-    {
-        if (friendlyName != null && friendlyName.length() > 0)
-            return friendlyName;
-        else
-            return super.toString();
-    } 
+	@Override
+	public String toString() {
+		if (friendlyName != null && friendlyName.length() > 0)
+			return friendlyName;
+		else
+			return super.toString();
+	}
 }

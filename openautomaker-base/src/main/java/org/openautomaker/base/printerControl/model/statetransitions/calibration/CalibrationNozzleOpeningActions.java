@@ -151,9 +151,9 @@ public class CalibrationNozzleOpeningActions extends StateTransitionActions {
 		else {
 			// We shouldn't ever get here, but just in case...
 			LOGGER.debug("Setting B offsets to safe values ("
-					+ headReferenceData.getNozzles().get(0).getDefaultBOffset()
+					+ headReferenceData.nozzles.get(0).defaultBOffset
 					+ " - "
-					+ headReferenceData.getNozzles().get(1).getDefaultBOffset()
+					+ headReferenceData.nozzles.get(1).defaultBOffset
 					+ ")");
 			printer.transmitWriteHeadEEPROM(savedHeadData.getHeadTypeCode(),
 					savedHeadData.getUniqueID(),
@@ -222,13 +222,13 @@ public class CalibrationNozzleOpeningActions extends StateTransitionActions {
 					savedHeadData.getNozzle1XOffset(),
 					savedHeadData.getNozzle1YOffset(),
 					savedHeadData.getNozzle1ZOffset(),
-					headReferenceData.getNozzles().get(0).getMaxBOffset(),
+					headReferenceData.nozzles.get(0).maxBOffset,
 					savedHeadData.getFilamentID(0),
 					savedHeadData.getFilamentID(1),
 					savedHeadData.getNozzle2XOffset(),
 					savedHeadData.getNozzle2YOffset(),
 					savedHeadData.getNozzle2ZOffset(),
-					headReferenceData.getNozzles().get(1).getMinBOffset(),
+					headReferenceData.nozzles.get(1).minBOffset,
 					savedHeadData.getLastFilamentTemperature(0),
 					savedHeadData.getLastFilamentTemperature(1),
 					savedHeadData.getHeadHours());
@@ -249,13 +249,13 @@ public class CalibrationNozzleOpeningActions extends StateTransitionActions {
 					0,
 					0,
 					0,
-					headReferenceData.getNozzles().get(0).getMaxBOffset(),
+					headReferenceData.nozzles.get(0).maxBOffset,
 					savedHeadData.getFilamentID(0),
 					savedHeadData.getFilamentID(1),
 					0,
 					0,
 					0,
-					headReferenceData.getNozzles().get(1).getMinBOffset(),
+					headReferenceData.nozzles.get(1).minBOffset,
 					savedHeadData.getLastFilamentTemperature(0),
 					savedHeadData.getLastFilamentTemperature(1),
 					savedHeadData.getHeadHours());
@@ -276,13 +276,13 @@ public class CalibrationNozzleOpeningActions extends StateTransitionActions {
 					0,
 					0,
 					0,
-					headReferenceData.getNozzles().get(0).getMinBOffset(),
+					headReferenceData.nozzles.get(0).minBOffset,
 					savedHeadData.getFilamentID(0),
 					savedHeadData.getFilamentID(1),
 					0,
 					0,
 					0,
-					headReferenceData.getNozzles().get(1).getMaxBOffset(),
+					headReferenceData.nozzles.get(1).maxBOffset,
 					savedHeadData.getLastFilamentTemperature(0),
 					savedHeadData.getLastFilamentTemperature(1),
 					savedHeadData.getHeadHours());

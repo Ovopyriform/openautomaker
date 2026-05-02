@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.text.DecimalFormat;
@@ -12,19 +11,18 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.MaterialType;
+import org.openautomaker.base.comms.print_server.ConnectedServersPreference;
 import org.openautomaker.base.comms.print_server.PrintServerConnection;
 import org.openautomaker.base.configuration.BaseConfiguration;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.FilamentFileFilter;
 import org.openautomaker.base.utils.DeDuplicator;
 import org.openautomaker.base.utils.FileUtilities;
-import org.openautomaker.environment.preference.ConnectedServersPreference;
 import org.openautomaker.environment.preference.printer.FilamentsPathPreference;
 
 import jakarta.inject.Inject;
@@ -341,9 +339,9 @@ public class FilamentContainer {
 	 * Save the given filament to file, using the friendly name and material type as file name. If a filament already exists of the same filamentID but different file name then delete that file.
 	 */
 	public void saveFilament(Filament filament) {
-		Map<InetAddress, PrintServerConnection> serversToPushTo = connectedServersPreference.getValue();
+		List<PrintServerConnection> serversToPushTo = connectedServersPreference.getValue();
 
-		for (PrintServerConnection server : serversToPushTo.values()) {
+		for (PrintServerConnection server : serversToPushTo) {
 			server.saveFilament(filament);
 		}
 
@@ -425,9 +423,9 @@ public class FilamentContainer {
 	public void deleteFilament(Filament filament) {
 		assert (filament.isMutable());
 
-		Map<InetAddress, PrintServerConnection> serversToPushTo = connectedServersPreference.getValue();
+		List<PrintServerConnection> serversToPushTo = connectedServersPreference.getValue();
 
-		for (PrintServerConnection server : serversToPushTo.values()) {
+		for (PrintServerConnection server : serversToPushTo) {
 			server.deleteFilament(filament);
 		}
 

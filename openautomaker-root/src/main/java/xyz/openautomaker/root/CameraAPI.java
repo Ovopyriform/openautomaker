@@ -44,7 +44,7 @@ public class CameraAPI
 	}
 
 	private byte[] takeSnapshot(CameraSettings settings) {
-		LOGGER.debug("Taking snapshot for camera " + settings.getCamera().getCameraName());
+		LOGGER.debug("Taking snapshot for camera " + settings.camera.getCameraName());
 		List<String> parameters = settings.encodeSettingsForRootScript();
 		byte[] imageData = null;
 		// Synchronized access with CameraTriggerManager::triggerUSBCamera, so both are not trying to access the
@@ -70,7 +70,7 @@ public class CameraAPI
 	{
 		return cameraCommsManager.getAllCameraInfo()
 				.stream()
-				.filter(c -> c.getUdevName().equals(settings.getCamera().getUdevName()))
+				.filter(c -> c.getUdevName().equals(settings.camera.getUdevName()))
 				.findAny()
 				.map((c) -> takeSnapshot(settings));
 	}
@@ -90,7 +90,7 @@ public class CameraAPI
 		catch (NumberFormatException ex) {
 			cameraNo = -2;
 		}
-		if (cameraNo != settings.getCamera().getCameraNumber())
+		if (cameraNo != settings.camera.getCameraNumber())
 			return Response.serverError().build();
 
 		return getCameraSnapshot(settings).map((imageData) -> Response.ok(imageData).build())

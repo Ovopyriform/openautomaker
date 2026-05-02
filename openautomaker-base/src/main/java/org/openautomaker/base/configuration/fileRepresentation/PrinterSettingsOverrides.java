@@ -187,7 +187,7 @@ public class PrinterSettingsOverrides {
 			profileCopy.addOrOverride("numberOfPerimeters", "1");
 		}
 
-		if (headContainer.getHeadByID(headType).getType() == Head.HeadType.DUAL_MATERIAL_HEAD) {
+		if (headContainer.getHeadByID(headType).type == Head.HeadType.DUAL_MATERIAL_HEAD) {
 			// Overrides what is on profile. Unless AS_PROFILE is selected.
 			if (printSupportTypeOverride.get().equals(SupportType.MATERIAL_1)) {
 				profileCopy.addOrOverride("supportNozzle", "1");

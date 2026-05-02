@@ -1,197 +1,63 @@
 package org.openautomaker.base.configuration.fileRepresentation;
 
-/**
- *
- * @author Ian
- */
-public class NozzleData
-{
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private float diameter;
-    private float defaultXOffset;
-    private float minXOffset;
-    private float maxXOffset;
-    private float defaultYOffset;
-    private float minYOffset;
-    private float maxYOffset;
-    private float defaultZOffset;
-    private float minZOffset;
-    private float maxZOffset;
-    private float defaultBOffset;
-    private float minBOffset;
-    private float maxBOffset;
-    private float defaultExtrusionWidth;
-    private float minExtrusionWidth;
-    private float maxExtrusionWidth;
-    private String associatedExtruder;
+public class NozzleData {
 
-    public float getDiameter()
-    {
-        return diameter;
-    }
+	public final float diameter;
+	public final float defaultXOffset;
+	public final float minXOffset;
+	public final float maxXOffset;
+	public final float defaultYOffset;
+	public final float minYOffset;
+	public final float maxYOffset;
+	public final float defaultZOffset;
+	public final float minZOffset;
+	public final float maxZOffset;
+	public final float defaultBOffset;
+	public final float minBOffset;
+	public final float maxBOffset;
+	public final float defaultExtrusionWidth;
+	public final float minExtrusionWidth;
+	public final float maxExtrusionWidth;
+	public final String associatedExtruder;
 
-    public void setDiameter(float diameter)
-    {
-        this.diameter = diameter;
-    }
-
-    public float getDefaultXOffset()
-    {
-        return defaultXOffset;
-    }
-
-    public void setDefaultXOffset(float defaultXOffset)
-    {
-        this.defaultXOffset = defaultXOffset;
-    }
-
-    public float getMinXOffset()
-    {
-        return minXOffset;
-    }
-
-    public void setMinXOffset(float minXOffset)
-    {
-        this.minXOffset = minXOffset;
-    }
-
-    public float getMaxXOffset()
-    {
-        return maxXOffset;
-    }
-
-    public void setMaxXOffset(float maxXOffset)
-    {
-        this.maxXOffset = maxXOffset;
-    }
-
-    public float getDefaultYOffset()
-    {
-        return defaultYOffset;
-    }
-
-    public void setDefaultYOffset(float defaultYOffset)
-    {
-        this.defaultYOffset = defaultYOffset;
-    }
-
-    public float getMinYOffset()
-    {
-        return minYOffset;
-    }
-
-    public void setMinYOffset(float minYOffset)
-    {
-        this.minYOffset = minYOffset;
-    }
-
-    public float getMaxYOffset()
-    {
-        return maxYOffset;
-    }
-
-    public void setMaxYOffset(float maxYOffset)
-    {
-        this.maxYOffset = maxYOffset;
-    }
-
-    public float getDefaultZOffset()
-    {
-        return defaultZOffset;
-    }
-
-    public void setDefaultZOffset(float defaultZOffset)
-    {
-        this.defaultZOffset = defaultZOffset;
-    }
-
-    public float getMinZOffset()
-    {
-        return minZOffset;
-    }
-
-    public void setMinZOffset(float minZOffset)
-    {
-        this.minZOffset = minZOffset;
-    }
-
-    public float getMaxZOffset()
-    {
-        return maxZOffset;
-    }
-
-    public void setMaxZOffset(float maxZOffset)
-    {
-        this.maxZOffset = maxZOffset;
-    }
-
-    public float getDefaultBOffset()
-    {
-        return defaultBOffset;
-    }
-
-    public void setDefaultBOffset(float defaultBOffset)
-    {
-        this.defaultBOffset = defaultBOffset;
-    }
-
-    public float getMinBOffset()
-    {
-        return minBOffset;
-    }
-
-    public void setMinBOffset(float minBOffset)
-    {
-        this.minBOffset = minBOffset;
-    }
-
-    public float getMaxBOffset()
-    {
-        return maxBOffset;
-    }
-
-    public void setMaxBOffset(float maxBOffset)
-    {
-        this.maxBOffset = maxBOffset;
-    }
-
-    public String getAssociatedExtruder()
-    {
-        return associatedExtruder;
-    }
-
-    public float getDefaultExtrusionWidth()
-    {
-        return defaultExtrusionWidth;
-    }
-
-    public void setDefaultExtrusionWidth(float defaultExtrusionWidth)
-    {
-        this.defaultExtrusionWidth = defaultExtrusionWidth;
-    }
-
-    public float getMinExtrusionWidth()
-    {
-        return minExtrusionWidth;
-    }
-
-    public void setMinExtrusionWidth(float minExtrusionWidth)
-    {
-        this.minExtrusionWidth = minExtrusionWidth;
-    }
-
-    public float getMaxExtrusionWidth()
-    {
-        return maxExtrusionWidth;
-    }
-
-    public void setMaxExtrusionWidth(float maxExtrusionWidth)
-    {
-        this.maxExtrusionWidth = maxExtrusionWidth;
-    }
-
-    public void setAssociatedExtruder(String associatedExtruder)
-    {
-        this.associatedExtruder = associatedExtruder;
-    }
+	@JsonCreator
+	public NozzleData(
+			@JsonProperty("diameter") float diameter,
+			@JsonProperty("defaultXOffset") float defaultXOffset,
+			@JsonProperty("minXOffset") float minXOffset,
+			@JsonProperty("maxXOffset") float maxXOffset,
+			@JsonProperty("defaultYOffset") float defaultYOffset,
+			@JsonProperty("minYOffset") float minYOffset,
+			@JsonProperty("maxYOffset") float maxYOffset,
+			@JsonProperty("defaultZOffset") float defaultZOffset,
+			@JsonProperty("minZOffset") float minZOffset,
+			@JsonProperty("maxZOffset") float maxZOffset,
+			@JsonProperty("defaultBOffset") float defaultBOffset,
+			@JsonProperty("minBOffset") float minBOffset,
+			@JsonProperty("maxBOffset") float maxBOffset,
+			@JsonProperty("defaultExtrusionWidth") float defaultExtrusionWidth,
+			@JsonProperty("minExtrusionWidth") float minExtrusionWidth,
+			@JsonProperty("maxExtrusionWidth") float maxExtrusionWidth,
+			@JsonProperty("associatedExtruder") String associatedExtruder) {
+		this.diameter = diameter;
+		this.defaultXOffset = defaultXOffset;
+		this.minXOffset = minXOffset;
+		this.maxXOffset = maxXOffset;
+		this.defaultYOffset = defaultYOffset;
+		this.minYOffset = minYOffset;
+		this.maxYOffset = maxYOffset;
+		this.defaultZOffset = defaultZOffset;
+		this.minZOffset = minZOffset;
+		this.maxZOffset = maxZOffset;
+		this.defaultBOffset = defaultBOffset;
+		this.minBOffset = minBOffset;
+		this.maxBOffset = maxBOffset;
+		this.defaultExtrusionWidth = defaultExtrusionWidth;
+		this.minExtrusionWidth = minExtrusionWidth;
+		this.maxExtrusionWidth = maxExtrusionWidth;
+		this.associatedExtruder = associatedExtruder;
+	}
 }

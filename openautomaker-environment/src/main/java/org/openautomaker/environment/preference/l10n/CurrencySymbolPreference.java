@@ -18,7 +18,7 @@ public class CurrencySymbolPreference extends APreference<CurrencySymbol> {
 	}
 
 	@Override
-	public List<CurrencySymbol> values() {
+	public List<CurrencySymbol> validValues() {
 		return List.of(CurrencySymbol.values());
 	}
 

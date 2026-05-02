@@ -110,6 +110,6 @@ public class CameraCommsManager extends Thread
 
 	public List<CameraInfo> getAllCameraInfo()
 	{
-		return new ArrayList<>(activeCameras.values());
+		return new ArrayList<>(activeCameras.validValues());
 	}
 }

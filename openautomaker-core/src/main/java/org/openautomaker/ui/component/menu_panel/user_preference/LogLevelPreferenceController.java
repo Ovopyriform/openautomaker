@@ -31,7 +31,7 @@ public class LogLevelPreferenceController implements PreferencesInnerPanelContro
 		control.getStyleClass().add("cmbCleanCombo");
 		control.setMinWidth(200);
 		control.autosize();
-		control.setItems(FXCollections.observableList(logLevelPreference.values()));
+		control.setItems(FXCollections.observableList(logLevelPreference.validValues()));
 
 		SelectionModel<Level> selectionModel = control.getSelectionModel();
 

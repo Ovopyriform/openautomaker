@@ -50,7 +50,7 @@ public class CurrencySymbolPreferenceController implements PreferencesInnerPanel
 		control.setMinWidth(200);
 		control.autosize();
 
-		control.setItems(FXCollections.observableList(currencySymbolPreference.values()));
+		control.setItems(FXCollections.observableList(currencySymbolPreference.validValues()));
 
 		// Setup display
 		Callback<ListView<CurrencySymbol>, ListCell<CurrencySymbol>> cellFactory = (listView) -> new CurrencySymbolListCell();

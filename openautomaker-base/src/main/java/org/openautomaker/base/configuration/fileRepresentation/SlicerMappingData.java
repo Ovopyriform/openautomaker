@@ -3,32 +3,19 @@ package org.openautomaker.base.configuration.fileRepresentation;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-/**
- *
- * @author Ian
- */
-public class SlicerMappingData
-{
-    ArrayList<String> defaults;
-    HashMap<String,String> mappingData;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    public ArrayList<String> getDefaults()
-    {
-        return defaults;
-    }
+public class SlicerMappingData {
 
-    public void setDefaults(ArrayList<String> defaults)
-    {
-        this.defaults = defaults;
-    }
+	public final ArrayList<String> defaults;
+	public final HashMap<String, String> mappingData;
 
-    public HashMap<String, String> getMappingData()
-    {
-        return mappingData;
-    }
-
-    public void setMappingData(HashMap<String, String> mappingData)
-    {
-        this.mappingData = mappingData;
-    }
+	@JsonCreator
+	public SlicerMappingData(
+			@JsonProperty("defaults") ArrayList<String> defaults,
+			@JsonProperty("mappingData") HashMap<String, String> mappingData) {
+		this.defaults = defaults;
+		this.mappingData = mappingData;
+	}
 }

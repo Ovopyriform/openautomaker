@@ -230,7 +230,7 @@ public class ProjectFile {
 		lastPrintJobID = project.getLastPrintJobID();
 		projectNameModified = project.isProjectNameModified();
 		timelapseTriggerEnabled = project.getTimelapseSettings().getTimelapseTriggerEnabled();
-		timelapseProfileName = project.getTimelapseSettings().getTimelapseProfile().map(CameraProfile::getProfileName).orElse("");
+		timelapseProfileName = project.getTimelapseSettings().getTimelapseProfile().map(cp -> cp.profileName).orElse("");
 		timelapseCameraID = project.getTimelapseSettings().getTimelapseCamera()
 				.map(c -> String.format("%s:%02d", c.getCameraName(), c.getCameraNumber())).orElse("");
 

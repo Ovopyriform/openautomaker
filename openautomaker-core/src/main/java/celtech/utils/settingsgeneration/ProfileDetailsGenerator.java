@@ -250,7 +250,7 @@ public class ProfileDetailsGenerator {
 			tabGridPane.getRowConstraints().add(new RowConstraints());
 
 			// Some changes to nozzle settings if there are no valves on the head
-			boolean valvesFitted = headContainer.getHeadByID(headType).getValves() == Head.ValveType.FITTED;
+			boolean valvesFitted = headContainer.getHeadByID(headType).valves == Head.ValveType.FITTED;
 			if (printProfileSetting.getId().equals("ejectionVolume")) {
 				changeLabelingOfEjectionVolumeBasedOnValves(printProfileSetting, valvesFitted);
 			}
@@ -600,7 +600,7 @@ public class ProfileDetailsGenerator {
 		Slicer slicerType = slicerPreference.getValue();
 
 		HeadFile currentHead = headContainer.getHeadByID(headType);
-		if (currentHead.getNozzleHeaters().size() == 2 /* && slicerType != Slicer.CURA */) {
+		if (currentHead.nozzleHeaters.size() == 2 /* && slicerType != Slicer.CURA */) {
 			nozzles.set(0, nozzleOptions.get(0) + " (Material 2)");
 			nozzles.set(1, nozzleOptions.get(1) + " (Material 1)");
 
@@ -609,7 +609,7 @@ public class ProfileDetailsGenerator {
 				nozzles.add("Model Material");
 			}
 		}
-		else if (currentHead.getNozzleHeaters().size() == 2 || currentHead.getNozzles().size() == 1) {
+		else if (currentHead.nozzleHeaters.size() == 2 || currentHead.nozzles.size() == 1) {
 			comboBox.setDisable(true);
 		}
 
@@ -682,16 +682,16 @@ public class ProfileDetailsGenerator {
 			index = 0;
 		}
 		String widthOption = nozzleOptions.get(index);
-		Optional<NozzleData> optionalNozzleData = headContainer.getHeadByID(headType).getNozzles()
+		Optional<NozzleData> optionalNozzleData = headContainer.getHeadByID(headType).nozzles
 				.stream()
-				.filter(nozzle -> nozzle.getMinExtrusionWidth() > 0.0)
-				.filter(nozzle -> (Float.toString(nozzle.getDiameter()) + " mm").equals(widthOption))
+				.filter(nozzle -> nozzle.minExtrusionWidth > 0.0)
+				.filter(nozzle -> (Float.toString(nozzle.diameter) + " mm").equals(widthOption))
 				.findFirst();
 
 		if (optionalNozzleData.isPresent()) {
 			NozzleData nozzleData = optionalNozzleData.get();
-			extrusionSetting.setMinValue(nozzleData.getMinExtrusionWidth());
-			extrusionSetting.setMaxValue(nozzleData.getMaxExtrusionWidth());
+			extrusionSetting.setMinValue(nozzleData.minExtrusionWidth);
+			extrusionSetting.setMaxValue(nozzleData.maxExtrusionWidth);
 			// For some reason these don't actually exist in the head file so we always do this...
 		}
 		else {

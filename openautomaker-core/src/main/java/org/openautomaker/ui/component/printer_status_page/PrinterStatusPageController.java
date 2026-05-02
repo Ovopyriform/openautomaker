@@ -494,7 +494,7 @@ public class PrinterStatusPageController implements Initializable, PrinterListCh
 			disconnectedText.setVisible(true);
 		}
 		else {
-			setupPrinterType(printerToUse.printerConfigurationProperty().get().getTypeCode());
+			setupPrinterType(printerToUse.printerConfigurationProperty().get().typeCode);
 			vBoxLeft.setVisible(true);
 			vBoxRight.setVisible(true);
 			disconnectedText.setVisible(false);

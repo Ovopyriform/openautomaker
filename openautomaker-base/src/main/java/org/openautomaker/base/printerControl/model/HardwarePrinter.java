@@ -629,7 +629,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 	@Override
 	public Point3D getPrintVolumeCentre() {
 		if (printerConfiguration.get() != null) {
-			return new Point3D(printerConfiguration.get().getPrintVolumeWidth() / 2, printerConfiguration.get().getPrintVolumeDepth() / 2, printerConfiguration.get().getPrintVolumeHeight() / 2);
+			return new Point3D(printerConfiguration.get().printVolumeWidth / 2, printerConfiguration.get().printVolumeDepth / 2, printerConfiguration.get().printVolumeHeight / 2);
 		}
 		else {
 			return Point3D.ZERO;
@@ -647,9 +647,9 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 
 			double epsilon = 0.001;
 
-			if (MathUtils.compareDouble(xSize, printerConfiguration.get().getPrintVolumeWidth(), epsilon) == MathUtils.MORE_THAN
-					|| MathUtils.compareDouble(ySize, printerConfiguration.get().getPrintVolumeHeight(), epsilon) == MathUtils.MORE_THAN
-					|| MathUtils.compareDouble(zSize, printerConfiguration.get().getPrintVolumeDepth(), epsilon) == MathUtils.MORE_THAN) {
+			if (MathUtils.compareDouble(xSize, printerConfiguration.get().printVolumeWidth, epsilon) == MathUtils.MORE_THAN
+					|| MathUtils.compareDouble(ySize, printerConfiguration.get().printVolumeHeight, epsilon) == MathUtils.MORE_THAN
+					|| MathUtils.compareDouble(zSize, printerConfiguration.get().printVolumeDepth, epsilon) == MathUtils.MORE_THAN) {
 				biggerThanPrintArea = true;
 			}
 		}
@@ -2071,8 +2071,8 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		WritePrinterID writeIDCmd = (WritePrinterID) RoboxTxPacketFactory.createPacket(TxPacketTypeEnum.WRITE_PRINTER_ID);
 
 		PrinterIdentity newIdentity = printerIdentity.clone();
-		newIdentity.printermodel.set(printerDefinition.getTypeCode());
-		newIdentity.printeredition.set(printerEdition.getTypeCode());
+		newIdentity.printermodel.set(printerDefinition.typeCode);
+		newIdentity.printeredition.set(printerEdition.typeCode);
 		writeIDCmd.populatePacket(newIdentity.printerUniqueID.get(), newIdentity.printermodel.get(), newIdentity.printeredition.get(), newIdentity.printerweekOfManufacture.get(), newIdentity.printeryearOfManufacture.get(),
 				newIdentity.printerpoNumber.get(), newIdentity.printerserialNumber.get(), newIdentity.printercheckByte.get(), newIdentity.printerelectronicsVersion.get(), newIdentity.printerFriendlyName.get(),
 				formatHexString(newIdentity.printerColour.get()).substring(1), newIdentity.firmwareVersion.get());
@@ -3571,7 +3571,7 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 										Head chosenHead = headFactory.create(chosenHeadFile);
 										chosenHead.allocateRandomID();
 										head.set(chosenHead);
-										LOGGER.info("Reprogrammed head as " + chosenHeadFile.getTypeCode() + " with ID " + head.get().uniqueID.get());
+										LOGGER.info("Reprogrammed head as " + chosenHeadFile.typeCode + " with ID " + head.get().uniqueID.get());
 										try {
 											writeHeadEEPROM(head.get());
 											systemNotificationManager.showCalibrationDialogue();

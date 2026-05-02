@@ -8,7 +8,7 @@ import java.util.List;
 public abstract class ASimpleBooleanPreference extends APreference<Boolean> {
 
 	@Override
-	public List<Boolean> values() {
+	public List<Boolean> validValues() {
 		return List.of(Boolean.TRUE, Boolean.FALSE);
 	}
 

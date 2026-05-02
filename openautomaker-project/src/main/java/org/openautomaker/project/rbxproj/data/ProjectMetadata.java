@@ -1,24 +1,24 @@
 package org.openautomaker.project.rbxproj.data;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class ProjectMetadata {
 
-	private int version;
-	private String projectName;
-	private String lastModified;
-	private PrintSettingsData printSettings;
+	public final int version;
+	public final String projectName;
+	public final String lastModified;
+	public final PrintSettingsData printSettings;
 
-	public ProjectMetadata() {
+	@JsonCreator
+	public ProjectMetadata(
+			@JsonProperty("version") int version,
+			@JsonProperty("projectName") String projectName,
+			@JsonProperty("lastModified") String lastModified,
+			@JsonProperty("printSettings") PrintSettingsData printSettings) {
+		this.version = version;
+		this.projectName = projectName;
+		this.lastModified = lastModified;
+		this.printSettings = printSettings;
 	}
-
-	public int getVersion() { return version; }
-	public void setVersion(int v) { this.version = v; }
-
-	public String getProjectName() { return projectName; }
-	public void setProjectName(String v) { this.projectName = v; }
-
-	public String getLastModified() { return lastModified; }
-	public void setLastModified(String v) { this.lastModified = v; }
-
-	public PrintSettingsData getPrintSettings() { return printSettings; }
-	public void setPrintSettings(PrintSettingsData v) { this.printSettings = v; }
 }

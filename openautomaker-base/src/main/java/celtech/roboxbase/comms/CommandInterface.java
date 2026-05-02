@@ -305,8 +305,8 @@ public abstract class CommandInterface extends Thread {
 							printerConfigFile = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
 						}
 						printerToUse.setPrinterConfiguration(printerConfigFile);
-						for (PrinterEdition editionUnderExamination : printerConfigFile.getEditions()) {
-							if (editionUnderExamination.getTypeCode().equalsIgnoreCase(lastPrinterIDResponse.getEdition())) {
+						for (PrinterEdition editionUnderExamination : printerConfigFile.editions) {
+							if (editionUnderExamination.typeCode.equalsIgnoreCase(lastPrinterIDResponse.getEdition())) {
 								printerToUse.setPrinterEdition(editionUnderExamination);
 								break;
 							}

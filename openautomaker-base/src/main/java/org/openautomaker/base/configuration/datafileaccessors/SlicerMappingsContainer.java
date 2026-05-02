@@ -50,7 +50,7 @@ public final class SlicerMappingsContainer {
 		File slicerMappingsInputFile = printProfilesPathPreference.getAppValue().resolve(defaultSlicerMappingsFileName).toFile();
 
 		if (!slicerMappingsInputFile.exists()) {
-			slicerMappingsFile = new SlicerMappings();
+			slicerMappingsFile = new SlicerMappings(null);
 			try {
 				mapper.writeValue(slicerMappingsInputFile, slicerMappingsFile);
 			}

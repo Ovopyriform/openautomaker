@@ -237,25 +237,24 @@ public class RbxprojWriter {
 	private ProjectMetadata buildMetadata(IProject project) {
 		IProjectSettings s = project.getSettings();
 
-		PrintSettingsData settings = new PrintSettingsData();
-		settings.setExtruder0FilamentID(s.getExtruder0FilamentID());
-		settings.setExtruder1FilamentID(s.getExtruder1FilamentID());
-		settings.setSettingsName(s.getSettingsName());
-		settings.setPrintQuality(s.getPrintQuality());
-		settings.setBrimOverride(s.getBrimOverride());
-		settings.setFillDensityOverride(s.getFillDensityOverride());
-		settings.setFillDensityOverridenByUser(s.isFillDensityOverridenByUser());
-		settings.setPrintSupportOverride(s.isPrintSupportOverride());
-		settings.setPrintSupportTypeOverride(s.getPrintSupportTypeOverride());
-		settings.setPrintRaft(s.isPrintRaft());
-		settings.setSpiralPrint(s.isSpiralPrint());
+		PrintSettingsData settings = new PrintSettingsData(
+				s.getExtruder0FilamentID(),
+				s.getExtruder1FilamentID(),
+				s.getSettingsName(),
+				s.getPrintQuality(),
+				s.getBrimOverride(),
+				s.getFillDensityOverride(),
+				s.isFillDensityOverridenByUser(),
+				s.isPrintSupportOverride(),
+				s.getPrintSupportTypeOverride(),
+				s.isPrintRaft(),
+				s.isSpiralPrint());
 
-		ProjectMetadata metadata = new ProjectMetadata();
-		metadata.setVersion(RbxprojFile.CURRENT_VERSION);
-		metadata.setProjectName(project.getProjectName());
-		metadata.setLastModified(Instant.now().toString());
-		metadata.setPrintSettings(settings);
-		return metadata;
+		return new ProjectMetadata(
+				RbxprojFile.CURRENT_VERSION,
+				project.getProjectName(),
+				Instant.now().toString(),
+				settings);
 	}
 
 	/**

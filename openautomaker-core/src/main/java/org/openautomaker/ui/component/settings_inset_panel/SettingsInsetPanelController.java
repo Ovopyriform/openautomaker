@@ -364,7 +364,7 @@ public class SettingsInsetPanelController implements ProjectAwareController, Pro
 		SupportType typeToSelect = SupportType.AS_PROFILE;
 		boolean allowSaveSupportType = false;
 
-		if (headContainer.getHeadByID(currentHeadType).getType() == Head.HeadType.DUAL_MATERIAL_HEAD
+		if (headContainer.getHeadByID(currentHeadType).type == Head.HeadType.DUAL_MATERIAL_HEAD
 				&& printerSettings != null) {
 			//			if (new SlicerPreference().getValue() == Slicer.CURA) {
 			//				// For a dual material head and old Cura default to Material 2, there is no as profile
@@ -380,7 +380,7 @@ public class SettingsInsetPanelController implements ProjectAwareController, Pro
 				allowSaveSupportType = true;
 			}
 		}
-		else if (headContainer.getHeadByID(currentHeadType).getType() == Head.HeadType.SINGLE_MATERIAL_HEAD
+		else if (headContainer.getHeadByID(currentHeadType).type == Head.HeadType.SINGLE_MATERIAL_HEAD
 				&& printerSettings != null) {
 			allowSaveSupportType = true;
 		}

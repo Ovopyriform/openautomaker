@@ -24,7 +24,7 @@ public interface Preference<T> {
 	 * 
 	 * @exception UnsupportedOperationException from default implementation
 	 */
-	public default List<T> values() {
+	public default List<T> validValues() {
 		throw new UnsupportedOperationException("values not implemented for preference: " + getClass().getSimpleName());
 	};
 

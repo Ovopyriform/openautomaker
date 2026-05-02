@@ -22,7 +22,7 @@ public class VirtualPrinterHeadPreference extends ASimpleStringPreference {
 	 * Loading of heads should probably be a separate module.
 	 */
 	@Override
-	public List<String> values() {
+	public List<String> validValues() {
 		return List.of();
 	}
 

@@ -25,9 +25,9 @@ public class MockHead extends Head {
 
 	@Override
 	protected NozzleHeater makeNozzleHeater(NozzleHeaterData nozzleHeaterData) {
-		return new TestNozzleHeater(nozzleHeaterData.getMaximum_temperature_C(),
-				nozzleHeaterData.getBeta(),
-				nozzleHeaterData.getTcal(),
+		return new TestNozzleHeater(nozzleHeaterData.maximum_temperature_C,
+				nozzleHeaterData.beta,
+				nozzleHeaterData.tcal,
 				0, 0, 0, 0, "");
 	}
 

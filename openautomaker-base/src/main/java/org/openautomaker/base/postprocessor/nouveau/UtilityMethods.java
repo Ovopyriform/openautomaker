@@ -254,7 +254,7 @@ public class UtilityMethods {
 					if (lastNozzleClose != null) {
 						if (ppFeatureSet.isEnabled(PostProcessorFeature.RETRACT_AT_TOOLCHANGE)) {
 							lastNozzleClose.appendCommentText("Adding retract at tool change");
-							switch (headContainer.getHeadByID(headTypeCode).getNozzles().get(lastToolNumber).getAssociatedExtruder()) {
+							switch (headContainer.getHeadByID(headTypeCode).nozzles.get(lastToolNumber).associatedExtruder) {
 								case "E":
 									lastNozzleClose.getExtrusion().setE(-outOfUseNozzleRelief);
 									break;
@@ -280,7 +280,7 @@ public class UtilityMethods {
 				double replenishEToUse = 0;
 				double replenishDToUse = 0;
 
-				switch (headContainer.getHeadByID(headTypeCode).getNozzles().get(lastToolNumber).getAssociatedExtruder()) {
+				switch (headContainer.getHeadByID(headTypeCode).nozzles.get(lastToolNumber).associatedExtruder) {
 					case "E":
 						replenishEToUse = replenishExtrusionE;
 						replenishExtrusionE = 0;
@@ -311,7 +311,7 @@ public class UtilityMethods {
 
 				nozzleOpen = true;
 				lastNozzleValue = ((NozzlePositionProvider) layerEvent).getNozzlePosition().getB();
-				switch (headContainer.getHeadByID(headTypeCode).getNozzles().get(lastToolNumber).getAssociatedExtruder()) {
+				switch (headContainer.getHeadByID(headTypeCode).nozzles.get(lastToolNumber).associatedExtruder) {
 					case "E":
 						replenishExtrusionE = 0;
 						break;
@@ -336,7 +336,7 @@ public class UtilityMethods {
 				nozzleOpen = false;
 				lastNozzleValue = ((NozzlePositionProvider) layerEvent).getNozzlePosition().getB();
 				if (layerEvent instanceof ExtrusionNode) {
-					switch (headContainer.getHeadByID(headTypeCode).getNozzles().get(lastToolNumber).getAssociatedExtruder()) {
+					switch (headContainer.getHeadByID(headTypeCode).nozzles.get(lastToolNumber).associatedExtruder) {
 						case "E":
 							replenishExtrusionE = ((ExtrusionNode) layerEvent).getElidedExtrusion();
 							break;
@@ -369,7 +369,7 @@ public class UtilityMethods {
 				double replenishEToUse = 0;
 				double replenishDToUse = 0;
 
-				switch (headContainer.getHeadByID(headTypeCode).getNozzles().get(lastToolNumber).getAssociatedExtruder()) {
+				switch (headContainer.getHeadByID(headTypeCode).nozzles.get(lastToolNumber).associatedExtruder) {
 					case "E":
 						if (ppFeatureSet.isEnabled(PostProcessorFeature.RETRACT_AT_TOOLCHANGE)
 								&& opensInThisTool == 0) {

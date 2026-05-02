@@ -469,17 +469,17 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 
 				// Get trigger data only if there is a suitable camera on the current server.
 				Optional<CameraTriggerData> tdOpt = cameraData.flatMap(cd -> {
-					String cameraName = cd.getCamera().getCameraName();
+					String cameraName = cd.camera.getCameraName();
 					return cameraManager.getConnectedCameras().stream()
 							.filter(cc -> cc.getServer() == printerServer && cameraName.equalsIgnoreCase(cc.getCameraName()))
 							.findAny()
-							.flatMap(cc -> profileOpt.map(pp -> new CameraTriggerData(pp.isHeadLightOff(), pp.isAmbientLightOff(), pp.isMoveBeforeCapture(), pp.getMoveToX(), pp.getMoveToY())));
+							.flatMap(cc -> profileOpt.map(pp -> new CameraTriggerData(pp.headLightOff, pp.ambientLightOff, pp.moveBeforeCapture, pp.moveToX, pp.moveToY)));
 				});
 
 				// Can't set local variables inside lambda expressions.
 				if (tdOpt.isPresent()) {
 					cameraTriggerData = tdOpt.get();
-					printerServer.setCameraTag(cameraData.get().getProfile().getProfileName(), cameraData.get().getCamera().getCameraName());
+					printerServer.setCameraTag(cameraData.get().profile.profileName, cameraData.get().camera.getCameraName());
 					timelapseEnabled = tlsd.getTimelapseTriggerEnabled();
 				}
 			}

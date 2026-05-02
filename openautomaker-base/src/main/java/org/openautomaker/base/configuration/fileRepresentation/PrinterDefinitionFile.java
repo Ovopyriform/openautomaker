@@ -4,113 +4,49 @@ import java.util.List;
 
 import org.openautomaker.environment.PrinterType;
 
-/**
- *
- * @author Ian
- */
-//TODO: Rename to PrinterDefinition?
-public class PrinterDefinitionFile
-{
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private int version = 1;
-    private String typeCode;
-    private String friendlyName;
-    private List<PrinterEdition> editions;
-    private List<String> compatibleHeads;
-    private int printVolumeWidth;
-    private int printVolumeDepth;
-    private int printVolumeHeight;
+public class PrinterDefinitionFile {
 
-    public int getVersion()
-    {
-        return version;
-    }
+	public final int version;
+	public final String typeCode;
+	public final String friendlyName;
+	public final List<PrinterEdition> editions;
+	public final List<String> compatibleHeads;
+	public final int printVolumeWidth;
+	public final int printVolumeDepth;
+	public final int printVolumeHeight;
 
-    public void setVersion(int version)
-    {
-        this.version = version;
-    }
+	@JsonCreator
+	public PrinterDefinitionFile(
+			@JsonProperty("version") int version,
+			@JsonProperty("typeCode") String typeCode,
+			@JsonProperty("friendlyName") String friendlyName,
+			@JsonProperty("editions") List<PrinterEdition> editions,
+			@JsonProperty("compatibleHeads") List<String> compatibleHeads,
+			@JsonProperty("printVolumeWidth") int printVolumeWidth,
+			@JsonProperty("printVolumeDepth") int printVolumeDepth,
+			@JsonProperty("printVolumeHeight") int printVolumeHeight) {
+		this.version = version;
+		this.typeCode = typeCode;
+		this.friendlyName = friendlyName;
+		this.editions = editions;
+		this.compatibleHeads = compatibleHeads;
+		this.printVolumeWidth = printVolumeWidth;
+		this.printVolumeDepth = printVolumeDepth;
+		this.printVolumeHeight = printVolumeHeight;
+	}
 
-    public String getTypeCode()
-    {
-        return typeCode;
-    }
+	public PrinterType getPrinterType() {
+		return PrinterType.getPrinterTypeForTypeCode(typeCode);
+	}
 
-    public PrinterType getPrinterType() {
-        return PrinterType.getPrinterTypeForTypeCode(typeCode);
-    }
-
-    public void setTypeCode(String typeCode)
-    {
-        this.typeCode = typeCode;
-    }
-
-    public String getFriendlyName()
-    {
-        return friendlyName;
-    }
-
-    public void setFriendlyName(String friendlyName)
-    {
-        this.friendlyName = friendlyName;
-    }
-
-    public List<PrinterEdition> getEditions()
-    {
-        return editions;
-    }
-
-    public void setEditions(List<PrinterEdition> editions)
-    {
-        this.editions = editions;
-    }
-
-    public List<String> getCompatibleHeads()
-    {
-        return compatibleHeads;
-    }
-
-    public void setCompatibleHeads(List<String> compatibleHeads)
-    {
-        this.compatibleHeads = compatibleHeads;
-    }
-
-    public int getPrintVolumeWidth()
-    {
-        return printVolumeWidth;
-    }
-
-    public void setPrintVolumeWidth(int printVolumeWidth)
-    {
-        this.printVolumeWidth = printVolumeWidth;
-    }
-
-    public int getPrintVolumeDepth()
-    {
-        return printVolumeDepth;
-    }
-
-    public void setPrintVolumeDepth(int printVolumeDepth)
-    {
-        this.printVolumeDepth = printVolumeDepth;
-    }
-
-    public int getPrintVolumeHeight()
-    {
-        return printVolumeHeight;
-    }
-
-    public void setPrintVolumeHeight(int printVolumeHeight)
-    {
-        this.printVolumeHeight = printVolumeHeight;
-    }
-    
-    @Override
-    public String toString()
-    {
-        if (friendlyName != null && friendlyName.length() > 0)
-            return friendlyName;
-        else
-            return super.toString();
-    } 
+	@Override
+	public String toString() {
+		if (friendlyName != null && friendlyName.length() > 0)
+			return friendlyName;
+		else
+			return super.toString();
+	}
 }

@@ -36,27 +36,27 @@ public final class GcodeStaleChecker {
 			return true;
 
 		PrintSettingsData snap = stored.printSettings;
-		if (!eq(snap.getPrintQuality(), currentSettings.getPrintQuality()))
+		if (!eq(snap.printQuality, currentSettings.getPrintQuality()))
 			return true;
-		if (!eq(snap.getExtruder0FilamentID(), currentSettings.getExtruder0FilamentID()))
+		if (!eq(snap.extruder0FilamentID, currentSettings.getExtruder0FilamentID()))
 			return true;
-		if (!eq(snap.getExtruder1FilamentID(), currentSettings.getExtruder1FilamentID()))
+		if (!eq(snap.extruder1FilamentID, currentSettings.getExtruder1FilamentID()))
 			return true;
-		if (!eq(snap.getSettingsName(), currentSettings.getSettingsName()))
+		if (!eq(snap.settingsName, currentSettings.getSettingsName()))
 			return true;
-		if (snap.getBrimOverride() != currentSettings.getBrimOverride())
+		if (snap.brimOverride != currentSettings.getBrimOverride())
 			return true;
-		if (snap.getFillDensityOverride() != currentSettings.getFillDensityOverride())
+		if (snap.fillDensityOverride != currentSettings.getFillDensityOverride())
 			return true;
-		if (snap.isFillDensityOverridenByUser() != currentSettings.isFillDensityOverridenByUser())
+		if (snap.fillDensityOverridenByUser != currentSettings.isFillDensityOverridenByUser())
 			return true;
-		if (snap.isPrintSupportOverride() != currentSettings.isPrintSupportOverride())
+		if (snap.printSupportOverride != currentSettings.isPrintSupportOverride())
 			return true;
-		if (!eq(snap.getPrintSupportTypeOverride(), currentSettings.getPrintSupportTypeOverride()))
+		if (!eq(snap.printSupportTypeOverride, currentSettings.getPrintSupportTypeOverride()))
 			return true;
-		if (snap.isPrintRaft() != currentSettings.isPrintRaft())
+		if (snap.printRaft != currentSettings.isPrintRaft())
 			return true;
-		if (snap.isSpiralPrint() != currentSettings.isSpiralPrint())
+		if (snap.spiralPrint != currentSettings.isSpiralPrint())
 			return true;
 
 		return false;
@@ -71,18 +71,18 @@ public final class GcodeStaleChecker {
 	 * @param settings        current project print settings
 	 */
 	public static GcodeSettingsData snapshot(String printerTypeCode, String headType, IProjectSettings settings) {
-		PrintSettingsData ps = new PrintSettingsData();
-		ps.setExtruder0FilamentID(settings.getExtruder0FilamentID());
-		ps.setExtruder1FilamentID(settings.getExtruder1FilamentID());
-		ps.setSettingsName(settings.getSettingsName());
-		ps.setPrintQuality(settings.getPrintQuality());
-		ps.setBrimOverride(settings.getBrimOverride());
-		ps.setFillDensityOverride(settings.getFillDensityOverride());
-		ps.setFillDensityOverridenByUser(settings.isFillDensityOverridenByUser());
-		ps.setPrintSupportOverride(settings.isPrintSupportOverride());
-		ps.setPrintSupportTypeOverride(settings.getPrintSupportTypeOverride());
-		ps.setPrintRaft(settings.isPrintRaft());
-		ps.setSpiralPrint(settings.isSpiralPrint());
+		PrintSettingsData ps = new PrintSettingsData(
+				settings.getExtruder0FilamentID(),
+				settings.getExtruder1FilamentID(),
+				settings.getSettingsName(),
+				settings.getPrintQuality(),
+				settings.getBrimOverride(),
+				settings.getFillDensityOverride(),
+				settings.isFillDensityOverridenByUser(),
+				settings.isPrintSupportOverride(),
+				settings.getPrintSupportTypeOverride(),
+				settings.isPrintRaft(),
+				settings.isSpiralPrint());
 		return new GcodeSettingsData(printerTypeCode, headType, ps);
 	}
 

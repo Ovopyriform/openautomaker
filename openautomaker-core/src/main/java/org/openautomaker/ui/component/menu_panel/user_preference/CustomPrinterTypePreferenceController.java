@@ -49,7 +49,7 @@ public class CustomPrinterTypePreferenceController implements PreferencesInnerPa
 		control.setMinWidth(200);
 		control.autosize();
 
-		control.setItems(FXCollections.observableList(virtualPrinterTypePreference.values()));
+		control.setItems(FXCollections.observableList(virtualPrinterTypePreference.validValues()));
 
 		// Setup display
 		Callback<ListView<PrinterType>, ListCell<PrinterType>> cellFactory = (listView) -> new VirtualPrinterTypeListCell();

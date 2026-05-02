@@ -1,11 +1,7 @@
 package org.openautomaker.base.comms.print_server;
 
-import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import org.openautomaker.environment.preference.ConnectedServersPreference;
 
 import celtech.roboxbase.comms.DetectedDevice;
 import celtech.roboxbase.comms.DeviceDetector;
@@ -35,10 +31,10 @@ public class RemotePrinterDetector extends DeviceDetector {
 	public List<DetectedDevice> searchForDevices() {
 		List<DetectedDevice> newlyDetectedPrinters = new ArrayList<>();
 
-		Map<InetAddress, PrintServerConnection> activeRoboxRoots = connectedServersPreference.getValue();
+		List<PrintServerConnection> activeRoboxRoots = connectedServersPreference.getValue();
 
 		// Search the roots that have been registered in core memory
-		for (PrintServerConnection server : activeRoboxRoots.values()) {
+		for (PrintServerConnection server : activeRoboxRoots) {
 			if (server.getServerStatus() == PrintServerConnection.ServerStatus.CONNECTED) {
 				List<DetectedDevice> attachedPrinters = server.listAttachedPrinters();
 				newlyDetectedPrinters.addAll(attachedPrinters);

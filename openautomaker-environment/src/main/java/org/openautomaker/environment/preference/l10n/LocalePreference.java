@@ -58,7 +58,7 @@ public class LocalePreference extends APreference<Locale> implements LocaleProvi
 	}
 
 	@Override
-	public List<Locale> values() {
+	public List<Locale> validValues() {
 		return VALUES;
 	}
 

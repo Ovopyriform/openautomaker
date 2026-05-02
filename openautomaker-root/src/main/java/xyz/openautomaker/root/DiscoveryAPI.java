@@ -116,7 +116,7 @@ public class DiscoveryAPI
 				Map<String, Printer> remotePrinters = PrinterRegistry.getInstance().getRemotePrinters();
 				if(remotePrinters != null && !remotePrinters.isEmpty())
 				{
-					for(Printer printer : remotePrinters.values())
+					for(Printer printer : remotePrinters.validValues())
 					{
 						Color printerColour = printer.getPrinterIdentity().printerColourProperty().get();
 						printerColours.add(printerColour.toString());

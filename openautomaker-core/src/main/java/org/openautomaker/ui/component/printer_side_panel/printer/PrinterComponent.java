@@ -223,9 +223,9 @@ public class PrinterComponent extends GuicedPane {
 		String nameText;
 
 		if (printer != null) {
-			printerSVG.setPrinterIcon(printer.printerConfigurationProperty().get().getTypeCode());
+			printerSVG.setPrinterIcon(printer.printerConfigurationProperty().get().typeCode);
 			nameText = printer.getPrinterIdentity().printerFriendlyNameProperty().get();
-			if (!printer.printerConfigurationProperty().get().getTypeCode().equalsIgnoreCase("RBX10") && printer.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+			if (!printer.printerConfigurationProperty().get().typeCode.equalsIgnoreCase("RBX10") && printer.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
 				rootName.textProperty().unbind();
 				rootName.textProperty().bind(((RemoteDetectedPrinter) printer.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo().nameProperty());
 				rootName.setVisible(true);
@@ -269,7 +269,7 @@ public class PrinterComponent extends GuicedPane {
 			dealWithErrorVisibility();
 
 			//TODO: There don't appear to be any images for these only a Frankenstein's Monster image.
-			URL printerImageURL = getClass().getResource(printer.printerConfigurationProperty().get().getTypeCode() + ".png");
+			URL printerImageURL = getClass().getResource(printer.printerConfigurationProperty().get().typeCode + ".png");
 			if (printerImageURL != null) {
 				Image newImage = new Image(printerImageURL.toExternalForm());
 				imageAspectRatio = newImage.getWidth() / newImage.getHeight();

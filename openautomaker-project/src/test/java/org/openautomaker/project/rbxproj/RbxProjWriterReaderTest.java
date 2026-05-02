@@ -464,10 +464,7 @@ class RbxProjWriterReaderTest {
 	@Test
 	void readGcodeSettings_returnsStoredSnapshot() throws IOException {
 		Path archive = archiveWithNoModels();
-		PrintSettingsData ps = new PrintSettingsData();
-		ps.setPrintQuality("FINE");
-		ps.setBrimOverride(3);
-		ps.setFillDensityOverride(0.4f);
+		PrintSettingsData ps = new PrintSettingsData(null, null, null, "FINE", 3, 0.4f, false, false, null, false, false);
 		writer.updateGcode(archive, "RBX01", writeFile("out.gcode", "; g"),
 				new GcodeSettingsData("RBX01", "DUAL_MATERIAL_HEAD", ps));
 
@@ -476,9 +473,9 @@ class RbxProjWriterReaderTest {
 		assertThat(result).isPresent();
 		assertThat(result.get().printerTypeCode).isEqualTo("RBX01");
 		assertThat(result.get().headType).isEqualTo("DUAL_MATERIAL_HEAD");
-		assertThat(result.get().printSettings.getPrintQuality()).isEqualTo("FINE");
-		assertThat(result.get().printSettings.getBrimOverride()).isEqualTo(3);
-		assertThat(result.get().printSettings.getFillDensityOverride()).isEqualTo(0.4f);
+		assertThat(result.get().printSettings.printQuality).isEqualTo("FINE");
+		assertThat(result.get().printSettings.brimOverride).isEqualTo(3);
+		assertThat(result.get().printSettings.fillDensityOverride).isEqualTo(0.4f);
 	}
 
 	@Test
@@ -591,8 +588,7 @@ class RbxProjWriterReaderTest {
 	}
 
 	private GcodeSettingsData gcodeSettings(String printerTypeCode) {
-		PrintSettingsData ps = new PrintSettingsData();
-		ps.setPrintQuality("DRAFT");
+		PrintSettingsData ps = new PrintSettingsData(null, null, null, "DRAFT", 0, 0f, false, false, null, false, false);
 		return new GcodeSettingsData(printerTypeCode, "SINGLE_MATERIAL_HEAD", ps);
 	}
 

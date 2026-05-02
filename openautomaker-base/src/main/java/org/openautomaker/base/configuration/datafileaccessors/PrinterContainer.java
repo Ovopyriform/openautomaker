@@ -92,7 +92,7 @@ public class PrinterContainer {
 				PrinterDefinitionFile printerData = mapper.readValue(printerDefFile, PrinterDefinitionFile.class);
 
 				printerList.add(printerData);
-				completePrinterMap.put(printerData.getTypeCode(), printerData);
+				completePrinterMap.put(printerData.typeCode, printerData);
 			}
 			catch (IOException ex) {
 				LOGGER.error("Error loading printer " + printerDefFile.getAbsolutePath());

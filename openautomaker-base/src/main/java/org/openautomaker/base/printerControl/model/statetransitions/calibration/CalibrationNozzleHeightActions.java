@@ -102,16 +102,16 @@ public class CalibrationNozzleHeightActions extends StateTransitionActions {
 
 	private void clearZOffsetsOnHead() throws RoboxCommsException {
 		HeadFile headDataFile = headContainer.getHeadByID(savedHeadData.getHeadTypeCode());
-		NozzleData nozzle1Data = headDataFile.getNozzles().get(0);
+		NozzleData nozzle1Data = headDataFile.nozzles.get(0);
 		NozzleData nozzle2Data = null;
-		if (headDataFile.getNozzles().size() == 1)
+		if (headDataFile.nozzles.size() == 1)
 			nozzle2Data = nozzle1Data;
 		else
-			nozzle2Data = headDataFile.getNozzles().get(1);
+			nozzle2Data = headDataFile.nozzles.get(1);
 
 		printer.transmitWriteHeadEEPROM(savedHeadData.getHeadTypeCode(), savedHeadData.getUniqueID(), savedHeadData.getMaximumTemperature(), savedHeadData.getThermistorBeta(), savedHeadData.getThermistorTCal(),
-				nozzle1Data.getDefaultXOffset(), nozzle1Data.getDefaultYOffset(), 0, nozzle1Data.getMinBOffset(), savedHeadData.getFilamentID(0), savedHeadData.getFilamentID(1), nozzle2Data.getDefaultXOffset(),
-				nozzle2Data.getDefaultYOffset(), 0, nozzle2Data.getMaxBOffset(), savedHeadData.getLastFilamentTemperature(0), savedHeadData.getLastFilamentTemperature(1), savedHeadData.getHeadHours());
+				nozzle1Data.defaultXOffset, nozzle1Data.defaultYOffset, 0, nozzle1Data.minBOffset, savedHeadData.getFilamentID(0), savedHeadData.getFilamentID(1), nozzle2Data.defaultXOffset,
+				nozzle2Data.defaultYOffset, 0, nozzle2Data.maxBOffset, savedHeadData.getLastFilamentTemperature(0), savedHeadData.getLastFilamentTemperature(1), savedHeadData.getHeadHours());
 		printer.readHeadEEPROM(false);
 	}
 

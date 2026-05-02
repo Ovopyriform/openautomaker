@@ -1,43 +1,21 @@
 package org.openautomaker.base.configuration.fileRepresentation;
 
-/**
- *
- * @author Ian
- */
-public class NozzleHeaterData
-{
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-    private int maximum_temperature_C;
-    private float beta;
-    private float tcal;
+public class NozzleHeaterData {
 
-    public int getMaximum_temperature_C()
-    {
-        return maximum_temperature_C;
-    }
+	public final int maximum_temperature_C;
+	public final float beta;
+	public final float tcal;
 
-    public void setMaximum_temperature_C(int maximum_temperature_C)
-    {
-        this.maximum_temperature_C = maximum_temperature_C;
-    }
-
-    public float getBeta()
-    {
-        return beta;
-    }
-
-    public void setBeta(float beta)
-    {
-        this.beta = beta;
-    }
-
-    public float getTcal()
-    {
-        return tcal;
-    }
-
-    public void setTcal(float tcal)
-    {
-        this.tcal = tcal;
-    }
+	@JsonCreator
+	public NozzleHeaterData(
+			@JsonProperty("maximum_temperature_C") int maximum_temperature_C,
+			@JsonProperty("beta") float beta,
+			@JsonProperty("tcal") float tcal) {
+		this.maximum_temperature_C = maximum_temperature_C;
+		this.beta = beta;
+		this.tcal = tcal;
+	}
 }

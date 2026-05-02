@@ -30,7 +30,7 @@ public class NameStatusData
 		this.printerID = printerID;
 		Printer printer = PrinterRegistry.getInstance().getRemotePrinters().get(printerID);
 		printerName = printer.getPrinterIdentity().printerFriendlyNameProperty().get();
-		printerTypeCode = printer.printerConfigurationProperty().get().getTypeCode();
+		printerTypeCode = printer.printerConfigurationProperty().get().typeCode;
 		PrinterColourMap colourMap = PrinterColourMap.getInstance();
 		Color displayColour = colourMap.printerToDisplayColour(printer.getPrinterIdentity().printerColourProperty().get());
 

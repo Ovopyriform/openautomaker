@@ -170,7 +170,7 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 			populateCmbCameraNames();
 
 			if (currentCameraProfile != null) {
-				selectCameraProfile(currentCameraProfile.getProfileName());
+				selectCameraProfile(currentCameraProfile.profileName);
 				return;
 			}
 
@@ -180,7 +180,17 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 
 	private void setupProfileNameChangeListeners() {
 		cmbCameraProfile.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
-			currentCameraProfile.setProfileName(newValue);
+			currentCameraProfile = new CameraProfile(
+					newValue,
+					currentCameraProfile.captureHeight,
+					currentCameraProfile.captureWidth,
+					currentCameraProfile.headLightOff,
+					currentCameraProfile.ambientLightOff,
+					currentCameraProfile.moveBeforeCapture,
+					currentCameraProfile.moveToX,
+					currentCameraProfile.moveToY,
+					currentCameraProfile.cameraName,
+					currentCameraProfile.controlSettings);
 
 			if (!validateProfileName()) {
 				isNameValid.set(false);
@@ -197,7 +207,7 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 		cameraProfilesMap = cameraProfileContainer.getCameraProfilesMap();
 		List<String> profileNames = cameraProfilesMap.values()
 				.stream()
-				.map(CameraProfile::getProfileName)
+				.map(cp -> cp.profileName)
 				.distinct()
 				.collect(Collectors.toList());
 		Collections.sort(profileNames);
@@ -216,7 +226,7 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 		if (cameraProfilesMap != null) {
 			List<String> additionalNames = cameraProfilesMap.values()
 					.stream()
-					.map(CameraProfile::getCameraName)
+					.map(cp -> cp.cameraName)
 					.distinct()
 					.filter((n) -> !cameraNames.contains(n))
 					.collect(Collectors.toList());
@@ -251,10 +261,10 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 		if (profile != null) {
 			currentCameraProfile = profile;
 			updateValuesFromProfile(currentCameraProfile);
-			selectedProfileName = currentCameraProfile.getProfileName();
+			selectedProfileName = currentCameraProfile.profileName;
 
-			controlSettingsManager.setControlSettings(profile.getControlSettings(), profile.isSystemProfile());
-			State newState = profile.isSystemProfile() ? State.ROBOX : State.CUSTOM;
+			controlSettingsManager.setControlSettings(profile.controlSettings, profile.systemProfile);
+			State newState = profile.systemProfile ? State.ROBOX : State.CUSTOM;
 			state.set(newState);
 			isNameValid.set(true);
 			isDirty.set(false);
@@ -272,15 +282,15 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 	}
 
 	private void updateValuesFromProfile(CameraProfile cameraProfile) {
-		captureHeight.setValue(cameraProfile.getCaptureHeight());
-		captureWidth.setValue(cameraProfile.getCaptureWidth());
-		headLightOff.selectedProperty().set(cameraProfile.isHeadLightOff());
-		ambientLightOff.selectedProperty().set(cameraProfile.isAmbientLightOff());
-		moveBeforeCapture.selectedProperty().set(cameraProfile.isMoveBeforeCapture());
-		moveToX.setValue(cameraProfile.getMoveToX());
-		moveToY.setValue(cameraProfile.getMoveToY());
+		captureHeight.setValue(cameraProfile.captureHeight);
+		captureWidth.setValue(cameraProfile.captureWidth);
+		headLightOff.selectedProperty().set(cameraProfile.headLightOff);
+		ambientLightOff.selectedProperty().set(cameraProfile.ambientLightOff);
+		moveBeforeCapture.selectedProperty().set(cameraProfile.moveBeforeCapture);
+		moveToX.setValue(cameraProfile.moveToX);
+		moveToY.setValue(cameraProfile.moveToY);
 
-		String cameraName = cameraProfile.getCameraName();
+		String cameraName = cameraProfile.cameraName;
 		if (cameraName.isBlank())
 			cameraName = i18n.t(ANY_CAMERA_NAME);
 		cmbCameraName.setValue(cameraName);
@@ -313,7 +323,7 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 			cameraProfileContainer.saveCameraProfile(currentCameraProfile);
 			populateCmbCameraProfiles();
 			populateCmbCameraNames();
-			selectCameraProfile(currentCameraProfile.getProfileName());
+			selectCameraProfile(currentCameraProfile.profileName);
 		}
 	}
 
@@ -327,7 +337,7 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 		String newProfileName = "";
 		cmbCameraProfile.getItems().add(newProfileName);
 		cmbCameraProfile.setValue(newProfileName);
-		controlSettingsManager.setControlSettings(currentCameraProfile.getControlSettings(), currentCameraProfile.isSystemProfile());
+		controlSettingsManager.setControlSettings(currentCameraProfile.controlSettings, currentCameraProfile.systemProfile);
 	}
 
 	private void whenDeletePressed() {
@@ -351,24 +361,29 @@ public class CameraProfilesPanelController implements MenuInnerPanel {
 	}
 
 	private void updateProfileWithCurrentValues() {
-		currentCameraProfile.setCaptureHeight(captureHeight.getAsInt());
-		currentCameraProfile.setCaptureWidth(captureWidth.getAsInt());
-		currentCameraProfile.setHeadLightOff(headLightOff.selectedProperty().get());
-		currentCameraProfile.setAmbientLightOff(ambientLightOff.selectedProperty().get());
-		currentCameraProfile.setMoveBeforeCapture(moveBeforeCapture.selectedProperty().get());
-		currentCameraProfile.setMoveToX(moveToX.getAsInt());
-		currentCameraProfile.setMoveToY(moveToY.getAsInt());
 		String cameraName = cmbCameraName.getValue().strip();
 		if (cameraName.equalsIgnoreCase(i18n.t(ANY_CAMERA_NAME)))
 			cameraName = "";
-		currentCameraProfile.setCameraName(cameraName);
+		boolean wasSystemProfile = currentCameraProfile.systemProfile;
+		currentCameraProfile = new CameraProfile(
+				currentCameraProfile.profileName,
+				captureHeight.getAsInt(),
+				captureWidth.getAsInt(),
+				headLightOff.selectedProperty().get(),
+				ambientLightOff.selectedProperty().get(),
+				moveBeforeCapture.selectedProperty().get(),
+				moveToX.getAsInt(),
+				moveToY.getAsInt(),
+				cameraName,
+				currentCameraProfile.controlSettings);
+		currentCameraProfile.systemProfile = wasSystemProfile;
 	}
 
 	public void setAndSelectCameraProfile(CameraProfile profile) {
 		if (profile != null &&
-				cameraProfilesMap.containsKey(profile.getProfileName().toLowerCase())) {
-			cmbCameraProfile.setValue(profile.getProfileName());
-			selectCameraProfile(profile.getProfileName());
+				cameraProfilesMap.containsKey(profile.profileName.toLowerCase())) {
+			cmbCameraProfile.setValue(profile.profileName);
+			selectCameraProfile(profile.profileName);
 		}
 		else {
 			selectDefaultCameraProfile();

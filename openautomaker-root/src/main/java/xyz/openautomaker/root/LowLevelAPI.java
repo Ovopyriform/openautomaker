@@ -152,7 +152,7 @@ public class LowLevelAPI
 						}
 						else if (remoteTx instanceof WritePrinterID &&
 								PrinterRegistry.getInstance().getRemotePrinters().size() == 1 &&
-								PrinterRegistry.getInstance().getRemotePrinters().get(printerID).printerConfigurationProperty().get().getTypeCode().equals("RBX10"))
+								PrinterRegistry.getInstance().getRemotePrinters().get(printerID).printerConfigurationProperty().get().typeCode.equals("RBX10"))
 						{
 							// If only one printer is connected and it is an RBX10, then this is a Robox Pro printer.
 							// Keep the server name the same as the printer name.

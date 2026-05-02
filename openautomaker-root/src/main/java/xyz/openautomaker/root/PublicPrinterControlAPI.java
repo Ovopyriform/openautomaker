@@ -1178,7 +1178,7 @@ public class PublicPrinterControlAPI
 				// If this printer is an RBX10, and is the only one connected to the serve,
 				// assume it is a RoboxPro. Name the server to be the same as the printer.
 
-				if (printerToUse.printerConfigurationProperty().get().getTypeCode().equals("RBX10") &&
+				if (printerToUse.printerConfigurationProperty().get().typeCode.equals("RBX10") &&
 						PrinterRegistry.getInstance().getRemotePrinters().size() == 1)
 				{
 					PrinterRegistry.getInstance().setServerName(cleanName);

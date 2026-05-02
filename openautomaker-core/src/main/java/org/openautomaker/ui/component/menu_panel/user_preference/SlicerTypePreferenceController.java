@@ -52,7 +52,7 @@ public class SlicerTypePreferenceController implements PreferencesInnerPanelCont
 		comboBox.setMinWidth(200);
 		comboBox.autosize();
 
-		comboBox.setItems(FXCollections.observableList(slicerPreference.values()));
+		comboBox.setItems(FXCollections.observableList(slicerPreference.validValues()));
 
 		Callback<ListView<Slicer>, ListCell<Slicer>> cellFactory = (listView) -> new SlicerListCell();
 		comboBox.setButtonCell(cellFactory.call(null));

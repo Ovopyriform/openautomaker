@@ -123,7 +123,7 @@ public class PrintableMeshes {
 		int nNozzles = 0;
 		HeadFile printerHead = headContainer.getHeadByID(settings.getHeadType());
 		if (printerHead != null)
-			nNozzles = printerHead.getNozzles().size();
+			nNozzles = printerHead.nozzles.size();
 		return nNozzles;
 	}
 }

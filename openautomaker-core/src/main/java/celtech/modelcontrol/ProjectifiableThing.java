@@ -242,15 +242,15 @@ public abstract class ProjectifiableThing extends Group implements ScreenExtents
 	private void updatePrintVolumeBounds(Printer printer) {
 		if (printer != null
 				&& printer.printerConfigurationProperty().get() != null) {
-			printVolumeWidth = printer.printerConfigurationProperty().get().getPrintVolumeWidth();
-			printVolumeDepth = printer.printerConfigurationProperty().get().getPrintVolumeDepth();
-			printVolumeHeight = printer.printerConfigurationProperty().get().getPrintVolumeHeight();
+			printVolumeWidth = printer.printerConfigurationProperty().get().printVolumeWidth;
+			printVolumeDepth = printer.printerConfigurationProperty().get().printVolumeDepth;
+			printVolumeHeight = printer.printerConfigurationProperty().get().printVolumeHeight;
 		}
 		else {
 			PrinterDefinitionFile defaultPrinterConfiguration = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
-			printVolumeWidth = defaultPrinterConfiguration.getPrintVolumeWidth();
-			printVolumeDepth = defaultPrinterConfiguration.getPrintVolumeDepth();
-			printVolumeHeight = defaultPrinterConfiguration.getPrintVolumeHeight();
+			printVolumeWidth = defaultPrinterConfiguration.printVolumeWidth;
+			printVolumeDepth = defaultPrinterConfiguration.printVolumeDepth;
+			printVolumeHeight = defaultPrinterConfiguration.printVolumeHeight;
 		}
 		printVolumeBoundsUpdated();
 	}

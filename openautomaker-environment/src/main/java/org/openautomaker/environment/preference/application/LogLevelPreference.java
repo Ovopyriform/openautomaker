@@ -30,7 +30,7 @@ public class LogLevelPreference extends APreference<Level> {
 	}
 
 	@Override
-	public List<Level> values() {
+	public List<Level> validValues() {
 		Level[] levels = Level.values();
 		Arrays.sort(levels);
 		return List.of(levels);

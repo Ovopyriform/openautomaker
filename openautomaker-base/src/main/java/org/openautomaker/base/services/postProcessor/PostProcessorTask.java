@@ -97,8 +97,8 @@ public class PostProcessorTask extends Task<GCodePostProcessingResult> {
 		}
 		else {
 			headFileToUse = headContainer.getHeadByID(printerToUse.headProperty().get().typeCodeProperty().get());
-			if (!headFileToUse.getTypeCode().equals("RBX01-SL")
-					&& !headFileToUse.getTypeCode().equals("RBX01-DL")) {
+			if (!headFileToUse.typeCode.equals("RBX01-SL")
+					&& !headFileToUse.typeCode.equals("RBX01-DL")) {
 				ppFeatures.enableFeature(PostProcessorFeature.REMOVE_ALL_UNRETRACTS);
 				ppFeatures.enableFeature(PostProcessorFeature.OPEN_AND_CLOSE_NOZZLES);
 				ppFeatures.enableFeature(PostProcessorFeature.OPEN_NOZZLE_FULLY_AT_START);
@@ -113,7 +113,6 @@ public class PostProcessorTask extends Task<GCodePostProcessingResult> {
 		Map<Integer, Integer> objectToNozzleNumberMap = new HashMap<>();
 		int objectIndex = 0;
 
-		headFileToUse.getNozzles().get(0).getAssociatedExtruder();
 		for (int extruderForModel : printableMeshes.getExtruderForModel()) {
 			Optional<Integer> nozzleForExtruder = headFileToUse.getNozzleNumberForExtruderNumber(extruderForModel);
 			if (nozzleForExtruder.isPresent()) {

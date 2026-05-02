@@ -67,7 +67,7 @@ public class CustomPrinterHeadPreferenceController implements PreferencesInnerPa
 		control.setMinWidth(200);
 		control.autosize();
 
-		headContainer.getCompleteHeadList().forEach(headFile -> control.getItems().add(headFile.getTypeCode()));
+		headContainer.getCompleteHeadList().forEach(headFile -> control.getItems().add(headFile.typeCode));
 
 		// Setup display
 		Callback<ListView<String>, ListCell<String>> cellFactory = (listView) -> new CustomerPrinterHeadListCell();

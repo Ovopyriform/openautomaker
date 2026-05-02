@@ -75,8 +75,8 @@ public class RbxprojReader implements IProjectReader {
 
 			IProject project = projectFactory.create();
 			project.setProjectPath(rbxprojPath);
-			if (metadata.getProjectName() != null) {
-				project.setProjectName(metadata.getProjectName());
+			if (metadata.projectName != null) {
+				project.setProjectName(metadata.projectName);
 			}
 
 			for (ModelPlacement placement : placements.placements) {

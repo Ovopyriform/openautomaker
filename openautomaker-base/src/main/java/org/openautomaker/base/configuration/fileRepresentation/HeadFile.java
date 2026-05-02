@@ -1,6 +1,5 @@
 package org.openautomaker.base.configuration.fileRepresentation;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,80 +7,35 @@ import org.openautomaker.base.printerControl.model.Extruder;
 import org.openautomaker.base.printerControl.model.Head.HeadType;
 import org.openautomaker.base.printerControl.model.Head.ValveType;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- *
- * @author Ian
- */
-//TODO: Look at how this is all represented.  Seems head loading and enumeration should be a separate module.
 public class HeadFile {
 
-	private int version = 2;
-	private String typeCode;
-	private HeadType type;
-	private ValveType valves;
-	private float zReduction = 0.0f;
+	public final int version;
+	public final String typeCode;
+	public final HeadType type;
+	public final ValveType valves;
+	public final float zReduction;
+	public final List<NozzleHeaterData> nozzleHeaters;
+	public final List<NozzleData> nozzles;
 
-	private List<NozzleHeaterData> nozzleHeaters = new ArrayList<>();
-	private List<NozzleData> nozzles = new ArrayList<>();
-
-	public HeadType getType() {
-		return type;
-	}
-
-	public void setType(HeadType type) {
-		this.type = type;
-	}
-
-	public void setValves(ValveType valves) {
-		this.valves = valves;
-	}
-
-	public ValveType getValves() {
-		return valves;
-	}
-
-	@JsonProperty("zReduction") // Needed otherwise property is all in lower case - i.e. 'zreduction'.
-	public float getZReduction() {
-		return zReduction;
-	}
-
-	@JsonProperty("zReduction") // Needed otherwise property is all in lower case - i.e. 'zreduction'.
-	public void setZReduction(float zReduction) {
-		this.zReduction = zReduction;
-	}
-
-	public int getVersion() {
-		return version;
-	}
-
-	public void setVersion(int version) {
+	@JsonCreator
+	public HeadFile(
+			@JsonProperty("version") int version,
+			@JsonProperty("typeCode") String typeCode,
+			@JsonProperty("type") HeadType type,
+			@JsonProperty("valves") ValveType valves,
+			@JsonProperty("zReduction") float zReduction,
+			@JsonProperty("nozzleHeaters") List<NozzleHeaterData> nozzleHeaters,
+			@JsonProperty("nozzles") List<NozzleData> nozzles) {
 		this.version = version;
-	}
-
-	public String getTypeCode() {
-		return typeCode;
-	}
-
-	public void setTypeCode(String typeCode) {
 		this.typeCode = typeCode;
-	}
-
-	public List<NozzleHeaterData> getNozzleHeaters() {
-		return nozzleHeaters;
-	}
-
-	public void setNozzleHeaters(List<NozzleHeaterData> nozzleHeaters) {
+		this.type = type;
+		this.valves = valves;
+		this.zReduction = zReduction;
 		this.nozzleHeaters = nozzleHeaters;
-	}
-
-	public List<NozzleData> getNozzles() {
-		return nozzles;
-	}
-
-	public void setNozzles(List<NozzleData> nozzles) {
 		this.nozzles = nozzles;
 	}
 
@@ -95,7 +49,7 @@ public class HeadFile {
 		Optional<Integer> returnVal = Optional.empty();
 
 		for (int nozzleIndex = 0; nozzleIndex < nozzles.size(); nozzleIndex++) {
-			if (nozzles.get(nozzleIndex).getAssociatedExtruder().equalsIgnoreCase(Extruder.getExtruderLetterForNumber(extruderNumber))) {
+			if (nozzles.get(nozzleIndex).associatedExtruder.equalsIgnoreCase(Extruder.getExtruderLetterForNumber(extruderNumber))) {
 				returnVal = Optional.of(nozzleIndex);
 				break;
 			}

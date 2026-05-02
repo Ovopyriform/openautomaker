@@ -181,7 +181,7 @@ public class PostProcessor {
 			nozzleProxies.add(proxy);
 		}
 
-		if (headFile.getType() == HeadType.DUAL_MATERIAL_HEAD) {
+		if (headFile.type == HeadType.DUAL_MATERIAL_HEAD) {
 			// If we have a dual extruder head but a single extruder machine force use of the available extruder
 			if (!printer.extrudersProperty().get(0).isFittedProperty().get() && !printer.extrudersProperty().get(1).isFittedProperty().get()) {
 				postProcessingMode = PostProcessingMode.NO_AVAILABLE_EXTRUDERS;
@@ -226,7 +226,7 @@ public class PostProcessor {
 			postProcessingMode = PostProcessingMode.TASK_BASED_NOZZLE_SELECTION;
 		}
 
-		if (headFile.getValves() == Head.ValveType.NOT_FITTED) {
+		if (headFile.valves == Head.ValveType.NOT_FITTED) {
 			featureSet.disableFeature(PostProcessorFeature.REMOVE_ALL_UNRETRACTS);
 			featureSet.disableFeature(PostProcessorFeature.OPEN_AND_CLOSE_NOZZLES);
 		}
@@ -358,18 +358,18 @@ public class PostProcessor {
 					//NOTE
 					if (featureSet.isEnabled(PostProcessorFeature.OPEN_AND_CLOSE_NOZZLES)) {
 						timeUtils.timerStart(this, openTimerName);
-						lastOpenResult = postProcessorUtilityMethods.insertOpens(resultToBeProcessed.getLayerData(), lastOpenResult, nozzleProxies, headFile.getTypeCode());
+						lastOpenResult = postProcessorUtilityMethods.insertOpens(resultToBeProcessed.getLayerData(), lastOpenResult, nozzleProxies, headFile.typeCode);
 						timeUtils.timerStop(this, openTimerName);
 					}
 				}
 
-				TimeAndVolumeCalc timeAndVolumeCalc = new TimeAndVolumeCalc(headFile.getType());
+				TimeAndVolumeCalc timeAndVolumeCalc = new TimeAndVolumeCalc(headFile.type);
 
 				timeUtils.timerStart(this, timeAndVolumeCalcTimerName);
 				TimeAndVolumeCalcResult timeAndVolumeCalcResult = timeAndVolumeCalc.calculateVolumeAndTime(postProcessResults);
 				timeUtils.timerStop(this, timeAndVolumeCalcTimerName);
 
-				if (headFile.getType() == Head.HeadType.DUAL_MATERIAL_HEAD) {
+				if (headFile.type == Head.HeadType.DUAL_MATERIAL_HEAD) {
 					eRequired = nozzle1HeatRequired = timeAndVolumeCalcResult.getExtruderEStats().getVolume() > 0;
 					dRequired = nozzle0HeatRequired = timeAndVolumeCalcResult.getExtruderDStats().getVolume() > 0;
 				}
@@ -382,7 +382,7 @@ public class PostProcessor {
 				Optional<PrinterType> printerTypeCode;
 				if (printer == null) {
 					PrinterDefinitionFile printerDef = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
-					printerTypeCode = Optional.of(PrinterType.getPrinterTypeForTypeCode(printerDef.getTypeCode()));
+					printerTypeCode = Optional.of(PrinterType.getPrinterTypeForTypeCode(printerDef.typeCode));
 				}
 				else {
 					printerTypeCode = Optional.of(printer.findPrinterType());
@@ -390,14 +390,14 @@ public class PostProcessor {
 
 				outputUtilities.prependPrePrintHeader(writer,
 						printerTypeCode,
-						headFile.getTypeCode(),
+						headFile.typeCode,
 						settingsProfile,
 						nozzle0HeatRequired,
 						nozzle1HeatRequired,
 						safetyFeaturesRequired);
 
 				timeUtils.timerStart(this, heaterSaverTimerName);
-				if (headFile.getType() == HeadType.DUAL_MATERIAL_HEAD
+				if (headFile.type == HeadType.DUAL_MATERIAL_HEAD
 						&& postProcessingMode != PostProcessingMode.FORCED_USE_OF_D_EXTRUDER
 						&& postProcessingMode != PostProcessingMode.FORCED_USE_OF_E_EXTRUDER) {
 					heaterSaver.saveHeaters(postProcessResults, nozzle0HeatRequired, nozzle1HeatRequired);
@@ -414,8 +414,8 @@ public class PostProcessor {
 
 					timeUtils.timerStart(this, writeOutputTimerName);
 					if (resultToBeProcessed.getLayerData().getLayerNumber() == 1) {
-						if (headFile.getType() == HeadType.SINGLE_MATERIAL_HEAD
-								|| (headFile.getType() == HeadType.DUAL_MATERIAL_HEAD
+						if (headFile.type == HeadType.SINGLE_MATERIAL_HEAD
+								|| (headFile.type == HeadType.DUAL_MATERIAL_HEAD
 										&& (postProcessingMode == PostProcessingMode.FORCED_USE_OF_D_EXTRUDER
 												|| postProcessingMode == PostProcessingMode.FORCED_USE_OF_E_EXTRUDER))) {
 							outputUtilities.outputSingleMaterialNozzleTemperatureCommands(writer, nozzle0HeatRequired, nozzle1HeatRequired, eRequired, dRequired);
@@ -436,7 +436,7 @@ public class PostProcessor {
 				outputUtilities.appendPostPrintFooter(writer,
 						timeAndVolumeCalcResult,
 						printerTypeCode,
-						headFile.getTypeCode(),
+						headFile.typeCode,
 						nozzle0HeatRequired,
 						nozzle1HeatRequired,
 						safetyFeaturesRequired);
@@ -458,8 +458,8 @@ public class PostProcessor {
 				}
 
 				PrintJobStatistics roboxisedStatistics = new PrintJobStatistics(
-						headFile.getTypeCode(),
-						headFile.getType().name(),
+						headFile.typeCode,
+						headFile.type.name(),
 						eRequired,
 						dRequired,
 						printJobUUID,
@@ -481,7 +481,7 @@ public class PostProcessor {
 				result.setRoboxisedStatistics(roboxisedStatistics);
 
 				timeUtils.timerStart(this, outputVerifierTimerName);
-				List<VerifierResult> verificationResults = outputVerifier.verifyAllLayers(postProcessResults, headFile.getType());
+				List<VerifierResult> verificationResults = outputVerifier.verifyAllLayers(postProcessResults, headFile.type);
 				timeUtils.timerStop(this, outputVerifierTimerName);
 
 				if (verificationResults.size() > 0) {
@@ -579,14 +579,14 @@ public class PostProcessor {
 			if (printer == null) {
 				PrinterDefinitionFile printerDef = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
 				gcodeParser.setPrintVolumeBounds(
-						printerDef.getPrintVolumeWidth(),
-						printerDef.getPrintVolumeDepth(),
-						printerDef.getPrintVolumeHeight());
+						printerDef.printVolumeWidth,
+						printerDef.printVolumeDepth,
+						printerDef.printVolumeHeight);
 			}
 			else {
-				gcodeParser.setPrintVolumeBounds(printer.printerConfigurationProperty().get().getPrintVolumeWidth(),
-						printer.printerConfigurationProperty().get().getPrintVolumeDepth(),
-						printer.printerConfigurationProperty().get().getPrintVolumeHeight());
+				gcodeParser.setPrintVolumeBounds(printer.printerConfigurationProperty().get().printVolumeWidth,
+						printer.printerConfigurationProperty().get().printVolumeDepth,
+						printer.printerConfigurationProperty().get().printVolumeHeight);
 			}
 
 			if (lastLayerParseResult != null) {

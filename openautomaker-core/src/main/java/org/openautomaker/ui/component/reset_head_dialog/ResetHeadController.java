@@ -71,12 +71,12 @@ public class ResetHeadController {
 	public void initialize() {
 		List<HeadFile> headFiles = new ArrayList<>(headContainer.getCompleteHeadList());
 
-		headFiles.sort((HeadFile o1, HeadFile o2) -> o2.getTypeCode().compareTo(o1.getTypeCode()));
+		headFiles.sort((HeadFile o1, HeadFile o2) -> o2.typeCode.compareTo(o1.typeCode));
 
 		for (HeadFile headFile : headFiles) {
-			URL headImageURL = getClass().getResource("/org/openautomaker/ui/images/heads/" + headFile.getTypeCode() + "-front.png");
+			URL headImageURL = getClass().getResource("/org/openautomaker/ui/images/heads/" + headFile.typeCode + "-front.png");
 			if (headImageURL == null) {
-				headImageURL = getClass().getResource("/org/openautomaker/ui/images/heads/" + headFile.getTypeCode() + "-side.png");
+				headImageURL = getClass().getResource("/org/openautomaker/ui/images/heads/" + headFile.typeCode + "-side.png");
 			}
 			if (headImageURL == null) {
 				headImageURL = getClass().getResource("/org/openautomaker/ui/images/heads/unknown.png");
@@ -85,7 +85,7 @@ public class ResetHeadController {
 			ImageView image = new ImageView(headImageURL.toExternalForm());
 			image.setFitHeight(300);
 			image.setFitWidth(300);
-			String headNamePrefix = "headPanel." + headFile.getTypeCode();
+			String headNamePrefix = "headPanel." + headFile.typeCode;
 			String headNameBold = headNamePrefix + ".titleBold";
 			String headNameLight = headNamePrefix + ".titleLight";
 			String buttonText = "Unknown";

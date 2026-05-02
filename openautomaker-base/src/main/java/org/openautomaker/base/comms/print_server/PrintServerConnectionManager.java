@@ -5,15 +5,14 @@ import static org.openautomaker.base.comms.print_server.PrintServerConnection.Se
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.inject.comms.PrintServerConnectionFactory;
-import org.openautomaker.environment.preference.ConnectedServersPreference;
 
 import celtech.roboxbase.comms.RemoteServerDetector;
 import jakarta.inject.Inject;
@@ -140,7 +139,7 @@ public class PrintServerConnectionManager {
 		this.knownServers = FXCollections.observableList(new CopyOnWriteArrayList<>());
 
 		//Try to reconnect all the saved printers or remove
-		connectedServersPreference.getValue().values().forEach((printServerConnection) -> {
+		connectedServersPreference.getValue().forEach((printServerConnection) -> {
 
 			//This should be handed off to a connection management service.
 			if (!printServerConnection.whoAreYou() && printServerConnection.maxPollCountExceeded()) {
@@ -151,9 +150,7 @@ public class PrintServerConnectionManager {
 			connect(printServerConnection);
 		});
 
-		//Update the preference
-		if (!connectedServers.equals(connectedServersPreference.getValue()))
-			connectedServersPreference.setValue(connectedServers);
+		connectedServersPreference.setValue(new ArrayList<>(connectedServers.values()));
 		
 		//Create and start
 		printServerScannerService = new PrintServerScannerService();
@@ -233,25 +230,21 @@ public class PrintServerConnectionManager {
 	}
 
 	public boolean isConnected(PrintServerConnection printServer) {
-		return connectedServers.containsKey(printServer.getAddress());
+		return connectedServersPreference.contains(printServer) && CONNECTED.equals(printServer.getServerStatus());
 	}
 
 	public void connect(PrintServerConnection printServer) {
-		Map<InetAddress, PrintServerConnection> connectedServers = connectedServersPreference.getValue();
-
-		// Already connected, no need to do anything
-		PrintServerConnection existingConnection = connectedServers.get(printServer.getAddress());
-		if (existingConnection != null && CONNECTED.equals(existingConnection.getServerStatus()))
+		// Already connected
+		if (isConnected(printServer))
 			return;
 
 		try {
 			printServer.connect();
-			connectedServers.put(printServer.getAddress(), printServer);
-			connectedServersPreference.setValue(connectedServers);
 
 			if (findKnownServerConnection(printServer.getAddress()) == null)
 				knownServers.add(printServer);
-
+			
+			connectedServersPreference.put(printServer);
 		}
 		catch (IOException e) {
 			LOGGER.error(e.toString(), e);
@@ -259,10 +252,7 @@ public class PrintServerConnectionManager {
 	}
 
 	public void disconnect(PrintServerConnection printServer) {
-		connectedServers.remove(printServer.getAddress());
+		connectedServersPreference.remove(printServer);
 		printServer.disconnect();
-		connectedServersPreference.setValue(connectedServers);
 	}
-
-
 }

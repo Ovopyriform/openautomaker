@@ -11,38 +11,10 @@ import org.openautomaker.base.configuration.fileRepresentation.CameraProfile;
 public class CameraProfileStringConverterTest {
 	@Test
 	public void testStringConverter() {
-		// creating a Stream of strings
 		List<CameraProfile> l = new ArrayList<>();
-		CameraProfile cp = new CameraProfile();
-		cp.setAmbientLightOff(true);
-		cp.setCaptureHeight(1080);
-		cp.setCaptureWidth(1920);
-		cp.setHeadLightOff(true);
-		cp.setMoveBeforeCapture(false);
-		cp.setMoveToX(0);
-		cp.setMoveToY(0);
-		cp.setMoveBeforeCapture(false);
-		cp.setProfileName("Default");
-		l.add(cp);
-		cp = new CameraProfile();
-		cp.setAmbientLightOff(true);
-		cp.setCaptureHeight(1080);
-		cp.setCaptureWidth(1920);
-		cp.setHeadLightOff(true);
-		cp.setMoveBeforeCapture(false);
-		cp.setMoveToX(0);
-		cp.setMoveToY(0);
-		cp.setCameraName("Default");
-		cp.setProfileName("Logitech 920");
-		l.add(cp);
-		cp = new CameraProfile();
-		cp.setAmbientLightOff(true);
-		cp.setCaptureHeight(1080);
-		cp.setCaptureWidth(1920);
-		cp.setHeadLightOff(true);
-		cp.setCameraName("Default");
-		cp.setProfileName("Logitech StreamCam");
-		l.add(cp);
+		l.add(new CameraProfile("Default", 1080, 1920, true, true, false, 0, 0, null, null));
+		l.add(new CameraProfile("Logitech 920", 1080, 1920, true, true, false, 0, 0, "Default", null));
+		l.add(new CameraProfile("Logitech StreamCam", 1080, 1920, true, true, false, 0, 0, "Default", null));
 
 		CameraProfileStringConverter cisc = new CameraProfileStringConverter(() -> {
 			return l;

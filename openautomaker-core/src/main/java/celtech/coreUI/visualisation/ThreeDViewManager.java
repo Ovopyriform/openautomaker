@@ -645,12 +645,12 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 				&& printer.printerConfigurationProperty().get() != null) {
 			currentPrinterConfiguration = printer.printerConfigurationProperty().get();
 
-			defaultXTranslate = -currentPrinterConfiguration.getPrintVolumeWidth() / 2;
-			defaultYTranslate = currentPrinterConfiguration.getPrintVolumeHeight() / 3;
+			defaultXTranslate = -currentPrinterConfiguration.printVolumeWidth / 2;
+			defaultYTranslate = currentPrinterConfiguration.printVolumeHeight / 3;
 
-			if (currentPrinterConfiguration.getTypeCode().equals("RBX10")) {
+			if (currentPrinterConfiguration.typeCode.equals("RBX10")) {
 				defaultDistance = 550;
-				defaultYTranslate = currentPrinterConfiguration.getPrintVolumeHeight() / 7;
+				defaultYTranslate = currentPrinterConfiguration.printVolumeHeight / 7;
 				buildBed(true);
 			}
 			else {
@@ -662,8 +662,8 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		else {
 			//Default view
 			PrinterDefinitionFile defaultPrinterDefinition = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
-			defaultXTranslate = -defaultPrinterDefinition.getPrintVolumeWidth() / 2;
-			defaultYTranslate = defaultPrinterDefinition.getPrintVolumeHeight() - 80;
+			defaultXTranslate = -defaultPrinterDefinition.printVolumeWidth / 2;
+			defaultYTranslate = defaultPrinterDefinition.printVolumeHeight - 80;
 		}
 		addPrintVolumeBoundingBox(bed);
 		deselectAllModels();
@@ -818,8 +818,8 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 		translationDragPlane.setOpacity(0.0);
 		translationDragPlane.setMaterial(greyExcludedMaterial);
 		translationDragPlane.setMouseTransparent(true);
-		translationDragPlane.setTranslateX(currentPrinterConfiguration.getPrintVolumeWidth());
-		translationDragPlane.setTranslateZ(currentPrinterConfiguration.getPrintVolumeDepth());
+		translationDragPlane.setTranslateX(currentPrinterConfiguration.printVolumeWidth);
+		translationDragPlane.setTranslateZ(currentPrinterConfiguration.printVolumeDepth);
 
 		verticalDragPlane.setId("VerticalDragPlane");
 		verticalDragPlane.setOpacity(0.0);
@@ -844,8 +844,8 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 				verticalDragPlane, zCutDisplayPlane);
 		root3D.getChildren().add(bedTranslateXform);
 
-		double bedXOffsetFromCameraZero = -currentPrinterConfiguration.getPrintVolumeWidth() / 2;
-		double bedZOffsetFromCameraZero = -currentPrinterConfiguration.getPrintVolumeDepth() / 2;
+		double bedXOffsetFromCameraZero = -currentPrinterConfiguration.printVolumeWidth / 2;
+		double bedZOffsetFromCameraZero = -currentPrinterConfiguration.printVolumeDepth / 2;
 
 		bedTranslateXform.setTx(bedXOffsetFromCameraZero);
 		bedTranslateXform.setTz(bedZOffsetFromCameraZero + cameraDistance.get());
@@ -1570,9 +1570,9 @@ public class ThreeDViewManager implements Project.ProjectChangesListener, Screen
 
 	private void addPrintVolumeBoundingBox(Group bed) {
 		if (bed != null) {
-			Node newBoundingBox = createBoundingBox(currentPrinterConfiguration.getPrintVolumeWidth(),
-					currentPrinterConfiguration.getPrintVolumeDepth(),
-					currentPrinterConfiguration.getPrintVolumeHeight());
+			Node newBoundingBox = createBoundingBox(currentPrinterConfiguration.printVolumeWidth,
+					currentPrinterConfiguration.printVolumeDepth,
+					currentPrinterConfiguration.printVolumeHeight);
 			bed.getChildren().remove(printVolumeBoundingBox);
 			bed.getChildren().add(newBoundingBox);
 			printVolumeBoundingBox = newBoundingBox;

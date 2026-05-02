@@ -13,18 +13,8 @@ class GcodeSettingsDataTest {
 
 	@Test
 	void roundTrip_preservesAllFields() throws Exception {
-		PrintSettingsData ps = new PrintSettingsData();
-		ps.setExtruder0FilamentID("RBXFF-000A");
-		ps.setExtruder1FilamentID("NULL");
-		ps.setSettingsName("Draft");
-		ps.setPrintQuality("FINE");
-		ps.setBrimOverride(3);
-		ps.setFillDensityOverride(0.35f);
-		ps.setFillDensityOverridenByUser(true);
-		ps.setPrintSupportOverride(true);
-		ps.setPrintSupportTypeOverride("MATERIAL_2");
-		ps.setPrintRaft(true);
-		ps.setSpiralPrint(false);
+		PrintSettingsData ps = new PrintSettingsData(
+				"RBXFF-000A", "NULL", "Draft", "FINE", 3, 0.35f, true, true, "MATERIAL_2", true, false);
 
 		GcodeSettingsData original = new GcodeSettingsData("RBX02", "DUAL_MATERIAL_HEAD", ps);
 		String json = mapper.writeValueAsString(original);
@@ -32,20 +22,21 @@ class GcodeSettingsDataTest {
 
 		assertThat(restored.printerTypeCode).isEqualTo("RBX02");
 		assertThat(restored.headType).isEqualTo("DUAL_MATERIAL_HEAD");
-		assertThat(restored.printSettings.getExtruder0FilamentID()).isEqualTo("RBXFF-000A");
-		assertThat(restored.printSettings.getPrintQuality()).isEqualTo("FINE");
-		assertThat(restored.printSettings.getBrimOverride()).isEqualTo(3);
-		assertThat(restored.printSettings.getFillDensityOverride()).isEqualTo(0.35f);
-		assertThat(restored.printSettings.isFillDensityOverridenByUser()).isTrue();
-		assertThat(restored.printSettings.isPrintSupportOverride()).isTrue();
-		assertThat(restored.printSettings.getPrintSupportTypeOverride()).isEqualTo("MATERIAL_2");
-		assertThat(restored.printSettings.isPrintRaft()).isTrue();
-		assertThat(restored.printSettings.isSpiralPrint()).isFalse();
+		assertThat(restored.printSettings.extruder0FilamentID).isEqualTo("RBXFF-000A");
+		assertThat(restored.printSettings.printQuality).isEqualTo("FINE");
+		assertThat(restored.printSettings.brimOverride).isEqualTo(3);
+		assertThat(restored.printSettings.fillDensityOverride).isEqualTo(0.35f);
+		assertThat(restored.printSettings.fillDensityOverridenByUser).isTrue();
+		assertThat(restored.printSettings.printSupportOverride).isTrue();
+		assertThat(restored.printSettings.printSupportTypeOverride).isEqualTo("MATERIAL_2");
+		assertThat(restored.printSettings.printRaft).isTrue();
+		assertThat(restored.printSettings.spiralPrint).isFalse();
 	}
 
 	@Test
 	void serialise_includesExpectedTopLevelKeys() throws Exception {
-		GcodeSettingsData settings = new GcodeSettingsData("RBX01", "SINGLE_MATERIAL_HEAD", new PrintSettingsData());
+		GcodeSettingsData settings = new GcodeSettingsData("RBX01", "SINGLE_MATERIAL_HEAD",
+				new PrintSettingsData(null, null, null, null, 0, 0f, false, false, null, false, false));
 		String json = mapper.writeValueAsString(settings);
 
 		assertThat(json).contains("printerTypeCode");

@@ -207,7 +207,7 @@ public class PreviewManagerController {
 			String printerType = null;
 			Printer printer = selectedPrinter.get();
 			if (printer != null)
-				printerType = printer.printerConfigurationProperty().get().getTypeCode();
+				printerType = printer.printerConfigurationProperty().get().typeCode;
 
 			Path projectPath = projectsPathPreference.getValue().resolve(currentProject.getProjectName());
 
@@ -264,7 +264,7 @@ public class PreviewManagerController {
 					String printerType = null;
 					Printer printer = selectedPrinter.get();
 					if (printer != null) {
-						printerType = printer.printerConfigurationProperty().get().getTypeCode();
+						printerType = printer.printerConfigurationProperty().get().typeCode;
 
 						Head head = printer.headProperty().get();
 						if (head != null) {

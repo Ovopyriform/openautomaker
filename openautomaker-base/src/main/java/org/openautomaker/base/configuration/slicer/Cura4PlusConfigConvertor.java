@@ -83,13 +83,13 @@ public class Cura4PlusConfigConvertor {
 
 		if (printer == null) {
 			PrinterDefinitionFile printerDef = printerContainer.getPrinterByID(PrinterContainer.defaultPrinterID);
-			width = printerDef.getPrintVolumeWidth();
-			depth = printerDef.getPrintVolumeDepth();
-			height = printerDef.getPrintVolumeHeight();
+			width = printerDef.printVolumeWidth;
+			depth = printerDef.printVolumeDepth;
+			height = printerDef.printVolumeHeight;
 		} else {
-			width = printer.printerConfigurationProperty().get().getPrintVolumeWidth();
-			depth = printer.printerConfigurationProperty().get().getPrintVolumeDepth();
-			height = printer.printerConfigurationProperty().get().getPrintVolumeHeight();
+			width = printer.printerConfigurationProperty().get().printVolumeWidth;
+			depth = printer.printerConfigurationProperty().get().printVolumeDepth;
+			height = printer.printerConfigurationProperty().get().printVolumeHeight;
 		}
 		curaDefaultSettingsEditor.editDefaultFloatValue("machine_width", width);
 		curaDefaultSettingsEditor.editDefaultFloatValue("machine_depth", depth);

@@ -5,189 +5,61 @@ import java.util.Map;
 
 import org.openautomaker.base.configuration.BaseConfiguration;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-/**
- *
- * @author George Salter
- */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CameraProfile 
-{
-    @JsonProperty("profileName")
-    private String profileName = BaseConfiguration.defaultCameraProfileName;
-    
-    @JsonProperty("captureHeight")
-    private int captureHeight = 720;
-    
-    @JsonProperty("captureWidth")
-    private int captureWidth = 1080;
-    
-    @JsonProperty("headLightOff")
-    private boolean headLightOff = true;
-    
-    @JsonProperty("ambientLightOff")
-    private boolean ambientLightOff = false;
-    
-    @JsonProperty("moveBeforeCapture")
-    private boolean moveBeforeCapture = true;
+public class CameraProfile {
+	public final String profileName;
+	public final int captureHeight;
+	public final int captureWidth;
+	public final boolean headLightOff;
+	public final boolean ambientLightOff;
+	public final boolean moveBeforeCapture;
+	public final int moveToX;
+	public final int moveToY;
+	public final String cameraName;
+	public final Map<String, String> controlSettings;
 
-    @JsonProperty("moveToX")
-    private int moveToX = 50;
+	@JsonIgnore
+	public boolean systemProfile = false;
 
-    @JsonProperty("moveToY")
-    private int moveToY = 50;
+	@JsonCreator
+	public CameraProfile(
+			@JsonProperty("profileName") String profileName,
+			@JsonProperty("captureHeight") int captureHeight,
+			@JsonProperty("captureWidth") int captureWidth,
+			@JsonProperty("headLightOff") boolean headLightOff,
+			@JsonProperty("ambientLightOff") boolean ambientLightOff,
+			@JsonProperty("moveBeforeCapture") boolean moveBeforeCapture,
+			@JsonProperty("moveToX") int moveToX,
+			@JsonProperty("moveToY") int moveToY,
+			@JsonProperty("cameraName") String cameraName,
+			@JsonProperty("controlSettings") Map<String, String> controlSettings) {
+		this.profileName = profileName != null ? profileName : BaseConfiguration.defaultCameraProfileName;
+		this.captureHeight = captureHeight;
+		this.captureWidth = captureWidth;
+		this.headLightOff = headLightOff;
+		this.ambientLightOff = ambientLightOff;
+		this.moveBeforeCapture = moveBeforeCapture;
+		this.moveToX = moveToX;
+		this.moveToY = moveToY;
+		this.cameraName = cameraName != null ? cameraName : "";
+		this.controlSettings = controlSettings != null ? controlSettings : new HashMap<>();
+	}
 
-    @JsonProperty("cameraName")
-    private String cameraName = "";
-
-    @JsonProperty("controlSettings")
-    private Map<String, String> controlSettings = new HashMap<>();
-
-    @JsonIgnore()
-    private boolean systemProfile = false;
-    
-    /**
-     * Default constructor of Jackson
-     */
-    public CameraProfile() {}
-    
-    public CameraProfile(CameraProfile profileToCopy) 
-    {
-        profileName = "";
-        captureHeight = profileToCopy.getCaptureHeight();
-        captureWidth = profileToCopy.getCaptureWidth();
-        headLightOff = profileToCopy.isHeadLightOff();
-        ambientLightOff = profileToCopy.isAmbientLightOff();
-        moveBeforeCapture = profileToCopy.isMoveBeforeCapture();
-        moveToX = profileToCopy.getMoveToX();
-        moveToY = profileToCopy.getMoveToY();
-        cameraName = profileToCopy.getCameraName();
-        controlSettings = new HashMap<>(profileToCopy.getControlSettings());
-        systemProfile = false;
-    }
-
-    public String getProfileName()
-    {
-        return profileName;
-    }
-    
-    public void setProfileName(String profileName)
-    {
-        this.profileName = profileName;
-    }
-    
-    public int getCaptureHeight()
-    {
-        return captureHeight;
-    }
-
-    public void setCaptureHeight(int captureHeight)
-    {
-        this.captureHeight = captureHeight;
-    }
-
-    public int getCaptureWidth()
-    {
-        return captureWidth;
-    }
-
-    public void setCaptureWidth(int captureWidth) 
-    {
-        this.captureWidth = captureWidth;
-    }
-
-    public boolean isHeadLightOff() 
-    {
-        return headLightOff;
-    }
-
-    public void setHeadLightOff(boolean headLightOff) 
-    {
-        this.headLightOff = headLightOff;
-    }
-
-    public void setAmbientLightOff(boolean ambientLightOff) 
-    {
-        this.ambientLightOff = ambientLightOff;
-    }
-
-    public boolean isAmbientLightOff() 
-    {
-        return ambientLightOff;
-    }
-
-    public void setMoveBeforeCapture(boolean moveBeforeCapture) 
-    {
-        this.moveBeforeCapture = moveBeforeCapture;
-    }
-    
-    public boolean isMoveBeforeCapture() 
-    {
-        return moveBeforeCapture;
-    }
-
-    public void setMoveToX(int moveToX) 
-    {
-        this.moveToX = moveToX;
-    }
-    
-    public int getMoveToX() 
-    {
-        return moveToX;
-    }
-
-    public void setMoveToY(int moveToY) 
-    {
-        this.moveToY = moveToY;
-    }
-    
-    public int getMoveToY() 
-    {
-        return moveToY;
-    }
-
-    public String getCameraName()
-    {
-        return cameraName;
-    }
-    
-    public void setCameraName(String cameraName)
-    {
-        this.cameraName = cameraName;
-    }
-    
-    public Map<String, String> getControlSettings() 
-    {
-        return controlSettings;
-    }
-
-    public void setControlSettings(Map<String, String> controlSettings) 
-    {
-        this.controlSettings = controlSettings;
-    }
-
-    public String getControlSetting(String control) 
-    {
-        return controlSettings.get(control);
-    }
-
-    public void setControlSetting(String control, String value) 
-    {
-        controlSettings.put(control, value);
-    }
-    
-    @JsonIgnore()
-    public boolean isSystemProfile() 
-    {
-        return systemProfile;
-    }
-
-    @JsonIgnore()
-    public void setSystemProfile(boolean systemProfile) 
-    {
-        this.systemProfile = systemProfile;
-    }
+	public CameraProfile(CameraProfile profileToCopy) {
+		this("",
+				profileToCopy.captureHeight,
+				profileToCopy.captureWidth,
+				profileToCopy.headLightOff,
+				profileToCopy.ambientLightOff,
+				profileToCopy.moveBeforeCapture,
+				profileToCopy.moveToX,
+				profileToCopy.moveToY,
+				profileToCopy.cameraName,
+				new HashMap<>(profileToCopy.controlSettings));
+	}
 }

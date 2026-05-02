@@ -25,7 +25,7 @@ public class CameraProfileStringConverter extends StringConverter<CameraProfile>
 		if (profile == null) {
 			return "";
 		}
-		return profile.getProfileName();
+		return profile.profileName;
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class CameraProfileStringConverter extends StringConverter<CameraProfile>
 		CameraProfile profile = null;
 		Optional<CameraProfile> cpOpt = listSupplier.get()
 				.stream()
-				.filter(p -> p.getProfileName().equalsIgnoreCase(string))
+				.filter(p -> p.profileName.equalsIgnoreCase(string))
 				.findFirst();
 		// Unwrap optional as return type is "bare".
 		if (cpOpt.isPresent())

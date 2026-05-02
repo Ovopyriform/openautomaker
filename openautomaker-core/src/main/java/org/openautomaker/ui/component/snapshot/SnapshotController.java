@@ -85,7 +85,7 @@ public abstract class SnapshotController {
 		// Find the profile.
 		cameraProfileChooser.getItems()
 				.stream()
-				.filter(cp -> cp.getProfileName().equalsIgnoreCase(profileName))
+				.filter(cp -> cp.profileName.equalsIgnoreCase(profileName))
 				.findFirst()
 				.ifPresent((p) -> {
 					selectedProfile = p;
@@ -111,19 +111,19 @@ public abstract class SnapshotController {
 			populateCameraChooser();
 			if (profile != null) {
 				if (viewWidthFixed) {
-					double aspectRatio = profile.getCaptureHeight() / (double) profile.getCaptureWidth();
+					double aspectRatio = profile.captureHeight / (double) profile.captureWidth;
 					double fitHeight = (aspectRatio * snapshotView.getFitWidth());
 					snapshotView.setFitHeight(fitHeight);
 				}
 				else {
-					double aspectRatio = profile.getCaptureWidth() / (double) profile.getCaptureHeight();
+					double aspectRatio = profile.captureWidth / (double) profile.captureHeight;
 					double fitWidth = (aspectRatio * snapshotView.getFitHeight());
 					snapshotView.setFitWidth(fitWidth);
 				}
 				cameraChooser.getItems()
 						.stream()
-						.filter(ci -> profile.getCameraName().isBlank() ||
-								ci.getCameraName().equalsIgnoreCase(profile.getCameraName()))
+						.filter(ci -> profile.cameraName.isBlank() ||
+								ci.getCameraName().equalsIgnoreCase(profile.cameraName))
 						.findFirst()
 						.ifPresentOrElse(cameraChooser::setValue,
 								() -> {
@@ -143,10 +143,10 @@ public abstract class SnapshotController {
 			// Interesting mix of programming styles.
 			CameraProfile profileToSelect;
 			if (currentProfile != null) {
-				String currentProfileName = currentProfile.getProfileName();
+				String currentProfileName = currentProfile.profileName;
 				List<CameraProfile> itemList = cameraProfileChooser.getItems();
 				profileToSelect = itemList.stream()
-						.filter(p -> p.getProfileName().equals(currentProfileName))
+						.filter(p -> p.profileName.equals(currentProfileName))
 						.findAny()
 						.orElse(cameraProfileContainer.getDefaultProfile());
 			}
@@ -168,8 +168,8 @@ public abstract class SnapshotController {
 			Map<String, CameraProfile> cameraProfilesMap = cameraProfileContainer.getCameraProfilesMap();
 			ObservableList<CameraProfile> items = cameraProfilesMap.values()
 					.stream()
-					.filter(pp -> pp.getCameraName().isBlank() ||
-							cameraNames.contains(pp.getCameraName()))
+					.filter(pp -> pp.cameraName.isBlank() ||
+							cameraNames.contains(pp.cameraName))
 					.collect(Collectors.toCollection(FXCollections::observableArrayList));
 			cameraProfileChooser.setItems(items);
 		}
@@ -201,7 +201,7 @@ public abstract class SnapshotController {
 	}
 
 	protected void populateCameraChooser() {
-		String cameraName = (cameraProfileChooser.getValue() != null ? cameraProfileChooser.getValue().getCameraName()
+		String cameraName = (cameraProfileChooser.getValue() != null ? cameraProfileChooser.getValue().cameraName
 				: "");
 		if (connectedServer != null) {
 			ObservableList<CameraInfo> itemList = cameraManager.getConnectedCameras().stream()
@@ -227,11 +227,11 @@ public abstract class SnapshotController {
 			snapshotTask = new Task<>() {
 				@Override
 				protected Void call() throws Exception {
-					PrintServerConnection server = snapshotSettings.getCamera().getServer();
+					PrintServerConnection server = snapshotSettings.camera.getServer();
 					while (!isCancelled()) {
 						Image snapshotImage = server.takeCameraSnapshot(snapshotSettings);
 						taskExecutor.runOnGUIThread(() -> {
-							if (selectedCamera == snapshotSettings.getCamera()) {
+							if (selectedCamera == snapshotSettings.camera) {
 								snapshotView.setImage(snapshotImage);
 							}
 						});

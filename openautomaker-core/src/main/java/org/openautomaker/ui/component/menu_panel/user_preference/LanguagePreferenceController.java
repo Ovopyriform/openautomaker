@@ -52,7 +52,7 @@ public class LanguagePreferenceController implements PreferencesInnerPanelContro
 		control.setMinWidth(200);
 		control.autosize();
 
-		control.setItems(FXCollections.observableList(localePreference.values()));
+		control.setItems(FXCollections.observableList(localePreference.validValues()));
 
 		// Set up display
 		Callback<ListView<Locale>, ListCell<Locale>> cellFactory = (listView) -> new LocaleListCell();

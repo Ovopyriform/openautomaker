@@ -116,7 +116,7 @@ public abstract class AbstractSlicerConfigWriter implements SlicerConfigWriter {
 			outputPrintCentre(writer, centreX, centreY);
 
 			//Process the defaults
-			for (String defaultData : mappingData.getDefaults()) {
+			for (String defaultData : mappingData.defaults) {
 				// This is a default value for the slicer - don't look it up.
 				String[] valueElements = defaultData.split(":");
 				String variableName = valueElements[0];
@@ -130,7 +130,7 @@ public abstract class AbstractSlicerConfigWriter implements SlicerConfigWriter {
 				outputLine(writer, variableName, value);
 			}
 
-			for (Map.Entry<String, String> entry : mappingData.getMappingData().entrySet()) {
+			for (Map.Entry<String, String> entry : mappingData.mappingData.entrySet()) {
 				String targetVariableName = entry.getKey();
 				String settingNameOrValue = extractSettingNameOrValue(entry.getValue());
 

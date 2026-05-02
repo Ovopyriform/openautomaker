@@ -4,26 +4,22 @@ import java.util.Map;
 
 import org.openautomaker.environment.Slicer;
 
-/**
- *
- * @author Ian
- */
-//TODO: Perhaps make this the map?
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class SlicerMappings {
 
-	private Map<Slicer, SlicerMappingData> mappings;
+	public final Map<Slicer, SlicerMappingData> mappings;
 
-	public Map<Slicer, SlicerMappingData> getMappings() {
-		return mappings;
-	}
-
-	public void setMappings(Map<Slicer, SlicerMappingData> mappings) {
+	@JsonCreator
+	public SlicerMappings(
+			@JsonProperty("mappings") Map<Slicer, SlicerMappingData> mappings) {
 		this.mappings = mappings;
 	}
 
 	public boolean isMapped(Slicer slicerType, String variable) {
 		boolean isMapped = false;
-		for (String formula : mappings.get(slicerType).getMappingData().values()) {
+		for (String formula : mappings.get(slicerType).mappingData.values()) {
 			String[] elements = formula.split(":");
 			if (elements.length == 0 && formula.equals(variable)) {
 				isMapped = true;

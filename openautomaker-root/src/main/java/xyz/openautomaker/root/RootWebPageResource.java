@@ -74,7 +74,7 @@ public class RootWebPageResource
 			{
 				try
 				{
-					if(v.printerConfigurationProperty().get().getTypeCode().equals("RBX10"))
+					if(v.printerConfigurationProperty().get().typeCode.equals("RBX10"))
 					{
 						v.updatePrinterName(serverName);
 					}

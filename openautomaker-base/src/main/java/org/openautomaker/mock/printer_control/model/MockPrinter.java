@@ -137,8 +137,7 @@ public class MockPrinter implements Printer {
 	private void mockPrinterDefinition() {
 		//Set up the mock printer for tests
 		// addHead();  // Removed to make tests less brittle - add head explicitly when needed
-		PrinterDefinitionFile printerDefinitionFile = new PrinterDefinitionFile();
-		printerDefinitionFile.setTypeCode(RBX10);
+		PrinterDefinitionFile printerDefinitionFile = new PrinterDefinitionFile(1, RBX10, null, null, null, 0, 0, 0);
 		setPrinterConfiguration(printerDefinitionFile);
 	}
 
@@ -163,8 +162,7 @@ public class MockPrinter implements Printer {
 	}
 
 	public void addHead() {
-		HeadFile headFile = new HeadFile();
-		headFile.setTypeCode("RBX01-SM");
+		HeadFile headFile = new HeadFile(2, "RBX01-SM", null, null, 0.0f, List.of(), List.of());
 		Head head = testHeadFactory.create(headFile);
 		headProperty.setValue(head);
 	}

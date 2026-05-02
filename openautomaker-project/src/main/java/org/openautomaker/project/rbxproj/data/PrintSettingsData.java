@@ -1,107 +1,45 @@
 package org.openautomaker.project.rbxproj.data;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class PrintSettingsData {
 
-	private String extruder0FilamentID;
-	private String extruder1FilamentID;
-	private String settingsName;
-	private String printQuality;
-	private int brimOverride;
-	private float fillDensityOverride;
-	private boolean fillDensityOverridenByUser;
-	private boolean printSupportOverride;
-	private String printSupportTypeOverride;
-	private boolean printRaft;
-	private boolean spiralPrint;
+	public final String extruder0FilamentID;
+	public final String extruder1FilamentID;
+	public final String settingsName;
+	public final String printQuality;
+	public final int brimOverride;
+	public final float fillDensityOverride;
+	public final boolean fillDensityOverridenByUser;
+	public final boolean printSupportOverride;
+	public final String printSupportTypeOverride;
+	public final boolean printRaft;
+	public final boolean spiralPrint;
 
-	public PrintSettingsData() {
-	}
-
-	public String getExtruder0FilamentID() {
-		return extruder0FilamentID;
-	}
-
-	public void setExtruder0FilamentID(String v) {
-		this.extruder0FilamentID = v;
-	}
-
-	public String getExtruder1FilamentID() {
-		return extruder1FilamentID;
-	}
-
-	public void setExtruder1FilamentID(String v) {
-		this.extruder1FilamentID = v;
-	}
-
-	public String getSettingsName() {
-		return settingsName;
-	}
-
-	public void setSettingsName(String v) {
-		this.settingsName = v;
-	}
-
-	public String getPrintQuality() {
-		return printQuality;
-	}
-
-	public void setPrintQuality(String v) {
-		this.printQuality = v;
-	}
-
-	public int getBrimOverride() {
-		return brimOverride;
-	}
-
-	public void setBrimOverride(int v) {
-		this.brimOverride = v;
-	}
-
-	public float getFillDensityOverride() {
-		return fillDensityOverride;
-	}
-
-	public void setFillDensityOverride(float v) {
-		this.fillDensityOverride = v;
-	}
-
-	public boolean isFillDensityOverridenByUser() {
-		return fillDensityOverridenByUser;
-	}
-
-	public void setFillDensityOverridenByUser(boolean v) {
-		this.fillDensityOverridenByUser = v;
-	}
-
-	public boolean isPrintSupportOverride() {
-		return printSupportOverride;
-	}
-
-	public void setPrintSupportOverride(boolean v) {
-		this.printSupportOverride = v;
-	}
-
-	public String getPrintSupportTypeOverride() {
-		return printSupportTypeOverride;
-	}
-
-	public void setPrintSupportTypeOverride(String v) {
-		this.printSupportTypeOverride = v;
-	}
-
-	public boolean isPrintRaft() {
-		return printRaft;
-	}
-
-	public void setPrintRaft(boolean v) {
-		this.printRaft = v;
-	}
-
-	public boolean isSpiralPrint() {
-		return spiralPrint;
-	}
-
-	public void setSpiralPrint(boolean v) {
-		this.spiralPrint = v;
+	@JsonCreator
+	public PrintSettingsData(
+			@JsonProperty("extruder0FilamentID") String extruder0FilamentID,
+			@JsonProperty("extruder1FilamentID") String extruder1FilamentID,
+			@JsonProperty("settingsName") String settingsName,
+			@JsonProperty("printQuality") String printQuality,
+			@JsonProperty("brimOverride") int brimOverride,
+			@JsonProperty("fillDensityOverride") float fillDensityOverride,
+			@JsonProperty("fillDensityOverridenByUser") boolean fillDensityOverridenByUser,
+			@JsonProperty("printSupportOverride") boolean printSupportOverride,
+			@JsonProperty("printSupportTypeOverride") String printSupportTypeOverride,
+			@JsonProperty("printRaft") boolean printRaft,
+			@JsonProperty("spiralPrint") boolean spiralPrint) {
+		this.extruder0FilamentID = extruder0FilamentID;
+		this.extruder1FilamentID = extruder1FilamentID;
+		this.settingsName = settingsName;
+		this.printQuality = printQuality;
+		this.brimOverride = brimOverride;
+		this.fillDensityOverride = fillDensityOverride;
+		this.fillDensityOverridenByUser = fillDensityOverridenByUser;
+		this.printSupportOverride = printSupportOverride;
+		this.printSupportTypeOverride = printSupportTypeOverride;
+		this.printRaft = printRaft;
+		this.spiralPrint = spiralPrint;
 	}
 }

@@ -136,11 +136,11 @@ public class ResetPrinterIDController implements Initializable {
 					PrinterDefinitionFile printerConfigFile = printerContainer.getPrinterByID(newIdentity.printermodelProperty().get());
 					if (printerConfigFile != null) {
 						printerToUse.setPrinterConfiguration(printerConfigFile);
-						printerConfigFile.getEditions().stream()
-								.filter(configEdition -> configEdition.getTypeCode().equalsIgnoreCase(newIdentity.printereditionProperty().get()))
+						printerConfigFile.editions.stream()
+								.filter(configEdition -> configEdition.typeCode.equalsIgnoreCase(newIdentity.printereditionProperty().get()))
 								.findAny()
 								.ifPresent(foundEdition -> {
-									if (printerConfigFile.getTypeCode().equalsIgnoreCase("RBX10"))
+									if (printerConfigFile.typeCode.equalsIgnoreCase("RBX10"))
 										newIdentity.printerFriendlyNameProperty().set("RoboxPro");
 									else
 										newIdentity.printerFriendlyNameProperty().set("Robox");
@@ -271,11 +271,11 @@ public class ResetPrinterIDController implements Initializable {
 
 	private void updateEditionChoice(PrinterDefinitionFile printerConfigFile) {
 		List<String> l = new ArrayList<>();
-		printerConfigFile.getEditions()
+		printerConfigFile.editions
 				.forEach((edition) -> {
-					l.add(edition.getTypeCode());
+					l.add(edition.typeCode);
 				});
-		printerEditionChoice.setItems(FXCollections.observableList(printerConfigFile.getEditions()));
+		printerEditionChoice.setItems(FXCollections.observableList(printerConfigFile.editions));
 		printerEditionChoice.setValue(printerEditionChoice.getItems().get(0));
 	}
 
