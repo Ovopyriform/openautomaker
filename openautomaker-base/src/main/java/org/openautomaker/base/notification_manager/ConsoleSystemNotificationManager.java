@@ -22,7 +22,7 @@ import celtech.roboxbase.comms.rx.PrinterIDResponse;
 public class ConsoleSystemNotificationManager implements SystemNotificationManager
 {
 
-	protected final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
     @Override
     public void showInformationNotification(String title, String message)

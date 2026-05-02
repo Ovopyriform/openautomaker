@@ -82,6 +82,32 @@ openautomaker (main app)
 - **JUnit 5 (Jupiter)**, **TestFX 4**, **Mockito 5**, **AssertJ** — testing
 - **Lombok** — annotation processor (check for `@Data`, `@Builder`, etc.)
 
+## Coding Style
+
+**Indentation:** Tabs, not spaces.
+
+**Braces:** Allman-style for multi-statement blocks. Single-statement `if`/`return` bodies may omit braces when the body is on its own line immediately after the condition.
+
+**Guard clauses:** Prefer early return over nested conditionals. Check preconditions at the top and return/throw immediately.
+
+**Naming conventions:**
+- Standard Java: `camelCase` methods/fields, `PascalCase` classes
+- `I` prefix for interfaces — `IProject`, `IProjectSettings`
+- `A` prefix for abstract classes — `APreference`, `ASimpleBooleanPreference`
+- `LOGGER` for the logger field
+
+**Logging:** `private static final Logger LOGGER = LogManager.getLogger();`
+
+**Utility classes:** Declare `final`, provide a private no-arg constructor, use static methods only.
+
+**Jackson serialization:** `@JsonCreator` on the constructor, `@JsonProperty` on constructor parameters. Fields `final` where possible; no setters needed for deserialization.
+
+**FXML controllers:** Declare the controller in FXML with `fx:controller`. Do not use `setController()` in Java — see Legacy Code Notes for why.
+
+**JavaDoc:** On public API methods and interfaces: `@param`, `@return`, `{@code ...}` for inline code references.
+
+**DI:** Constructor injection preferred. Avoid field injection.
+
 ## Legacy Code Notes
 
 The `celtech.*` package namespace is legacy. New code goes under `org.openautomaker.*`. When editing files in `celtech.*`, be aware they may have implicit dependencies on static state or singletons that predate Guice integration. The `Savable` interface was recently deleted (visible in current git status) as part of this migration.

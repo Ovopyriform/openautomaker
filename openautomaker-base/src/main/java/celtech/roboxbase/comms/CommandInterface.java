@@ -41,7 +41,7 @@ public abstract class CommandInterface extends Thread {
 
 	protected boolean keepRunning = true;
 
-	protected final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger();
 
 	private final Semver requiredFirmwareVersion;
 	protected Semver fFirmwareVersionInUse;
