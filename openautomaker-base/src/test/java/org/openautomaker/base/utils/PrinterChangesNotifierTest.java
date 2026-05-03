@@ -3,87 +3,111 @@ package org.openautomaker.base.utils;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.openautomaker.base.printerControl.model.Extruder;
 import org.openautomaker.base.printerControl.model.Head;
+import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterChangesListener;
 import org.openautomaker.base.printerControl.model.PrinterChangesNotifier;
 import org.openautomaker.base.printerControl.model.Reel;
-import org.openautomaker.mock.printer_control.model.MockPrinter;
-import org.openautomaker.mock.printer_control.model.MockPrinterFactory;
-import org.openautomaker.test_library.GuiceExtension;
 
-import jakarta.inject.Inject;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.ObservableMap;
 
-/**
- *
- * @author tony
- */
-@ExtendWith(GuiceExtension.class)
+import static org.mockito.Mockito.when;
+
+@ExtendWith(MockitoExtension.class)
 public class PrinterChangesNotifierTest {
 
-	@Inject
-	MockPrinterFactory testPrinterFactory;
+	@Mock
+	Printer printer;
+
+	@Mock
+	Head mockHead;
+
+	@Mock
+	Reel mockReel;
+
+	SimpleObjectProperty<Head> headProperty = new SimpleObjectProperty<>();
+	ObservableMap<Integer, Reel> reelsProperty = FXCollections.observableHashMap();
+	ObservableList<Extruder> extrudersProperty = FXCollections.observableArrayList(new Extruder("E"), new Extruder("D"));
+	BooleanProperty reelDataChangedToggle = new SimpleBooleanProperty(false);
+
+	@BeforeEach
+	void setup() {
+		when(printer.headProperty()).thenReturn(headProperty);
+		when(printer.reelsProperty()).thenReturn(reelsProperty);
+		when(printer.extrudersProperty()).thenReturn(extrudersProperty);
+	}
 
 	@Test
 	public void testWhenHeadAdded() {
-		MockPrinter printer = testPrinterFactory.create();
 		PrinterChangesNotifier notifier = new PrinterChangesNotifier(printer);
 		TestPrinterChangesListener listener = new TestPrinterChangesListener();
 		notifier.addListener(listener);
 
-		printer.addHead();
+		headProperty.set(mockHead);
 
 		assertTrue(listener.headAdded);
 	}
 
 	@Test
 	public void testWhenHeadRemoved() {
-		MockPrinter printer = testPrinterFactory.create();
 		PrinterChangesNotifier notifier = new PrinterChangesNotifier(printer);
 		TestPrinterChangesListener listener = new TestPrinterChangesListener();
 		notifier.addListener(listener);
 
-		printer.addHead();
-		printer.removeHead();
+		headProperty.set(mockHead);
+		headProperty.set(null);
 
 		assertTrue(listener.headAdded);
 	}
 
 	@Test
 	public void testWhenReelAdded() {
-		MockPrinter printer = testPrinterFactory.create();
+		when(mockReel.dataChangedToggleProperty()).thenReturn(reelDataChangedToggle);
+
 		PrinterChangesNotifier notifier = new PrinterChangesNotifier(printer);
 		TestPrinterChangesListener listener = new TestPrinterChangesListener();
 		notifier.addListener(listener);
 
-		printer.addReel(0);
+		reelsProperty.put(0, mockReel);
 
 		assertTrue(listener.reel0Added);
 	}
 
 	@Test
 	public void testWhenReelRemoved() {
-		MockPrinter printer = testPrinterFactory.create();
+		when(mockReel.dataChangedToggleProperty()).thenReturn(reelDataChangedToggle);
+
 		PrinterChangesNotifier notifier = new PrinterChangesNotifier(printer);
 		TestPrinterChangesListener listener = new TestPrinterChangesListener();
 		notifier.addListener(listener);
 
-		printer.addReel(0);
-		printer.removeReel(0);
+		reelsProperty.put(0, mockReel);
+		reelsProperty.remove(0);
 
 		assertTrue(listener.reel0Removed);
 	}
 
 	@Test
 	public void testWhenReelChanged() {
-		MockPrinter printer = testPrinterFactory.create();
+		when(mockReel.dataChangedToggleProperty()).thenReturn(reelDataChangedToggle);
+
 		PrinterChangesNotifier notifier = new PrinterChangesNotifier(printer);
 		TestPrinterChangesListener listener = new TestPrinterChangesListener();
 		notifier.addListener(listener);
 
-		printer.addReel(0);
-		printer.changeReel(0);
+		reelsProperty.put(0, mockReel);
+		reelDataChangedToggle.set(!reelDataChangedToggle.get());
 
 		assertTrue(listener.reel0Changed);
 	}

@@ -1,14 +1,11 @@
 
 package org.openautomaker.base.postprocessor;
 
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openautomaker.base.postprocessor.events.ExtrusionEvent;
 import org.openautomaker.base.postprocessor.events.GCodeParseEvent;
 import org.openautomaker.base.postprocessor.events.LayerChangeWithTravelEvent;
 import org.openautomaker.base.postprocessor.events.TravelEvent;
-import org.openautomaker.test_library.GuiceExtension;
 
-@ExtendWith(GuiceExtension.class)
 //TODO: Revisit this test.  Looks like it should be there but has always been commented.
 public class GCodeRoboxiserTest {
 	//@Rule

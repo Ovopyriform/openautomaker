@@ -3,6 +3,8 @@ package org.openautomaker.base.utils;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,15 +14,15 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openautomaker.base.configuration.BaseConfiguration;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
-import org.openautomaker.base.configuration.fileRepresentation.HeadFile;
-import org.openautomaker.base.configuration.fileRepresentation.NozzleHeaterData;
 import org.openautomaker.base.printerControl.model.Head;
-import org.openautomaker.mock.printer_control.model.MockPrinter;
-import org.openautomaker.mock.printer_control.model.MockPrinterFactory;
-import org.openautomaker.mock.printer_control.model.MockHead.TestNozzleHeater;
+import org.openautomaker.base.printerControl.model.NozzleHeater;
+import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.test_library.GuiceExtension;
 
 import jakarta.inject.Inject;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 
 //TODO: Check the commented elements of this test.  Always commented, may be something useful
 @ExtendWith(GuiceExtension.class)
@@ -31,9 +33,6 @@ public class PrinterUtilsTest {
 
 	@Inject
 	PrinterUtils printerUtils;
-
-	@Inject
-	MockPrinterFactory testPrinterFactory;
 
 	/**
 	 * Test of printJobIDIndicatesPrinting method, of class PrinterUtils.
@@ -62,18 +61,20 @@ public class PrinterUtilsTest {
 		Filament filament = filamentContainer.getFilamentByID("RBX-ABS-PP156");
 		filament.getNozzleTemperatureProperty().set(NOZZLE_TEMP);
 
-		MockPrinter printer = testPrinterFactory.create(1);
-		printer.overrideFilament(0, filament);
-		printer.loadFilament(0);
+		ObservableMap<Integer, Filament> effectiveFilaments = FXCollections.observableHashMap();
+		effectiveFilaments.put(0, filament);
 
-		List<NozzleHeaterData> nozzleHeaters = new ArrayList<>();
-		nozzleHeaters.add(new NozzleHeaterData(0, 0, 0));
-		HeadFile headFile = new HeadFile(2, "RBX01-SM", null, null, 0.0f, nozzleHeaters, new ArrayList<>());
+		NozzleHeater nozzleHeater0 = new NozzleHeater();
 
-		printer.addHeadForHeadFile(headFile);
+		Head mockHead = mock(Head.class);
+		when(mockHead.headTypeProperty()).thenReturn(new SimpleObjectProperty<>(Head.HeadType.SINGLE_MATERIAL_HEAD));
+		when(mockHead.getNozzleHeaters()).thenReturn(FXCollections.observableArrayList(nozzleHeater0));
 
-		TestNozzleHeater testNozzleHeater = (TestNozzleHeater) printer.getHead().getNozzleHeaters().get(0);
-		testNozzleHeater.lastFilamentTemperatureProperty().set(NOZZLE_TEMP - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
+		Printer printer = mock(Printer.class);
+		when(printer.effectiveFilamentsProperty()).thenReturn(effectiveFilaments);
+		when(printer.headProperty()).thenReturn(new SimpleObjectProperty<>(mockHead));
+
+		nozzleHeater0.lastFilamentTemperatureProperty().set(NOZZLE_TEMP - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
 
 		List<Boolean> usedExtruders = new ArrayList<>();
 		usedExtruders.add(0, true);
@@ -82,8 +83,7 @@ public class PrinterUtilsTest {
 		boolean purgeIsNecessary = printerUtils.isPurgeNecessary(printer, usedExtruders);
 		assertFalse(purgeIsNecessary);
 
-		testNozzleHeater.lastFilamentTemperatureProperty().set(NOZZLE_TEMP
-				- BaseConfiguration.maxPermittedTempDifferenceForPurge - 1);
+		nozzleHeater0.lastFilamentTemperatureProperty().set(NOZZLE_TEMP - BaseConfiguration.maxPermittedTempDifferenceForPurge - 1);
 		purgeIsNecessary = printerUtils.isPurgeNecessary(printer, usedExtruders);
 		assertTrue(purgeIsNecessary);
 	}
@@ -99,24 +99,23 @@ public class PrinterUtilsTest {
 		Filament filament1 = filamentContainer.getFilamentByID("RBX-ABS-GR499");
 		filament1.getNozzleTemperatureProperty().set(NOZZLE_TEMP_0);
 
-		MockPrinter printer = testPrinterFactory.create(2);
-		List<NozzleHeaterData> nozzleHeaters2 = new ArrayList<>();
-		nozzleHeaters2.add(new NozzleHeaterData(0, 0, 0));
-		nozzleHeaters2.add(new NozzleHeaterData(0, 0, 0));
-		HeadFile headFile = new HeadFile(2, "RBX01-DM", Head.HeadType.DUAL_MATERIAL_HEAD, null, 0.0f, nozzleHeaters2, new ArrayList<>());
+		ObservableMap<Integer, Filament> effectiveFilaments = FXCollections.observableHashMap();
+		effectiveFilaments.put(0, filament0);
+		effectiveFilaments.put(1, filament1);
 
-		printer.addHeadForHeadFile(headFile);
+		NozzleHeater nozzleHeater0 = new NozzleHeater();
+		NozzleHeater nozzleHeater1 = new NozzleHeater();
 
-		printer.overrideFilament(0, filament0);
-		printer.loadFilament(0);
-		printer.overrideFilament(1, filament1);
-		printer.loadFilament(1);
+		Head mockHead = mock(Head.class);
+		when(mockHead.headTypeProperty()).thenReturn(new SimpleObjectProperty<>(Head.HeadType.DUAL_MATERIAL_HEAD));
+		when(mockHead.getNozzleHeaters()).thenReturn(FXCollections.observableArrayList(nozzleHeater0, nozzleHeater1));
 
-		TestNozzleHeater testNozzleHeater0 = (TestNozzleHeater) printer.getHead().getNozzleHeaters().get(0);
-		testNozzleHeater0.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_0 - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
+		Printer printer = mock(Printer.class);
+		when(printer.effectiveFilamentsProperty()).thenReturn(effectiveFilaments);
+		when(printer.headProperty()).thenReturn(new SimpleObjectProperty<>(mockHead));
 
-		TestNozzleHeater testNozzleHeater1 = (TestNozzleHeater) printer.getHead().getNozzleHeaters().get(1);
-		testNozzleHeater1.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_1 - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
+		nozzleHeater0.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_0 - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
+		nozzleHeater1.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_1 - BaseConfiguration.maxPermittedTempDifferenceForPurge + 1);
 
 		List<Boolean> usedExtruders = new ArrayList<>();
 		usedExtruders.add(0, true);
@@ -126,7 +125,7 @@ public class PrinterUtilsTest {
 		boolean purgeIsNecessary = printerUtils.isPurgeNecessary(printer, usedExtruders);
 		assertFalse(purgeIsNecessary);
 
-		testNozzleHeater1.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_1 - BaseConfiguration.maxPermittedTempDifferenceForPurge - 1);
+		nozzleHeater1.lastFilamentTemperatureProperty().set(NOZZLE_TEMP_1 - BaseConfiguration.maxPermittedTempDifferenceForPurge - 1);
 		purgeIsNecessary = printerUtils.isPurgeNecessary(printer, usedExtruders);
 		assertTrue(purgeIsNecessary);
 	}

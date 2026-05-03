@@ -14,7 +14,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.openautomaker.mock.i18n.LocaleProviderMock;
+import org.mockito.Mockito;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Guice;
@@ -89,7 +89,9 @@ class I18NTest {
 
 		@Override
 		public void configure() {
-			bind(LocaleProvider.class).to(LocaleProviderMock.class);
+			LocaleProvider mockLocaleProvider = Mockito.mock(LocaleProvider.class);
+			Mockito.when(mockLocaleProvider.getValue()).thenReturn(Locale.UK);
+			bind(LocaleProvider.class).toInstance(mockLocaleProvider);
 		}
 	}
 

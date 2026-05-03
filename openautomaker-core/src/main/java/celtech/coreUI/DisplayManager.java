@@ -32,6 +32,7 @@ import org.openautomaker.ui.component.menu_panel.library.LibraryMenuPanelControl
 import org.openautomaker.ui.component.printer_side_panel.PrinterSidePanel;
 import org.openautomaker.ui.component.printer_status_page.PrinterStatusPageController;
 import org.openautomaker.ui.component.progress_dialog.ProgressDialog;
+import org.openautomaker.ui.component.project_tab.ProjectTab;
 import org.openautomaker.ui.component.purge_panel.PurgeInsetPanelController;
 
 import org.openautomaker.ui.inject.undo.UndoableProjectFactory;
@@ -51,7 +52,7 @@ import celtech.appManager.ProjectManager;
 import celtech.appManager.undo.CommandStack;
 import celtech.appManager.undo.UndoableProject;
 import celtech.configuration.ApplicationConfiguration;
-import celtech.coreUI.components.ProjectTab;
+
 import org.openautomaker.ui.component.spinner.Spinner;
 import org.openautomaker.ui.component.top_menu_strip.TopMenuStrip;
 import org.openautomaker.ui.component.notification.NotificationArea;

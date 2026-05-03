@@ -1,4 +1,4 @@
-package celtech.coreUI.components;
+package org.openautomaker.ui.component.project_tab;
 
 import static org.openautomaker.base.utils.DeDuplicator.suggestNonDuplicateName;
 
@@ -14,22 +14,21 @@ import org.openautomaker.environment.I18N;
 import org.openautomaker.guice.FXMLLoaderFactory;
 import org.openautomaker.guice.GuiceContext;
 import org.openautomaker.ui.ProjectAwareController;
-
-import org.openautomaker.ui.inject.visualisation.DimensionLineManagerFactory;
-import org.openautomaker.ui.inject.visualisation.ThreeDViewManagerFactory;
-import org.openautomaker.ui.state.ProjectGUIStates;
-import org.openautomaker.ui.state.SelectedProject;
-
+import org.openautomaker.ui.component.controls.RestrictedTextField;
 import org.openautomaker.ui.component.model_edit_inset_panel.ModelEditInsetPanelController;
 import org.openautomaker.ui.component.settings_inset_panel.SettingsInsetPanelController;
 import org.openautomaker.ui.component.time_cost_inset_panel.TimeCostInsetPanelController;
 import org.openautomaker.ui.component.timelapse_inset_panel.TimelapseInsetPanelController;
-
-import org.openautomaker.ui.component.controls.RestrictedTextField;
+import org.openautomaker.ui.component.z_cut_entry_box.ZCutEntryBox;
+import org.openautomaker.ui.inject.project.ProjectFactory;
+import org.openautomaker.ui.inject.visualisation.DimensionLineManagerFactory;
+import org.openautomaker.ui.inject.visualisation.ThreeDViewManagerFactory;
+import org.openautomaker.ui.state.ProjectGUIStates;
+import org.openautomaker.ui.state.SelectedPrinter;
+import org.openautomaker.ui.state.SelectedProject;
 
 import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
-import org.openautomaker.ui.inject.project.ProjectFactory;
 import celtech.appManager.Project;
 import celtech.appManager.ProjectCallback;
 import celtech.appManager.ProjectManager;
@@ -67,7 +66,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import org.openautomaker.ui.component.z_cut_entry_box.ZCutEntryBox;
 
 public class ProjectTab extends Tab implements ProjectCallback {
 
@@ -151,7 +149,7 @@ public class ProjectTab extends Tab implements ProjectCallback {
 	private ModelLoader modelLoader;
 
 	@Inject
-	private org.openautomaker.ui.state.SelectedPrinter selectedPrinter;
+	private SelectedPrinter selectedPrinter;
 
 	public ProjectTab(ReadOnlyDoubleProperty tabDisplayWidthProperty, ReadOnlyDoubleProperty tabDisplayHeightProperty) {
 		GuiceContext.get().injectMembers(this);

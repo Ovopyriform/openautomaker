@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.openautomaker.base.configuration.RoboxProfile;
 import org.openautomaker.base.configuration.datafileaccessors.RoboxProfileSettingsContainer;
 import org.openautomaker.base.configuration.slicer.NozzleParameters;
@@ -24,12 +23,10 @@ import org.openautomaker.base.postprocessor.nouveau.nodes.ToolSelectNode;
 import org.openautomaker.base.postprocessor.nouveau.nodes.TravelNode;
 import org.openautomaker.base.postprocessor.nouveau.nodes.providers.NozzlePositionProvider;
 import org.openautomaker.environment.Slicer;
-import org.openautomaker.test_library.GuiceExtension;
 
 import jakarta.inject.Inject;
 
 //TODO: Look at the commented tests in this class.  Anything useful?
-@ExtendWith(GuiceExtension.class)
 public class UtilityMethodsTest {
 
 	@Inject

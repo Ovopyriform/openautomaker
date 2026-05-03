@@ -11,18 +11,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.openautomaker.base.printerControl.model.Printer;
 import org.openautomaker.base.printerControl.model.PrinterListChangesListener;
 import org.openautomaker.base.printerControl.model.PrinterListChangesNotifier;
-import org.openautomaker.mock.printer_control.model.MockPrinterFactory;
-import org.openautomaker.test_library.GuiceExtension;
 
-import jakarta.inject.Inject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-@ExtendWith({GuiceExtension.class, MockitoExtension.class})
+@ExtendWith(MockitoExtension.class)
 public class PrinterListChangesNotifierTest {
-
-	@Inject
-	MockPrinterFactory testPrinterFactory;
 
 	@Mock
 	PrinterListChangesListener mockListener;
@@ -56,12 +50,12 @@ public class PrinterListChangesNotifierTest {
 		verify(mockListener).whenPrinterAdded(mockPrinter);
 		verify(mockListener).whenPrinterRemoved(mockPrinter);
 	}
-	
+
 	// @Test
 	// public void testWhenPrinterAddedThenHeadRemoved() throws PrinterException {
 	// 	printers.add(mockPrinter);
 	// 	mockPrinter.removeHead(null, true);
-		
+
 	// 	verify(mockListener).whenPrinterAdded(mockPrinter);
 	// 	verify(mockListener).whenHeadAdded(mockPrinter);
 	// 	verify(mockListener).whenHeadRemoved(eq(mockPrinter), any(Head.class));
