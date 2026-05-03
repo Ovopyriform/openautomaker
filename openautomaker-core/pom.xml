@@ -195,11 +195,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.github.junrar</groupId>
-			<artifactId>junrar</artifactId>
-			<version>7.5.4</version>
-		</dependency>
-		<dependency>
 			<groupId>com.vdurmont</groupId>
 			<artifactId>semver4j</artifactId>
 		</dependency>

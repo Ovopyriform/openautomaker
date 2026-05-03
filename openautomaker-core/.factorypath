@@ -57,7 +57,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/openjfx/javafx-media/26/javafx-media-26-mac-aarch64.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/openjfx/jdk-jsobject/26/jdk-jsobject-26.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/openjfx/jdk-jsobject/26/jdk-jsobject-26-mac-aarch64.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/com/github/junrar/junrar/7.5.4/junrar-7.5.4.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/vdurmont/semver4j/3.1.0/semver4j-3.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/google/inject/guice/7.0.0/guice-7.0.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/aopalliance/aopalliance/1.0/aopalliance-1.0.jar" enabled="true" runInBatchMode="false"/>
