@@ -1,26 +1,43 @@
-# OpenAutomaker
-OpenAutomaker is an updated version of the AutoMaker software for use with Robox 3D printers.  Use at your own risk.  It's an early release based on the latest AutoMaker.  
+# openautomaker
 
-Couple of things to note:
-* Root hasn't been updated yet.  This will work with the latest AutoMaker Root
-* GCode Viewer isn't included yet
+Application entry point for OpenAutoMaker. Wires all modules together, manages the application lifecycle, and handles platform-specific integration.
 
-Includes a few updates:
-* Code base-lined to JDK 17 LTS
-* Complete Maven/JDK based build and packaging
-* Additional option to select Cura 5 as an experimental slicer (based on Henry's Cura 5 patch)
+## Responsibilities
 
-## Building OpenAutomaker
-### Prerequisites
-Maven is used to build OpenAutomaker and you can build using any IDE which supports Maven.  Eclipse project defs are included in the repo.
-* JDK 17 LTS E.g. OpenJDK 17
-* Apache Maven 3.9.0
+- JavaFX `Application` subclass and preloader (splash screen)
+- Guice module composition for the full application
+- Startup sequence: Guice wiring → `RoboxCommsManager` → `LocalWebInterface` → `TaskExecutor` → `PrinterManager` → `DisplayManager`
+- Inter-application command listener on `localhost:4444`
+- macOS native menu integration (NSMenuFX)
+- Platform-specific packaging (macOS `.dmg`, Windows installer, Linux packages)
 
-### Building
-At present this only works on Intel based Macs (all I've had time to do so far).
+## Key Classes
 
-	git clone https://github.com/ovopyriform/OpenAutomaker.git
-	cd OpenAutomaker/openautomaker-parent
-	mvn clean install
-	
-This will create a dmg containing the application in the openautomaker-parent.  Install like any other mac app.
+| Class | Purpose |
+|---|---|
+| `Main` | Thin launcher stub required for JavaFX 11+ module system |
+| `OpenAutomaker` | Main `Application` subclass — wires Guice and starts all subsystems |
+| `OpenAutomakerPreloader` | Splash screen displayed during startup |
+| `OpenAutomakerModule` | Guice bindings: `SystemNotificationManager`, `InterAppRequest` |
+| `InterAppRequest` | Protocol for inter-application commands on port 4444 |
+
+## Building
+
+```bash
+cd openautomaker-parent
+mvn clean install        # Full build with platform installer
+mvn javafx:run           # Run directly (development)
+mvn javafx:run@debug     # Run with remote debugger on port 8001
+```
+
+## Dependencies
+
+- openautomaker-core
+- openautomaker-base
+- openautomaker-environment
+- openautomaker-javafx
+- openautomaker-i18n
+- NSMenuFX 3.1.0 (macOS native menu bar)
+- ControlsFX
+- JavaFX 26 (controls, FXML)
+- Log4j2
