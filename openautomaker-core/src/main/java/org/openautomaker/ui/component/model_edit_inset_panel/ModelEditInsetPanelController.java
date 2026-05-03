@@ -54,7 +54,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.SVGPath;
-import jfxtras.styles.jmetro8.ToggleSwitch;
+import org.controlsfx.control.ToggleSwitch;
 
 /**
  *

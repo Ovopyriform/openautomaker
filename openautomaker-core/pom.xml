@@ -117,6 +117,10 @@
 			<artifactId>jfxtras-controls</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.jfxtras</groupId>
+			<artifactId>jmetro</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-compress</artifactId>
 		</dependency>

@@ -24,9 +24,13 @@ import org.openautomaker.base.postprocessor.nouveau.nodes.TravelNode;
 import org.openautomaker.base.postprocessor.nouveau.nodes.providers.NozzlePositionProvider;
 import org.openautomaker.environment.Slicer;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.openautomaker.test_library.GuiceExtension;
+
 import jakarta.inject.Inject;
 
 //TODO: Look at the commented tests in this class.  Anything useful?
+@ExtendWith(GuiceExtension.class)
 public class UtilityMethodsTest {
 
 	@Inject

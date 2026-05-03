@@ -1,0 +1,24 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "mvn javafx:run@debug",
+            "type": "shell",
+            "command": "mvn javafx:run@debug -pl openautomaker",
+            "options": {
+                "cwd": "${workspaceFolder}/openautomaker-parent"
+            },
+            "isBackground": true,
+            "problemMatcher": {
+                "pattern": {
+                    "regexp": "^$"
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "\\[INFO\\] --- javafx",
+                    "endsPattern": "Listening for transport dt_socket at address: 8001"
+                }
+            }
+        }
+    ]
+}

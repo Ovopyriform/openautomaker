@@ -25,6 +25,8 @@
 		<windows.vendor>openautomaker.org</windows.vendor>
 		<macos.sign.prefix></macos.sign.prefix>
 		<macos.sign.identity></macos.sign.identity>
+		<!-- Overridden per OS/arch profile to exclude other platforms' JavaFX JARs from the dependency copy -->
+		<javafx.exclude.classifiers></javafx.exclude.classifiers>
 	</properties>
 
 	<build>
@@ -97,6 +99,7 @@
 						</goals>
 						<configuration>
 							<includeScope>compile</includeScope>
+							<excludeClassifiers>${javafx.exclude.classifiers}</excludeClassifiers>
 						</configuration>
 					</execution>
 				</executions>
@@ -129,62 +132,25 @@
 						<configuration>
 							<mainClass>${mainClass}</mainClass>
 							<options>
-								<option>
-									-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8001</option>
-								<option>
-									--add-exports</option>
-								<option>
-									javafx.graphics/com.sun.javafx.tk=ALL-UNNAMED</option>
-								<option>
-									--add-exports</option>
-								<option>
-									javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
-								<option>
-									--add-exports</option>
-								<option>
-									javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
-								<option>
-									--add-exports</option>
-								<option>
-									javafx.graphics/com.sun.javafx.scene.text=ALL-UNNAMED</option>
-								<option>
-									--add-exports</option>
-								<option>
-									javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED</option>
-								<option>
-									--add-exports</option>
-								<option>
-									java.base/sun.net.www.protocol.http=ALL-UNNAMED</option>
+								<option>-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=*:8001</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.tk=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.scene.text=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>java.base/sun.net.www.protocol.http=ALL-UNNAMED</option>
 							</options>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-						<configuration>
-							<transformers>
-								<transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-									<mainClass>${mainClass}</mainClass>
-								</transformer>
-							</transformers>
-							<artifactSet>
-								<includes>
-									<include>org.openjfx:*</include>
-								</includes>
-							</artifactSet>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<!-- plugin>
 				<groupId>io.github.wiverson</groupId>
 				<artifactId>jtoolprovider-plugin</artifactId>
 				<executions>
@@ -219,7 +185,7 @@
 						</configuration>
 					</execution>
 				</executions>
-			</plugin -->
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -230,8 +196,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
-			<artifactId>
-				junit-jupiter-engine</artifactId>
+			<artifactId>junit-jupiter-engine</artifactId>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -305,14 +270,17 @@
 									<goal>copy-resources</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${project.build.directory}/${project.name}.app/Contents/openautomaker</outputDirectory>
+									<outputDirectory>
+										${project.build.directory}/${project.name}.app/Contents/openautomaker</outputDirectory>
 									<resources>
 										<resource>
-											<directory>${project.basedir}/packaging/assets-common/openautomaker</directory>
+											<directory>
+												${project.basedir}/packaging/assets-common/openautomaker</directory>
 											<filtering>false</filtering>
 										</resource>
 										<resource>
-											<directory>${project.basedir}/packaging/assets-os-specific/${os.detected.name}/openautomaker</directory>
+											<directory>
+												${project.basedir}/packaging/assets-os-specific/${os.detected.name}/openautomaker</directory>
 											<filtering>false</filtering>
 										</resource>
 									</resources>
@@ -325,7 +293,8 @@
 									<goal>copy-resources</goal>
 								</goals>
 								<configuration>
-									<outputDirectory>${project.build.directory}/${project.name}.app/Contents</outputDirectory>
+									<outputDirectory>
+										${project.build.directory}/${project.name}.app/Contents</outputDirectory>
 									<resources>
 										<resource>
 											<directory>${project.basedir}/packaging/assets-common</directory>
@@ -339,27 +308,6 @@
 							</execution>
 						</executions>
 					</plugin>
-					<!-- plugin>
-						<groupId>io.github.wiverson</groupId>
-						<artifactId>jtoolprovider-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>jpackage-package</id>
-								<phase>install</phase>
-								<goals>
-									<goal>java-tool</goal>
-								</goals>
-								<configuration>
-									<toolName>jpackage</toolName>
-									<writeOutputToLog>true</writeOutputToLog>
-									<writeErrorsToLog>true</writeErrorsToLog>
-									<failOnError>true</failOnError>
-									<removeDirectories>${project.build.directory}/installer-work</removeDirectories>
-									<args>@${project.build.directory}/packaging/${os.detected.name}-package.args</args>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin -->
 				</plugins>
 			</build>
 		</profile>
@@ -376,6 +324,7 @@
 				<application.slicer.executable>CuraEngine.exe</application.slicer.executable>
 				<!-- 0: vendorId, 1: productId, 2: deviceName -->
 				<application.printer.detector><![CDATA[RoboxDetector.exe {0} {1}]]></application.printer.detector>
+				<javafx.exclude.classifiers>mac,mac-aarch64,linux,linux-aarch64</javafx.exclude.classifiers>
 			</properties>
 		</profile>
 		<profile>
@@ -394,7 +343,54 @@
 				<application.printer.detector><![CDATA[RoboxDetector.linux.sh {2} {0}]]></application.printer.detector>
 			</properties>
 		</profile>
-		
-	</profiles>
+		<profile>
+			<id>osx-aarch64</id>
+			<activation>
+				<os>
+					<family>mac</family>
+					<arch>aarch64</arch>
+				</os>
+			</activation>
+			<properties>
+				<javafx.exclude.classifiers>win,linux,linux-aarch64,mac</javafx.exclude.classifiers>
+			</properties>
+		</profile>
+		<profile>
+			<id>osx-x86_64</id>
+			<activation>
+				<os>
+					<family>mac</family>
+					<arch>x86_64</arch>
+				</os>
+			</activation>
+			<properties>
+				<javafx.exclude.classifiers>win,linux,linux-aarch64,mac-aarch64</javafx.exclude.classifiers>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux-aarch64</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<arch>aarch64</arch>
+				</os>
+			</activation>
+			<properties>
+				<javafx.exclude.classifiers>win,mac,mac-aarch64,linux</javafx.exclude.classifiers>
+			</properties>
+		</profile>
+		<profile>
+			<id>linux-x86_64</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<arch>amd64</arch>
+				</os>
+			</activation>
+			<properties>
+				<javafx.exclude.classifiers>win,mac,mac-aarch64,linux-aarch64</javafx.exclude.classifiers>
+			</properties>
+		</profile>
 
+	</profiles>
 </project>

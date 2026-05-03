@@ -1668,7 +1668,6 @@ modal-dialogue{
 * *
 ******************************************************************************/
 .slider {
-    -fx-skin: "jfxtras.styles.jmetro8.FilledSliderSkin";
 }
 
 .slider .axis {
