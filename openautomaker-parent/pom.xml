@@ -24,7 +24,7 @@
 		<module>../openautomaker</module>
 		<module>../openautomaker-base</module>
 		<module>../openautomaker-core</module>
-		<module>../openautomaker-discovery</module>
+		<!-- <module>../openautomaker-discovery</module> -->
 		<module>../openautomaker-javafx</module>
 
 

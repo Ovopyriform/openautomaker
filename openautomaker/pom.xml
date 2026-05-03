@@ -122,6 +122,12 @@
 						<option>--add-exports</option>
 						<option>javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED</option>
 						<option>--add-exports</option>
+						<option>javafx.graphics/com.sun.javafx.geom.transform=ALL-UNNAMED</option>
+						<option>--add-exports</option>
+						<option>javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
+						<option>--add-exports</option>
+						<option>javafx.graphics/com.sun.javafx.scene.shape=ALL-UNNAMED</option>
+						<option>--add-exports</option>
 						<option>java.base/sun.net.www.protocol.http=ALL-UNNAMED</option>
 					</options>
 				</configuration>
@@ -143,6 +149,12 @@
 								<option>javafx.graphics/com.sun.javafx.scene.text=ALL-UNNAMED</option>
 								<option>--add-exports</option>
 								<option>javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.geom.transform=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.scene=ALL-UNNAMED</option>
+								<option>--add-exports</option>
+								<option>javafx.graphics/com.sun.javafx.scene.shape=ALL-UNNAMED</option>
 								<option>--add-exports</option>
 								<option>java.base/sun.net.www.protocol.http=ALL-UNNAMED</option>
 							</options>

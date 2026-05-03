@@ -8,7 +8,7 @@
 <?import javafx.scene.paint.*?>
 <?import javafx.scene.shape.*?>
 
-<fx:root stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" text="" type="org.openautomaker.ui.component.graphic_button.GraphicButton" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" text="" type="org.openautomaker.ui.component.graphic_button.GraphicButton" xmlns="http://javafx.com/javafx/21.0.40" xmlns:fx="http://javafx.com/fxml/1">
     <graphic>
         <Group>
             <children>

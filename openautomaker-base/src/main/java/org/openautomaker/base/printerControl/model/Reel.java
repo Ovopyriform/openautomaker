@@ -1,6 +1,6 @@
 package org.openautomaker.base.printerControl.model;
 
-import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+import static org.openautomaker.base.utils.ColourUtils.formatHexString;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

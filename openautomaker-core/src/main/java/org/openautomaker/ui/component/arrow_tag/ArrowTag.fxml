@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.shape.*?>
 
-<fx:root labelText="" maxHeight="-Infinity" mouseTransparent="true" pickOnBounds="false" spacing="5.0" titleText="" type="org.openautomaker.ui.component.arrow_tag.ArrowTag" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root labelText="" maxHeight="-Infinity" mouseTransparent="true" pickOnBounds="false" spacing="5.0" titleText="" type="org.openautomaker.ui.component.arrow_tag.ArrowTag" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <HBox spacing="5.0">
             <children>

@@ -4,9 +4,9 @@
         {
             "label": "mvn javafx:run@debug",
             "type": "shell",
-            "command": "mvn javafx:run@debug -pl openautomaker",
+            "command": "mvn javafx:run@debug",
             "options": {
-                "cwd": "${workspaceFolder}/openautomaker-parent"
+                "cwd": "${workspaceFolder}/openautomaker"
             },
             "isBackground": true,
             "problemMatcher": {

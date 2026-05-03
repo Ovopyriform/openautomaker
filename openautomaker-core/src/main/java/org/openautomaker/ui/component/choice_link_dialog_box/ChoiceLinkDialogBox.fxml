@@ -6,7 +6,7 @@
 <?import celtech.coreUI.components.*?>
 <?import org.openautomaker.ui.component.controls.*?>
 
-<fx:root type="org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox" styleClass="transparent" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="org.openautomaker.ui.component.choice_link_dialog_box.ChoiceLinkDialogBox" styleClass="transparent" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
     <Pane id="dropShadowPane" styleClass="dialog_drop_shadow"></Pane>
     <VBox id="choiceLink" fx:id="rootVBox" minHeight="100.0" minWidth="100.0" prefWidth="500" styleClass="error-dialog">
         <children>

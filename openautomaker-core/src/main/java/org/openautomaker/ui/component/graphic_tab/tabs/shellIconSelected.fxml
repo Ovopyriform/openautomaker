@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Group xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Group xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
   <SVGPath content="M2,26" stroke="#FFFFFF" />
   <SVGPath stroke="#FFFFFF" content="M8,20" />
   <SVGPath content="M27,1v26H1V1H27 M28,0H0v28h28V0L28,0z" stroke="#FFFFFF" />

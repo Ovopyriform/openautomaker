@@ -20,17 +20,26 @@
             "name": "OpenAutomaker (mac-aarch64 direct)",
             "request": "launch",
             "mainClass": "org.openautomaker.Main",
-            "projectName": "openautomaker",
+            "classPaths": [
+                "${workspaceFolder}/openautomaker/target/classes",
+                "${workspaceFolder}/openautomaker-core/target/classes",
+                "${workspaceFolder}/openautomaker-base/target/classes",
+                "${workspaceFolder}/openautomaker-discovery/target/classes",
+                "${workspaceFolder}/openautomaker-environment/target/classes",
+                "${workspaceFolder}/openautomaker-javafx/target/classes",
+                "${workspaceFolder}/openautomaker-i18n/target/classes",
+                "${workspaceFolder}/openautomaker-guice/target/classes",
+                "${workspaceFolder}/openautomaker/target/dependency/*"
+            ],
             "modulePaths": [
                 "${env:HOME}/.m2/repository/org/openjfx/javafx-base/26/javafx-base-26-mac-aarch64.jar",
                 "${env:HOME}/.m2/repository/org/openjfx/javafx-graphics/26/javafx-graphics-26-mac-aarch64.jar",
                 "${env:HOME}/.m2/repository/org/openjfx/javafx-controls/26/javafx-controls-26-mac-aarch64.jar",
                 "${env:HOME}/.m2/repository/org/openjfx/javafx-fxml/26/javafx-fxml-26-mac-aarch64.jar",
                 "${env:HOME}/.m2/repository/org/openjfx/javafx-web/26/javafx-web-26-mac-aarch64.jar",
-                "${env:HOME}/.m2/repository/org/openjfx/javafx-media/26/javafx-media-26-mac-aarch64.jar",
-                "${env:HOME}/.m2/repository/org/openjfx/jdk-jsobject/26/jdk-jsobject-26-mac-aarch64.jar"
+                "${env:HOME}/.m2/repository/org/openjfx/javafx-media/26/javafx-media-26-mac-aarch64.jar"
             ],
-            "vmArgs": "--add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.web,javafx.media,jdk.jsobject --add-exports javafx.graphics/com.sun.javafx.tk=ALL-UNNAMED --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED --add-exports javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.scene.text=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED --add-exports java.base/sun.net.www.protocol.http=ALL-UNNAMED"
+            "vmArgs": "--add-modules javafx.controls,javafx.fxml,javafx.graphics,javafx.web,javafx.media --add-exports javafx.graphics/com.sun.javafx.tk=ALL-UNNAMED --add-exports javafx.controls/com.sun.javafx.scene.control.behavior=ALL-UNNAMED --add-exports javafx.controls/com.sun.javafx.scene.control=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.scene.text=ALL-UNNAMED --add-exports javafx.graphics/com.sun.javafx.geom=ALL-UNNAMED --add-exports java.base/sun.net.www.protocol.http=ALL-UNNAMED"
         }
     ]
 }

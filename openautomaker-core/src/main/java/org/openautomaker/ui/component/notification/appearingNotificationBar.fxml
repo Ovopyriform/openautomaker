@@ -9,7 +9,7 @@
 <?import celtech.coreUI.components.*?>
 <?import org.openautomaker.ui.component.controls.*?>
 
-<fx:root fx:id="notificationBar" maxHeight="60.0" maxWidth="1.7976931348623157E308" pickOnBounds="false" prefHeight="60.0" prefWidth="400.0" styleClass="notification-bar" type="StackPane" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="notificationBar" maxHeight="60.0" maxWidth="1.7976931348623157E308" pickOnBounds="false" prefHeight="60.0" prefWidth="400.0" styleClass="notification-bar" type="StackPane" xmlns="http://javafx.com/javafx/21.0.40" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox alignment="CENTER_LEFT" fillWidth="false" mouseTransparent="true" styleClass="notification-bar-text" StackPane.alignment="CENTER">
             <children>

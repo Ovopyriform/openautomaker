@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" type="org.openautomaker.ui.component.inset_panel_menu.InsetPanelWithMenu" xmlns="http://javafx.com/javafx/8" >
+<fx:root xmlns:fx="http://javafx.com/fxml/1" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" type="org.openautomaker.ui.component.inset_panel_menu.InsetPanelWithMenu" xmlns="http://javafx.com/javafx/21" >
     <children>
         <InsetPanelMenu fx:id="menu" VBox.vgrow="ALWAYS" />
         <Separator orientation="VERTICAL" />

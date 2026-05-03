@@ -10,7 +10,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root type="org.openautomaker.ui.component.z_cut_entry_box.ZCutEntryBox" styleClass="zcut-panel" alignment="CENTER" maxHeight="-Infinity" maxWidth="260" minWidth="260" minHeight="-Infinity" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root type="org.openautomaker.ui.component.z_cut_entry_box.ZCutEntryBox" styleClass="zcut-panel" alignment="CENTER" maxHeight="-Infinity" maxWidth="260" minWidth="260" minHeight="-Infinity" xmlns="http://javafx.com/javafx/21.0.40" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <Group>
             <Group>

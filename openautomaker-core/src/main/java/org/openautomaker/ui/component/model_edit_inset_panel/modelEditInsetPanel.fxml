@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.textfield.*?>
 
-<VBox id="model-edit-panel" fx:id="modelEditInsetRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="260.0" spacing="5.0" styleClass="hovering-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.model_edit_inset_panel.ModelEditInsetPanelController">
+<VBox id="model-edit-panel" fx:id="modelEditInsetRoot" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="260.0" spacing="5.0" styleClass="hovering-panel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/21.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.model_edit_inset_panel.ModelEditInsetPanelController">
     <children>
         <HBox spacing="5.0">
             <children>

@@ -1,7 +1,7 @@
 
 package org.openautomaker.ui.component.material;
 
-import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+import static org.openautomaker.base.utils.ColourUtils.formatHexString;
 
 import java.io.IOException;
 

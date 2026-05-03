@@ -8,7 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="rootPane" maxWidth="350.0" minWidth="350.0" prefWidth="350.0" styleClass="status_inner" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.OuterPanelController">
+<VBox fx:id="rootPane" maxWidth="350.0" minWidth="350.0" prefWidth="350.0" styleClass="status_inner" xmlns="http://javafx.com/javafx/21.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.printer_status_page.OuterPanelController">
    <children>
       <StackPane>
          <children>

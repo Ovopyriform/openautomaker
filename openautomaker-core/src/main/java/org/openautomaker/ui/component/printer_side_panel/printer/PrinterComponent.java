@@ -2,7 +2,7 @@
 package org.openautomaker.ui.component.printer_side_panel.printer;
 
 import static celtech.utils.StringMetrics.getWidthOfString;
-import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+import static org.openautomaker.base.utils.ColourUtils.formatHexString;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,8 +20,6 @@ import org.openautomaker.ui.component.printer_side_panel.ComponentIsolationInter
 import org.openautomaker.ui.component.printer_side_panel.printer.svg.PrinterSVG;
 import org.openautomaker.ui.component.printer_side_panel.printer.white_progress_bar.WhiteProgressBar;
 
-import com.sun.javafx.tk.FontMetrics;
-import com.sun.javafx.tk.Toolkit;
 
 import org.openautomaker.ui.StandardColours;
 import org.openautomaker.ui.component.controls.HideableTooltip;
@@ -451,9 +449,12 @@ public class PrinterComponent extends GuicedPane {
 
 		Font font = name.getFont();
 		Font actualFont = new Font(font.getName(), fontSize);
-		FontMetrics fontMetrics = Toolkit.getToolkit().getFontLoader().getFontMetrics(actualFont);
+		javafx.scene.text.Text metricsText = new javafx.scene.text.Text("Ag");
+		metricsText.setFont(actualFont);
+		metricsText.applyCss();
+		double descent = metricsText.getLayoutBounds().getHeight() - metricsText.getBaselineOffset();
 
-		nameLayoutY = size - (progressBarYOffset / 2) + fontMetrics.getDescent();
+		nameLayoutY = size - (progressBarYOffset / 2) + descent;
 		name.setLayoutY(nameLayoutY);
 
 		updateBounds();
@@ -515,4 +516,5 @@ public class PrinterComponent extends GuicedPane {
 	public boolean isInterruptible() {
 		return inInterruptibleState;
 	}
+
 }

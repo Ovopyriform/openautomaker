@@ -1,7 +1,7 @@
 
 package celtech.roboxbase.comms.remote.tx;
 
-import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+import static org.openautomaker.base.utils.ColourUtils.formatHexString;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;

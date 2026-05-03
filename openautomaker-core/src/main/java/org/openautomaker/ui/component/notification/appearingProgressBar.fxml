@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="statusBar" maxHeight="60.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="400.0" styleClass="statusBar" type="StackPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="statusBar" maxHeight="60.0" maxWidth="1.7976931348623157E308" prefHeight="60.0" prefWidth="400.0" styleClass="statusBar" type="StackPane" xmlns="http://javafx.com/javafx/21.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
         <VBox fillWidth="false" maxHeight="60.0" mouseTransparent="true" prefHeight="60.0" StackPane.alignment="TOP_LEFT">
             <children>

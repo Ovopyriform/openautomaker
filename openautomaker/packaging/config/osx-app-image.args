@@ -7,6 +7,3 @@
 --input "${project.build.directory}/dependency"
 --app-version ${project.version}
 --temp "${project.build.directory}/installer-work"
---mac-sign
---mac-package-signing-prefix ${macos.sign.prefix}
---mac-signing-key-user-name "${macos.sign.identity}"

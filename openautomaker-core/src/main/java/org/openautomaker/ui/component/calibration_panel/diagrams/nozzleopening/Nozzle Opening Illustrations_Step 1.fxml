@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane styleClass="lightGreyBackground" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane styleClass="lightGreyBackground" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
    <children>
      <Line endX="182.244" endY="300.055" startX="173.82" startY="300.5" stroke="#FFFFFF" />
      <Line endX="90.359" endY="300.406" startX="84.945" startY="300.125" stroke="#FFFFFF" />

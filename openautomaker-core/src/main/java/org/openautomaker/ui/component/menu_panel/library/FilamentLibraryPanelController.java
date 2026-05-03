@@ -1,6 +1,6 @@
 package org.openautomaker.ui.component.menu_panel.library;
 
-import static com.sun.javafx.scene.control.skin.Utils.formatHexString;
+import static org.openautomaker.base.utils.ColourUtils.formatHexString;
 
 import java.util.ArrayList;
 import java.util.List;

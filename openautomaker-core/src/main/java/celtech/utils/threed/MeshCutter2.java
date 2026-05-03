@@ -21,10 +21,7 @@ import org.apache.commons.math3.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import com.sun.javafx.scene.shape.ObservableFaceArrayImpl;
-
 import javafx.geometry.Point3D;
-import javafx.scene.shape.ObservableFaceArray;
 import javafx.scene.shape.TriangleMesh;
 
 /**
@@ -153,18 +150,23 @@ public class MeshCutter2 {
 	 */
 	private static void removeFaces(TriangleMesh mesh, Set<Integer> facesToRemove) {
 
-		ObservableFaceArray newFaceArray = new ObservableFaceArrayImpl();
-		for (int faceIndex = 0; faceIndex < mesh.getFaces().size() / 6; faceIndex++) {
+		int totalFaces = mesh.getFaces().size() / 6;
+		int keptFaces = totalFaces - facesToRemove.size();
+		int[] newFaces = new int[keptFaces * 6];
+		int pos = 0;
+		for (int faceIndex = 0; faceIndex < totalFaces; faceIndex++) {
 			if (facesToRemove.contains(faceIndex)) {
 				continue;
 			}
-			int[] vertices = new int[6];
-			vertices[0] = mesh.getFaces().get(faceIndex * 6);
-			vertices[2] = mesh.getFaces().get(faceIndex * 6 + 2);
-			vertices[4] = mesh.getFaces().get(faceIndex * 6 + 4);
-			newFaceArray.addAll(vertices);
+			newFaces[pos]     = mesh.getFaces().get(faceIndex * 6);
+			newFaces[pos + 1] = 0;
+			newFaces[pos + 2] = mesh.getFaces().get(faceIndex * 6 + 2);
+			newFaces[pos + 3] = 0;
+			newFaces[pos + 4] = mesh.getFaces().get(faceIndex * 6 + 4);
+			newFaces[pos + 5] = 0;
+			pos += 6;
 		}
-		mesh.getFaces().setAll(newFaceArray);
+		mesh.getFaces().setAll(newFaces, 0, newFaces.length);
 		setTextureAndSmoothing(mesh, mesh.getFaces().size() / 6);
 	}
 
