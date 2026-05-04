@@ -15,7 +15,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.menu_panel.library.CameraProfilesPanelController">
    <children>
-      <GridPane id="AnchorPane" alignment="TOP_CENTER" hgap="5.0" prefWidth="600.0" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" vgap="5.0">
+      <GridPane id="AnchorPane" alignment="TOP_CENTER" hgap="5.0" prefWidth="600.0" stylesheets="@/org/openautomaker/ui/css/openautomaker.css" vgap="5.0">
           <columnConstraints>
               <ColumnConstraints halignment="LEFT" hgrow="NEVER" percentWidth="25.0" />
               <ColumnConstraints halignment="LEFT" hgrow="NEVER" percentWidth="25.0" />

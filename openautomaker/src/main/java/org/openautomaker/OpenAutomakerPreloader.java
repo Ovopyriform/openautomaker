@@ -30,6 +30,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 public class OpenAutomakerPreloader extends Preloader {
 
@@ -77,7 +79,8 @@ public class OpenAutomakerPreloader extends Preloader {
 		splashLayout.getChildren().addAll(splash, versionLabel);
 
 		Scene splashScene = new Scene(splashLayout, Color.TRANSPARENT);
-		splashScene.getStylesheets().add(getClass().getResource("/org/openautomaker/ui/css/JMetroDarkTheme.css").toExternalForm());
+		new JMetro(Style.DARK).setScene(splashScene);
+		splashScene.getStylesheets().add(getClass().getResource("/org/openautomaker/ui/css/openautomaker.css").toExternalForm());
 
 		preloaderStage.initStyle(StageStyle.TRANSPARENT);
 

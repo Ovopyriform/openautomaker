@@ -29,6 +29,8 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 public class ReprintPanel extends GuicedVBox {
 
@@ -135,6 +137,7 @@ public class ReprintPanel extends GuicedVBox {
 		this.getChildren().addAll(reprintTitle, reprintSubtitle, masterDetailsPane, buttonContainer);
 
 		Scene dialogScene = new Scene(this, Color.TRANSPARENT);
+		new JMetro(Style.DARK).setScene(dialogScene);
 		dialogScene.getStylesheets().add(ApplicationConfiguration.getMainCSSFile());
 		dialogStage.setScene(dialogScene);
 		dialogStage.initOwner(stageManager.getMainStage());

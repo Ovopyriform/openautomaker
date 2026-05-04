@@ -20,7 +20,7 @@
 <?import javafx.scene.text.Text?>
 <?import org.openautomaker.ui.component.printer_side_panel.PrinterGrid?>
 
-<fx:root type="org.openautomaker.ui.component.printer_side_panel.PrinterSidePanel" fx:id="statusPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" maxHeight="2000" prefWidth="300.0" styleClass="statusPanel" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openautomaker.ui.component.printer_side_panel.PrinterSidePanelController">
+<fx:root type="org.openautomaker.ui.component.printer_side_panel.PrinterSidePanel" fx:id="statusPane" alignment="TOP_CENTER" maxWidth="-Infinity" minWidth="-Infinity" maxHeight="2000" prefWidth="300.0" styleClass="statusPanel" stylesheets="@/org/openautomaker/ui/css/openautomaker.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml" fx:controller="org.openautomaker.ui.component.printer_side_panel.PrinterSidePanelController">
     <children>
         <VBox id="StatusPanel" VBox.vgrow="ALWAYS" alignment="TOP_CENTER" spacing="20" maxHeight="1.7976931348623157E308" maxWidth="260" prefHeight="-1.0" styleClass="sidePanel">
             <children> 

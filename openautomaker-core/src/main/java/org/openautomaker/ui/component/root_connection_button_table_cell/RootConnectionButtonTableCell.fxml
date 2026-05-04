@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import org.openautomaker.ui.component.controls.RestrictedNumberField?>
 
-<StackPane stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane stylesheets="@/org/openautomaker/ui/css/openautomaker.css" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <HBox fx:id="disconnectedBox" alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="5.0">
          <children>

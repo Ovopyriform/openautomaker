@@ -51,7 +51,7 @@ public class ApplicationConfiguration {
 
 	public static final String cssResourcePath = "/org/openautomaker/ui/" + "css/";
 
-	private static final String mainCSSFile = cssResourcePath + "JMetroDarkTheme.css";
+	private static final String mainCSSFile = cssResourcePath + "openautomaker.css";
 
 	private static final String dialogsCSSFile = cssResourcePath + "dialogsOverride.css";
 

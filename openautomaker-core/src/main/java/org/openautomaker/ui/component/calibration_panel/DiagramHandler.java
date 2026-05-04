@@ -17,6 +17,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
@@ -55,6 +57,7 @@ public class DiagramHandler {
 	private Bounds getBoundsOfNotYetDisplayedNode(Pane loadedDiagramNode) {
 		Group group = new Group(loadedDiagramNode);
 		Scene scene = new Scene(group);
+		new JMetro(Style.DARK).setScene(scene);
 		scene.getStylesheets().add(ApplicationConfiguration.getMainCSSFile());
 		group.applyCss();
 		group.layout();

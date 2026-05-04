@@ -102,6 +102,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 
 @Singleton
 public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListener, UnhandledKeyListener, SpinnerControl,
@@ -588,6 +590,7 @@ public class DisplayManager implements EventHandler<KeyEvent>, KeyCommandListene
 		scene = new Scene(rootStackPane, ApplicationConfiguration.DEFAULT_WIDTH,
 				ApplicationConfiguration.DEFAULT_HEIGHT);
 
+		new JMetro(Style.DARK).setScene(scene);
 		scene.getStylesheets().add(ApplicationConfiguration.getMainCSSFile());
 
 		scene.widthProperty().addListener(new ChangeListener<Number>() {

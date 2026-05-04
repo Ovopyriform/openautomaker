@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="settingsInsetRoot" fx:id="settingsInsetRoot" alignment="CENTER" maxWidth="360.0" minWidth="-Infinity" prefWidth="360.0" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.settings_inset_panel.SettingsInsetPanelController">
+<HBox id="settingsInsetRoot" fx:id="settingsInsetRoot" alignment="CENTER" maxWidth="360.0" minWidth="-Infinity" prefWidth="360.0" stylesheets="@/org/openautomaker/ui/css/openautomaker.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.settings_inset_panel.SettingsInsetPanelController">
     <children>
         <VBox alignment="CENTER" fillWidth="true" spacing="10.0">
             <children>

@@ -8,7 +8,7 @@
 
 
 
-<VBox stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController">
+<VBox stylesheets="@/org/openautomaker/ui/css/openautomaker.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.info_screen_indicator.InfoScreenIndicatorController">
     <children>
         <Group>
             <children>

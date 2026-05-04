@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="container" stylesheets="@/org/openautomaker/ui/css/JMetroDarkTheme.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.load_model_panel.LoadModelInsetPanelController">
+<VBox fx:id="container" stylesheets="@/org/openautomaker/ui/css/openautomaker.css" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.ui.component.load_model_panel.LoadModelInsetPanelController">
     <children>        
         <HBox styleClass="inset-panel" VBox.vgrow="ALWAYS">
             <children>

@@ -53,6 +53,8 @@ import javafx.geometry.Bounds;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.Style;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -431,6 +433,7 @@ public class CalibrationInsetPanelController implements PrinterListChangesListen
 	private Bounds getBoundsOfNotYetDisplayedNode(Pane loadedDiagramNode) {
 		Group group = new Group(loadedDiagramNode);
 		Scene scene = new Scene(group);
+		new JMetro(Style.DARK).setScene(scene);
 		scene.getStylesheets().add(ApplicationConfiguration.getMainCSSFile());
 		group.applyCss();
 		group.layout();
