@@ -97,7 +97,7 @@ import celtech.roboxbase.comms.exceptions.RoboxCommsException;
 import celtech.roboxbase.comms.remote.BusyStatus;
 import celtech.roboxbase.comms.remote.EEPROMState;
 import celtech.roboxbase.comms.remote.PauseStatus;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import celtech.roboxbase.comms.remote.clear.SuitablePrintJob;
 import celtech.roboxbase.comms.rx.AckResponse;
 import celtech.roboxbase.comms.rx.DebugDataResponse;
@@ -675,10 +675,10 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 	@Override
 	public void overrideFilament(int reelNumber, Filament filament) {
 		effectiveFilaments.put(reelNumber, filament);
-		if (getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+		if (getCommandInterface() instanceof IRemotePrinterControl) {
 			// We need to propogate this to the Root that is managing the printer...
 			try {
-				((RoboxRemoteCommandInterface) getCommandInterface()).overrideFilament(reelNumber, filament);
+				((IRemotePrinterControl) getCommandInterface()).overrideFilament(reelNumber, filament);
 			}
 			catch (RoboxCommsException ex) {
 				LOGGER.warn("Comms exception whilst attempting to override filament on remote printer");
@@ -893,8 +893,8 @@ public final class HardwarePrinter implements Printer, ErrorConsumer {
 		boolean success = false;
 
 		printEngine.stopAllServices();
-		if (getCommandInterface() instanceof RoboxRemoteCommandInterface) {
-			((RoboxRemoteCommandInterface) getCommandInterface()).cancelPrint(safetyFeaturesRequired);
+		if (getCommandInterface() instanceof IRemotePrinterControl) {
+			((IRemotePrinterControl) getCommandInterface()).cancelPrint(safetyFeaturesRequired);
 		}
 		else {
 

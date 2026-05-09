@@ -1,7 +1,6 @@
 package celtech.roboxbase.comms.interapp;
 
 import java.io.IOException;
-import java.io.OutputStreamWriter;
 import java.net.BindException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -14,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
-import javafx.application.Platform;
 
 /**
  *
@@ -28,7 +26,7 @@ public class InterAppCommsThread extends Thread {
 	private boolean keepRunning = true;
 	private ServerSocket initialServerSocket;
 	private Socket serverSocket = null;
-	private final ObjectMapper mapper = new ObjectMapper();
+	private static final ObjectMapper mapper = new ObjectMapper();
 	private InterAppCommsConsumer commsConsumer = null;
 
 	@Inject
@@ -63,48 +61,20 @@ public class InterAppCommsThread extends Thread {
 	public InterAppStartupStatus letUsBegin(AbstractInterAppRequest interAppCommsRequest, InterAppCommsConsumer commsConsumer) {
 		this.commsConsumer = commsConsumer;
 
-		InterAppStartupStatus status = InterAppStartupStatus.OTHER_ERROR;
-
 		try {
-			//Bind to localhost adapter with a zero connection queue 
 			initialServerSocket = new ServerSocket(InterAppConfiguration.PORT, 0, InetAddress.getLoopbackAddress());
-
-			status = InterAppStartupStatus.STARTED_OK;
 			this.start();
-
+			return InterAppStartupStatus.STARTED_OK;
 		}
 		catch (BindException e) {
-			// If we had any load params then
 			LOGGER.info("AutoMaker asked to start but instance is already running.");
-			status = InterAppStartupStatus.ALREADY_RUNNING_COULDNT_CONTACT;
-
-			try {
-				Socket clientSocket = new Socket(InetAddress.getLoopbackAddress(), InterAppConfiguration.PORT);
-				OutputStreamWriter out = new OutputStreamWriter(clientSocket.getOutputStream(), InterAppConfiguration.charSetToUse);
-
-				String dataToOutput = mapper.writeValueAsString(interAppCommsRequest);
-
-				out.write(dataToOutput);
-				out.flush();
-
-				clientSocket.close();
-				LOGGER.debug("Told my sibling about the params I was passed");
-				status = InterAppStartupStatus.ALREADY_RUNNING_CONTACT_MADE;
-			}
-			catch (IOException ex) {
-				LOGGER.error("IOException when contacting sibling:" + ex.getMessage());
-			}
-			finally {
-				Platform.exit();
-			}
+			boolean sent = InterAppClient.send(interAppCommsRequest);
+			return sent ? InterAppStartupStatus.ALREADY_RUNNING_CONTACT_MADE : InterAppStartupStatus.ALREADY_RUNNING_COULDNT_CONTACT;
 		}
 		catch (IOException e) {
 			LOGGER.error("Unexpected error whilst attempting to check if another app is running");
-			e.printStackTrace();
-			Platform.exit();
+			return InterAppStartupStatus.OTHER_ERROR;
 		}
-
-		return status;
 	}
 
 	public void shutdown() {

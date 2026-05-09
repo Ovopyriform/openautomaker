@@ -3,21 +3,14 @@ package celtech.roboxbase.comms.remote;
 import java.nio.file.Path;
 
 import org.openautomaker.base.configuration.Filament;
-import org.openautomaker.base.configuration.datafileaccessors.PrinterContainer;
 import org.openautomaker.base.configuration.fileRepresentation.CameraSettings;
-import org.openautomaker.base.notification_manager.SystemNotificationManager;
 import org.openautomaker.base.postprocessor.PrintJobStatistics;
 import org.openautomaker.base.printerControl.model.Printer;
-import org.openautomaker.base.services.firmware.FirmwareLoadService;
-import org.openautomaker.environment.OpenAutomakerEnv;
-import org.openautomaker.environment.preference.application.RequiredFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastSerialNumberPreference;
-import org.openautomaker.environment.preference.root.FirmwarePathPreference;
 
 import com.google.inject.assistedinject.Assisted;
 
 import celtech.roboxbase.comms.CommandInterface;
+import celtech.roboxbase.comms.CommandInterfaceDeps;
 import celtech.roboxbase.comms.PrinterStatusConsumer;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.exceptions.ConnectionLostException;
@@ -32,38 +25,19 @@ import jakarta.inject.Inject;
  *
  * @author Ian Hudson @ Liberty Systems Limited
  */
-public class RoboxRemoteCommandInterface extends CommandInterface {
+public class RoboxRemoteCommandInterface extends CommandInterface implements IRemotePrinterControl {
 
 	private final RemoteClient remoteClient;
 
 	@Inject
 	public RoboxRemoteCommandInterface(
-			OpenAutomakerEnv environment,
-			SystemNotificationManager systemNotificationManager,
-			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
-			FirmwarePathPreference firmwarePathPreference,
-			LastSerialNumberPreference lastSerialNumberPreference,
-			LastFirmwareVersionPreference lastFirmwareVersionPreference,
-			FirmwareLoadService firmwareLoadService,
-			PrinterContainer printerContainer,
+			CommandInterfaceDeps deps,
 			@Assisted PrinterStatusConsumer controlInterface,
 			@Assisted RemoteDetectedPrinter printerHandle,
 			@Assisted boolean suppressPrinterIDChecks,
 			@Assisted int sleepBetweenStatusChecks) {
 
-		super(environment,
-				systemNotificationManager,
-				requiredFirmwareVersionPreference,
-				firmwarePathPreference,
-				lastSerialNumberPreference,
-				lastFirmwareVersionPreference,
-				firmwareLoadService,
-				printerContainer,
-				controlInterface,
-				printerHandle,
-				suppressPrinterIDChecks,
-				sleepBetweenStatusChecks,
-				false);
+		super(deps, controlInterface, printerHandle, suppressPrinterIDChecks, sleepBetweenStatusChecks, false);
 
 		this.setName("RemoteCI:" + printerHandle.getConnectionHandle() + " " + this.getName());
 		remoteClient = new RemoteClient(printerHandle);
@@ -127,6 +101,16 @@ public class RoboxRemoteCommandInterface extends CommandInterface {
 	@Override
 	public void setSleepBetweenStatusChecks(int sleepMillis) {
 		sleepBetweenStatusChecks = sleepMillis;
+	}
+
+	@Override
+	public boolean requiresPeriodicIdRefresh() {
+		return true;
+	}
+
+	@Override
+	public boolean appliesAmbientColourOnConnect() {
+		return false;
 	}
 
 	@Override

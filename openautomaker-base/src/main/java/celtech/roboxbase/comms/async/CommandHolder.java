@@ -1,28 +1,28 @@
 package celtech.roboxbase.comms.async;
 
-/**
- *
- * @author Ian
- */
+import java.util.concurrent.CompletableFuture;
+
+import celtech.roboxbase.comms.rx.RoboxRxPacket;
+
 public class CommandHolder
 {
 
-    private final int queueIndex;
-    private final CommandPacket commandPacket;
+	private final CommandPacket commandPacket;
+	private final CompletableFuture<RoboxRxPacket> future;
 
-    public CommandHolder(int queueIndex, CommandPacket commandPacket)
-    {
-        this.queueIndex = queueIndex;
-        this.commandPacket = commandPacket;
-    }
+	public CommandHolder(CommandPacket commandPacket, CompletableFuture<RoboxRxPacket> future)
+	{
+		this.commandPacket = commandPacket;
+		this.future = future;
+	}
 
-    public CommandPacket getCommandPacket()
-    {
-        return commandPacket;
-    }
+	public CommandPacket getCommandPacket()
+	{
+		return commandPacket;
+	}
 
-    public int getQueueIndex()
-    {
-        return queueIndex;
-    }
+	public CompletableFuture<RoboxRxPacket> getFuture()
+	{
+		return future;
+	}
 }

@@ -13,7 +13,7 @@ import celtech.appManager.ApplicationMode;
 import celtech.appManager.ApplicationStatus;
 import org.openautomaker.ui.component.snapshot.SnapshotController;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -92,7 +92,7 @@ public class SnapshotPanelController extends SnapshotController {
 	private void bindToPrinter(Printer printer) {
 		connectedPrinter = printer;
 		if (connectedPrinter != null &&
-				connectedPrinter.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+				connectedPrinter.getCommandInterface() instanceof IRemotePrinterControl) {
 			connectedServer = ((RemoteDetectedPrinter) connectedPrinter.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo();
 			String profileName = "";
 			String cameraName = "";

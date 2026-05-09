@@ -6,10 +6,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import com.fazecast.jSerialComm.SerialPort;
-import com.fazecast.jSerialComm.SerialPortDataListener;
-import com.fazecast.jSerialComm.SerialPortEvent;
 
-import celtech.roboxbase.comms.exceptions.CommsSuppressedException;
 import celtech.roboxbase.comms.exceptions.PortNotFoundException;
 import celtech.roboxbase.comms.remote.LowLevelInterfaceException;
 
@@ -17,17 +14,15 @@ import celtech.roboxbase.comms.remote.LowLevelInterfaceException;
  *
  * @author Ian
  */
-public class SerialPortManager implements SerialPortDataListener
+public class SerialPortManager
 {
 
     private String serialPortToConnectTo = null;
     protected SerialPort serialPort = null;
 	private static final Logger LOGGER = LogManager.getLogger();
 
-    // timeout is required on the read particularly for when the firmware is out of date
-    // and the returned status report is then too short see issue ROB-453
+    // ROB-453: timeout needed when firmware is out of date and status report is too short
     private final static int READ_TIMEOUT = 5000;
-    private boolean suspendComms = false;
 
     public SerialPortManager(String portToConnectTo)
     {
@@ -44,22 +39,16 @@ public class SerialPortManager implements SerialPortDataListener
         try
         {
             serialPort.openPort();
-            
+
             serialPort.setComPortParameters(baudrate, 8, SerialPort.ONE_STOP_BIT, SerialPort.NO_PARITY);
             serialPort.setFlowControl(SerialPort.FLOW_CONTROL_DISABLED);
             serialPort.setComPortTimeouts(SerialPort.TIMEOUT_READ_SEMI_BLOCKING, READ_TIMEOUT, 0);
-            
+
             portSetupOK = true;
 			LOGGER.debug("Finished opening serial port " + serialPortToConnectTo);
         } catch (Exception ex)
         {
-            //if (ex.getExceptionType().equalsIgnoreCase("Port not found"))
-            //{
-            //    throw new PortNotFoundException("Port not found - windows issue?");
-            //} else
-            //{
 			LOGGER.error("Error setting up serial port " + ex.getMessage());
-            //}
         }
 
         return portSetupOK;
@@ -101,52 +90,14 @@ public class SerialPortManager implements SerialPortDataListener
         return wroteOK;
     }
 
-    public int getInputBufferBytesCount() throws LowLevelInterfaceException
-    {
-        checkSerialPortOK();
-        try
-        {
-            return serialPort.bytesAvailable();
-        } catch (Exception ex)
-        {
-            throw new LowLevelInterfaceException(ex.getMessage());
-        }
-    }
-
-    public void writeAndWaitForData(byte[] data) throws LowLevelInterfaceException, CommsSuppressedException
+    // Write bytes and verify all were sent. The subsequent readSerialPort() call blocks until
+    // response data arrives (TIMEOUT_READ_SEMI_BLOCKING with READ_TIMEOUT covers no-response case).
+    public void writeAndWaitForData(byte[] data) throws LowLevelInterfaceException
     {
         checkSerialPortOK();
         boolean wroteOK = writeBytes(data);
 
-        if (wroteOK)
-        {
-            int len = -1;
-
-            int waitCounter = 0;
-            while (getInputBufferBytesCount() <= 0 && !suspendComms)
-            {
-                try
-                {
-                    Thread.sleep(0, 100000);
-                } catch (InterruptedException ex)
-                {
-                }
-
-                if (waitCounter >= 5000)
-                {
-					LOGGER.error("No response from device - disconnecting");
-                    throw new LowLevelInterfaceException(serialPort.getSystemPortName()
-                            + " Check availability - Printer did not respond");
-                }
-                waitCounter++;
-            }
-
-            if (suspendComms)
-            {
-                throw new CommsSuppressedException(serialPort.getSystemPortName()
-                        + " aborted due to comms suspension");
-            }
-        } else
+        if (!wroteOK)
         {
             String message = "";
             if (serialPort != null)
@@ -230,42 +181,5 @@ public class SerialPortManager implements SerialPortDataListener
             throw new LowLevelInterfaceException(serialPortToConnectTo
                     + " Serial port not open");
         }
-    }
-
-    public void callback()
-    {
-        serialPort.addDataListener(this);
-    }
-
-    @Override
-    public void serialEvent(SerialPortEvent serialPortEvent)
-    {
-        if (serialPortEvent.getEventType() == SerialPort.LISTENING_EVENT_DATA_AVAILABLE)
-        {
-            int numberOfBytesReceived = serialPort.bytesAvailable();
-			LOGGER.info("Got " + numberOfBytesReceived + " bytes");
-            try
-            {
-                byte[] newData = new byte[serialPort.bytesAvailable()];
-                int numRead = serialPort.readBytes(newData, newData.length);
-            } catch (Exception ex)
-            {
-				LOGGER.error("Error whilst auto reading from port " + serialPortToConnectTo, ex);
-            }
-        } else
-        {
-			LOGGER.info("Got serial event of type " + serialPortEvent.getEventType()
-                    + " that I didn't understand");
-        }
-    }
-
-    public void suspendComms(boolean suspendComms)
-    {
-        this.suspendComms = suspendComms;
-    }
-
-    @Override
-    public int getListeningEvents() {
-        return SerialPort.LISTENING_EVENT_DATA_AVAILABLE;
     }
 }

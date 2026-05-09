@@ -86,7 +86,7 @@ import celtech.modelcontrol.ModelGroup;
 import celtech.modelcontrol.ProjectifiableThing;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.RoboxCommsManager;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.inject.Inject;
 import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
@@ -460,7 +460,7 @@ public class LayoutStatusMenuStripController implements PrinterListChangesListen
 			Optional<CameraSettings> cameraData = Optional.empty();
 			boolean timelapseEnabled = false;
 			TimelapseSettingsData tlsd = currentProject.getTimelapseSettings();
-			if (tlsd != null && printer.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+			if (tlsd != null && printer.getCommandInterface() instanceof IRemotePrinterControl) {
 				PrintServerConnection printerServer = ((RemoteDetectedPrinter) printer.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo();
 				Optional<CameraInfo> infoOpt = tlsd.getTimelapseCamera();
 				Optional<CameraProfile> profileOpt = tlsd.getTimelapseProfile();

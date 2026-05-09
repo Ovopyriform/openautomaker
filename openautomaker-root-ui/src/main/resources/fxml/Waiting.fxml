@@ -6,7 +6,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.StackPane?>
 
-<StackPane id="WaitingPane" fx:id="waitingPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.openautomaker.root.ui.controllers.WaitingController">
+<StackPane id="WaitingPane" fx:id="waitingPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.root.ui.controllers.WaitingController">
    <children>
       <ImageView fitHeight="800.0" fitWidth="480.0" pickOnBounds="true" preserveRatio="true">
          <image>

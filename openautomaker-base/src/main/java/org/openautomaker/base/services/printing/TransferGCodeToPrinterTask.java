@@ -26,7 +26,7 @@ import com.jcraft.jsch.SftpProgressMonitor;
 
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.exceptions.RoboxCommsException;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.inject.Inject;
 import javafx.beans.property.IntegerProperty;
 import javafx.concurrent.Task;
@@ -151,16 +151,16 @@ public class TransferGCodeToPrinterTask extends Task<GCodePrintResult> {
 				+ startFromSequenceNumber);
 
 		boolean errorTransferringStats = false;
-		boolean printerIsRemote = (printerToUse.getCommandInterface() instanceof RoboxRemoteCommandInterface);
+		boolean printerIsRemote = (printerToUse.getCommandInterface() instanceof IRemotePrinterControl);
 
 		if (printerIsRemote) {
 			//We're talking to a remote printer
 			//Send the statistics and camera data if they exist
 			if (!gcodeFile.getParent().endsWith("Macros") && printJobStatistics != null) {
 				try {
-					((RoboxRemoteCommandInterface) printerToUse.getCommandInterface()).sendStatistics(printJobStatistics);
+					((IRemotePrinterControl) printerToUse.getCommandInterface()).sendStatistics(printJobStatistics);
 					if (cameraData != null)
-						((RoboxRemoteCommandInterface) printerToUse.getCommandInterface()).sendCameraData(printJobID, cameraData);
+						((IRemotePrinterControl) printerToUse.getCommandInterface()).sendCameraData(printJobID, cameraData);
 
 				}
 				catch (RoboxCommsException ex) {
@@ -278,8 +278,8 @@ public class TransferGCodeToPrinterTask extends Task<GCodePrintResult> {
 		// Note: this does NOT expand macros, which has to
 		// be done on the remote printer.
 		boolean transferredOK = false;
-		RoboxRemoteCommandInterface remoteCI = (RoboxRemoteCommandInterface) printerToUse.getCommandInterface();
-		RemoteDetectedPrinter remoteDevice = (RemoteDetectedPrinter) remoteCI.getPrinterHandle();
+		IRemotePrinterControl remoteCI = (IRemotePrinterControl) printerToUse.getCommandInterface();
+		RemoteDetectedPrinter remoteDevice = (RemoteDetectedPrinter) printerToUse.getCommandInterface().getPrinterHandle();
 		String hostAddress = remoteDevice.getServerPrinterIsAttachedTo().getServerIP();
 
 		SFTPUtils sftpHelper = new SFTPUtils(keyPathPreference, hostAddress);

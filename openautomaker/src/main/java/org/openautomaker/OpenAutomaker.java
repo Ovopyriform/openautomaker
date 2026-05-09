@@ -159,8 +159,8 @@ public class OpenAutomaker extends Application implements /* AutoUpdateCompletio
 
 		if (startupStatus != InterAppStartupStatus.STARTED_OK) {
 			if (LOGGER.isDebugEnabled())
-				LOGGER.debug("Error initialising InterAppRequest: " + startupStatus.name());
-
+				LOGGER.debug("InterApp startup failed: " + startupStatus.name());
+			Platform.exit();
 			return;
 		}
 

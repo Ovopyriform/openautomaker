@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane fx:id="keyboardPane" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="panel" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.openautomaker.root.ui.controllers.KeyboardController">
+<GridPane fx:id="keyboardPane" hgap="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" styleClass="panel" vgap="5.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.root.ui.controllers.KeyboardController">
   <columnConstraints>
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="16.6666" />
     <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" percentWidth="16.6666" />

@@ -110,10 +110,6 @@
     -fx-background-color:#a0a0a0;
 }
 
-.label{
-    -fx-text-fill: white;
-    -fx-font-smoothing-type: lcd;
-}
 
 .header{
     -fx-font-size: 42pt;
@@ -431,7 +427,6 @@
 }
 
 
-
 /*******************************************************************************
  *                                                                             *
  * Tooltip                                                                     *
@@ -444,7 +439,6 @@
     -fx-font-family: "Source Sans Pro";
     -fx-font-size: 12pt;
 }
-
 
 
 
@@ -754,40 +748,6 @@
     -fx-padding: 0px;
 }
 
-.tab-pane, .tab-header-background{
-    -fx-background-color: dark_grey;
-}
-
-
-.tab:hover, .tab:hover .tab-label{
-    -fx-background-color: dark_grey;
-}
-
-.tab:selected, .tab:selected .tab-label{
-    -fx-background-color: highlight_colour;
-    -fx-border-color: highlight_colour;
-}
-
-.tab .tab-label{
-    -fx-background-color: mid_grey_solid;
-    -fx-text-fill: white;
-}
-
-.tab:top {
-    -fx-border-width: 0.3;
-    -fx-border-color: black;
-}
-
-.tab{
-    -fx-background-color: mid_grey_solid;
-    -fx-background-radius: 0px;
-    -fx-background-insets: 0px;
-    -fx-border-color: black;
-}
-
-.fattab:top{
-    -fx-background-color: blue;
-}
 
 .main-project-tabPane .tab-header-background{
     -fx-background-color: black;
@@ -796,7 +756,6 @@
 .main-project-tabPane {
     -fx-font-family: "Source Sans Pro";
 }
-
 
 
 
@@ -833,9 +792,6 @@
 
 
 
-.menubar{
-    -fx-background-color: black;
-}
 
 .regularFont {
     -fx-font-family: "Source Sans Pro";
@@ -1105,7 +1061,11 @@ modal-dialogue{
     -fx-opacity: -fx-disabled-opacity;
 }
 
-
+/*******************************************************************************
+* *
+* Slider *
+* *
+******************************************************************************/
 .slider .axis {
     -fx-tick-label-font: 10pt "Source Sans Pro";
     -fx-max-height: 15px;
@@ -1115,6 +1075,9 @@ modal-dialogue{
     -fx-tick-label-fill: white;
 }
 
+.slider {
+    -fx-font-size: 10pt;
+}
 
 #material1Slider .fill {
     -fx-background-color: robox_blue;
@@ -1137,23 +1100,6 @@ modal-dialogue{
     -fx-padding: 0.333333em; /* This value must be equal to ".slider .thumb" padding */
 }
 
-.slider .track {
-    -fx-background-color: #6c6c6c;
-    -fx-background-insets: 0;
-    -fx-background-radius: 0;
-    -fx-padding: 0.333333em; /* This value must be equal to ".slider .thumb" padding */
-}
-
-.slider .fill {
-    -fx-background-color: robox_blue;
-    -fx-padding: 0.333333em; /* This value must be equal to ".slider .thumb" padding */
-}
-.slider .fill:hover {
-    -fx-background-color: robox_blue;
-}
-.slider .fill:pressed {
-    -fx-background-color: #25bbc4;
-}
 
 
 /**

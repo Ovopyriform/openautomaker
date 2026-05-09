@@ -5,20 +5,13 @@ import org.apache.logging.log4j.Logger;
 import org.openautomaker.base.configuration.Filament;
 import org.openautomaker.base.configuration.datafileaccessors.FilamentContainer;
 import org.openautomaker.base.configuration.datafileaccessors.HeadContainer;
-import org.openautomaker.base.configuration.datafileaccessors.PrinterContainer;
 import org.openautomaker.base.configuration.fileRepresentation.HeadFile;
 import org.openautomaker.base.inject.printer_control.model.HeadFactory;
 import org.openautomaker.base.inject.printer_control.model.ReelFactory;
-import org.openautomaker.base.notification_manager.SystemNotificationManager;
 import org.openautomaker.base.printerControl.model.Head;
 import org.openautomaker.base.printerControl.model.HeaterMode;
 import org.openautomaker.base.printerControl.model.Reel;
-import org.openautomaker.base.services.firmware.FirmwareLoadService;
-import org.openautomaker.environment.OpenAutomakerEnv;
 import org.openautomaker.environment.preference.application.RequiredFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastSerialNumberPreference;
-import org.openautomaker.environment.preference.root.FirmwarePathPreference;
 
 import com.google.inject.Provider;
 import com.google.inject.assistedinject.Assisted;
@@ -133,16 +126,9 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 
 	@AssistedInject
 	public VirtualPrinterCommandInterface(
-			OpenAutomakerEnv environment,
-			SystemNotificationManager systemNotificationManager,
-			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
+			CommandInterfaceDeps deps,
 			FilamentContainer filamentContainer,
 			Provider<RoboxCommsManager> roboxCommsManagerProvider,
-			FirmwarePathPreference firmwarePathPreference,
-			LastSerialNumberPreference lastSerialNumberPreference,
-			LastFirmwareVersionPreference lastFirmwareVersionPreference,
-			FirmwareLoadService firmwareLoadService,
-			PrinterContainer printerContainer,
 			HeadContainer headContainer,
 			HeadFactory headFactory,
 			ReelFactory reelFactory,
@@ -153,26 +139,14 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			@Assisted("printerName") String printerName,
 			@Assisted("printerModel") String printerModel) {
 
-		super(environment,
-				systemNotificationManager,
-				requiredFirmwareVersionPreference,
-				firmwarePathPreference,
-				lastSerialNumberPreference,
-				lastFirmwareVersionPreference,
-				firmwareLoadService,
-				printerContainer,
-				controlInterface,
-				printerHandle,
-				suppressPrinterIDChecks,
-				sleepBetweenStatusChecks,
-				true);
+		super(deps, controlInterface, printerHandle, suppressPrinterIDChecks, sleepBetweenStatusChecks, true);
 
 		this.setName(printerName);
 		this.printerName = printerName;
 		this.printerModel = printerModel;
 		this.filamentContainer = filamentContainer;
 		this.roboxCommsManagerProvider = roboxCommsManagerProvider;
-		this.requiredFirmwareVersionPreference = requiredFirmwareVersionPreference;
+		this.requiredFirmwareVersionPreference = deps.requiredFirmwareVersionPreference();
 		this.headContainer = headContainer;
 		this.headFactory = headFactory;
 		this.reelFactory = reelFactory;
@@ -183,16 +157,9 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 
 	@AssistedInject
 	public VirtualPrinterCommandInterface(
-			OpenAutomakerEnv environment,
-			SystemNotificationManager systemNotificationManager,
-			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
+			CommandInterfaceDeps deps,
 			FilamentContainer filamentContainer,
 			Provider<RoboxCommsManager> roboxCommsManagerProvider,
-			FirmwarePathPreference firmwarePathPreference,
-			LastSerialNumberPreference lastSerialNumberPreference,
-			LastFirmwareVersionPreference lastFirmwareVersionPreference,
-			FirmwareLoadService firmwareLoadService,
-			PrinterContainer printerContainer,
 			HeadContainer headContainer,
 			HeadFactory headFactory,
 			ReelFactory reelFactory,
@@ -201,39 +168,16 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			@Assisted boolean suppressPrinterIDChecks,
 			@Assisted int sleepBetweenStatusChecks) {
 
-		this(environment,
-				systemNotificationManager,
-				requiredFirmwareVersionPreference,
-				filamentContainer,
-				roboxCommsManagerProvider,
-				firmwarePathPreference,
-				lastSerialNumberPreference,
-				lastFirmwareVersionPreference,
-				firmwareLoadService,
-				printerContainer,
-				headContainer,
-				headFactory,
-				reelFactory,
-				controlInterface,
-				printerHandle,
-				suppressPrinterIDChecks,
-				sleepBetweenStatusChecks,
-				"Virtual Printer",
-				"RBX10");
+		this(deps, filamentContainer, roboxCommsManagerProvider, headContainer, headFactory, reelFactory,
+				controlInterface, printerHandle, suppressPrinterIDChecks, sleepBetweenStatusChecks,
+				"Virtual Printer", "RBX10");
 	}
 
 	@AssistedInject
 	public VirtualPrinterCommandInterface(
-			OpenAutomakerEnv environment,
-			SystemNotificationManager systemNotificationManager,
-			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
+			CommandInterfaceDeps deps,
 			FilamentContainer filamentContainer,
 			Provider<RoboxCommsManager> roboxCommsManagerProvider,
-			FirmwarePathPreference firmwarePathPreference,
-			LastSerialNumberPreference lastSerialNumberPreference,
-			LastFirmwareVersionPreference lastFirmwareVersionPreference,
-			FirmwareLoadService firmwareLoadService,
-			PrinterContainer printerContainer,
 			HeadContainer headContainer,
 			HeadFactory headFactory,
 			ReelFactory reelFactory,
@@ -241,23 +185,8 @@ public class VirtualPrinterCommandInterface extends CommandInterface {
 			@Assisted DetectedDevice printerHandle,
 			@Assisted boolean suppressPrinterIDChecks) {
 
-		this(environment,
-				systemNotificationManager,
-				requiredFirmwareVersionPreference,
-				filamentContainer,
-				roboxCommsManagerProvider,
-				firmwarePathPreference,
-				lastSerialNumberPreference,
-				lastFirmwareVersionPreference,
-				firmwareLoadService,
-				printerContainer,
-				headContainer,
-				headFactory,
-				reelFactory,
-				controlInterface,
-				printerHandle,
-				suppressPrinterIDChecks,
-				1000);
+		this(deps, filamentContainer, roboxCommsManagerProvider, headContainer, headFactory, reelFactory,
+				controlInterface, printerHandle, suppressPrinterIDChecks, 1000);
 	}
 
 	@Override

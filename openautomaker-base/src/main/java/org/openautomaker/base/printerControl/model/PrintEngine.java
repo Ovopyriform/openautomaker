@@ -46,7 +46,7 @@ import org.openautomaker.environment.preference.root.PrintJobsPathPreference;
 import com.google.inject.assistedinject.Assisted;
 
 import celtech.roboxbase.comms.exceptions.RoboxCommsException;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import celtech.roboxbase.comms.rx.SendFile;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
@@ -317,10 +317,10 @@ public class PrintEngine implements ControllableService {
 			makeETCCalculator(statistics, associatedPrinter);
 		}
 		catch (IOException ex) {
-			if (associatedPrinter.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+			if (associatedPrinter.getCommandInterface() instanceof IRemotePrinterControl) {
 				//OK - ask for the stats from the remote end
 				try {
-					statistics = ((RoboxRemoteCommandInterface) associatedPrinter.getCommandInterface()).retrieveStatistics();
+					statistics = ((IRemotePrinterControl) associatedPrinter.getCommandInterface()).retrieveStatistics();
 					if (statistics != null) {
 						makeETCCalculator(statistics, associatedPrinter);
 						statistics.writeStatisticsToFile(localPrintJob.getStatisticsFileLocation());

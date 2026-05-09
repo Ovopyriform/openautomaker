@@ -58,7 +58,7 @@ import org.openautomaker.ui.state.SelectedProject;
 
 import celtech.modelcontrol.ModelContainer;
 import celtech.modelcontrol.ProjectifiableThing;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import com.google.inject.assistedinject.Assisted;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
@@ -430,7 +430,7 @@ public class GCodeGeneratorManager implements Project.ProjectChangesListener {
 							CameraTriggerData cameraTriggerData = null;
 
 							if (currentPrinter != null &&
-									currentPrinter.getCommandInterface() instanceof RoboxRemoteCommandInterface &&
+									currentPrinter.getCommandInterface() instanceof IRemotePrinterControl &&
 									timelapseSettings.isTimelapseEnabled()) {
 								Optional<CameraTriggerData> ctd = timelapseSettings.getTimelapseProfile()
 										.map((profile) -> {

@@ -8,17 +8,17 @@
 	<version>4.03.00</version>
 	<packaging>jar</packaging>
 
-	<name>OpenAutoMaker-Root UI</name>
+	<name>OpenAutoMaker Root UI</name>
 
 	<parent>
 		<artifactId>openautomaker-parent</artifactId>
-		<groupId>xyz.openautomaker</groupId>
+		<groupId>org.openautomaker</groupId>
 		<version>1.0</version>
 		<relativePath>../openautomaker-parent</relativePath>
 	</parent>
 
 	<properties>
-		<mainClass>xyz.openautomaker.root.ui.Main</mainClass>
+		<mainClass>org.openautomaker.root.ui.Main</mainClass>
 	</properties>
 
 	<build>
@@ -36,7 +36,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.2</version>
 				<configuration>
 					<finalName>${project.artifactId}</finalName>
 					<archive>
@@ -44,7 +43,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib</classpathPrefix>
-							<mainClass>xyz.openautomaker.root.ui.Main</mainClass>
+							<mainClass>org.openautomaker.root.ui.Main</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
@@ -52,7 +51,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>2.9</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -102,7 +100,6 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
-			<version>2.12.7.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.openjfx</groupId>
@@ -123,7 +120,7 @@
 			<artifactId>jfxtras-controls</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>xyz.openautomaker</groupId>
+			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-environment</artifactId>
 		</dependency>
 	</dependencies>

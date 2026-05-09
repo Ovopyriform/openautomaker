@@ -43,4 +43,9 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/openjfx/javafx-fxml/26/javafx-fxml-26-mac-aarch64.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/gluonhq/ignite-guice/1.2.2/ignite-guice-1.2.2.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/com/gluonhq/ignite-common/1.2.2/ignite-common-1.2.2.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/mockito/mockito-junit-jupiter/5.23.0/mockito-junit-jupiter-5.23.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/mockito/mockito-core/5.23.0/mockito-core-5.23.0.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/net/bytebuddy/byte-buddy/1.17.7/byte-buddy-1.17.7.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/net/bytebuddy/byte-buddy-agent/1.17.7/byte-buddy-agent-1.17.7.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/objenesis/objenesis/3.3/objenesis-3.3.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>

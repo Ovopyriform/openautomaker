@@ -18,7 +18,7 @@ import org.openautomaker.environment.preference.application.HomePathPreference;
 import com.google.inject.assistedinject.Assisted;
 
 import celtech.roboxbase.comms.remote.PauseStatus;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.annotation.Nullable;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
@@ -124,7 +124,7 @@ public class CameraTriggerManager {
 		boolean resumePrinter;
 
 		// If we are talking to a remote printer, return false, root will handle the resume.
-		if (associatedPrinter.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+		if (associatedPrinter.getCommandInterface() instanceof IRemotePrinterControl) {
 			resumePrinter = false;
 		}
 		else {

@@ -40,7 +40,7 @@ import org.openautomaker.ui.component.controls.HyperlinkedLabel;
 import org.openautomaker.ui.component.controls.JogButton;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.remote.PauseStatus;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.inject.Inject;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -667,7 +667,7 @@ public class PrinterStatusPageController implements Initializable, PrinterListCh
 				default:
 					break;
 			}
-			if (printerToUse.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+			if (printerToUse.getCommandInterface() instanceof IRemotePrinterControl) {
 				PrintServerConnection connectedServer = ((RemoteDetectedPrinter) printerToUse.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo();
 				if (serverToUse != null && serverToUse != connectedServer) {
 					selectedPrinterHasCamera.unbind();

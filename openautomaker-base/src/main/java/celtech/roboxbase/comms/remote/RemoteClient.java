@@ -41,7 +41,7 @@ public class RemoteClient implements LowLevelInterface
     private final String overrideFilamentUrlString;
     private final String clearAllErrorsUrlString;
     private final String clearErrorUrlString;
-    private final ObjectMapper mapper = new ObjectMapper();
+    private static final ObjectMapper mapper = new ObjectMapper();
 
     public RemoteClient(RemoteDetectedPrinter remotePrinterHandle)
     {
@@ -190,7 +190,7 @@ public class RemoteClient implements LowLevelInterface
 
     public void overrideFilament(String printerID, int reelNumber, Filament filament) throws RoboxCommsException
     {
-        Map<Integer, String> filamentMap = new HashMap();
+        Map<Integer, String> filamentMap = new HashMap<>();
         filamentMap.put(reelNumber, filament.getFilamentID());
         try
         {

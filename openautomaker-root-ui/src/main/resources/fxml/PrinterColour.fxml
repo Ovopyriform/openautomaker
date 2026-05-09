@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<StackPane id="PrinterColourPane" fx:id="printerColourPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="xyz.openautomaker.root.ui.controllers.PrinterColourController">
+<StackPane id="PrinterColourPane" fx:id="printerColourPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="800" prefWidth="480.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.openautomaker.root.ui.controllers.PrinterColourController">
    <children>
       <VBox fx:id="printerColourVBox" alignment="TOP_CENTER">
          <children>

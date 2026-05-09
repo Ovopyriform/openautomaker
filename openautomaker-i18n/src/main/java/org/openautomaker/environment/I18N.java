@@ -69,7 +69,7 @@ public final class I18N {
 	 * @param localPreference - LocalePreference (injected by Guice)
 	 */
 	@Inject
-	protected I18N(LocaleProvider localeProvider) {
+	public I18N(LocaleProvider localeProvider) {
 		refreshResourceBundle(localeProvider.getValue());
 
 		// As we're following the applications locale, add a listener to replace the INSTANCE if it changes

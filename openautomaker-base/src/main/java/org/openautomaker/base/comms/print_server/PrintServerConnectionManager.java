@@ -81,6 +81,11 @@ public class PrintServerConnectionManager {
 							if (printServerConnection.incrementPollCount())
 								return;
 
+							// UDP discovery failed — try HTTP before giving up.
+							// whoAreYou() resets fPollCount internally on success.
+							if (printServerConnection.whoAreYou())
+								return;
+
 							// Remove from known servers and disconnect if connected.
 							knownServers.remove(printServerConnection);
 							//Discovery and connection management should be different things.

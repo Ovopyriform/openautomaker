@@ -2,15 +2,7 @@ package celtech.roboxbase.comms;
 
 import java.util.List;
 
-import org.openautomaker.base.configuration.datafileaccessors.PrinterContainer;
-import org.openautomaker.base.notification_manager.SystemNotificationManager;
 import org.openautomaker.base.printerControl.model.Printer;
-import org.openautomaker.base.services.firmware.FirmwareLoadService;
-import org.openautomaker.environment.OpenAutomakerEnv;
-import org.openautomaker.environment.preference.application.RequiredFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastFirmwareVersionPreference;
-import org.openautomaker.environment.preference.printer.LastSerialNumberPreference;
-import org.openautomaker.environment.preference.root.FirmwarePathPreference;
 
 import com.google.inject.assistedinject.Assisted;
 
@@ -38,33 +30,13 @@ public class HardwareCommandInterface extends CommandInterface {
 
 	@Inject
 	public HardwareCommandInterface(
-			OpenAutomakerEnv environment,
-			SystemNotificationManager systemNotificationManager,
-			RequiredFirmwareVersionPreference requiredFirmwareVersionPreference,
-			FirmwarePathPreference firmwarePathPreference,
-			LastSerialNumberPreference lastSerialNumberPreference,
-			LastFirmwareVersionPreference lastFirmwareVersionPreference,
-			FirmwareLoadService firmwareLoadService,
-			PrinterContainer printerContainer,
+			CommandInterfaceDeps deps,
 			@Assisted PrinterStatusConsumer controlInterface,
 			@Assisted DetectedDevice printerHandle,
 			@Assisted("suppressPrinterIDChecks") boolean suppressPrinterIDChecks,
 			@Assisted int sleepBetweenStatusChecks) {
 
-		//TODO: OK, there has to be a nicer way to do this.  Perhaps field injection on the abstract?
-		super(environment,
-				systemNotificationManager,
-				requiredFirmwareVersionPreference,
-				firmwarePathPreference,
-				lastSerialNumberPreference,
-				lastFirmwareVersionPreference,
-				firmwareLoadService,
-				printerContainer,
-				controlInterface,
-				printerHandle,
-				suppressPrinterIDChecks,
-				sleepBetweenStatusChecks,
-				true);
+		super(deps, controlInterface, printerHandle, suppressPrinterIDChecks, sleepBetweenStatusChecks, true);
 
 		this.setName("HCI:" + printerHandle + " " + this.toString());
 		serialPortManager = new SerialPortManager(printerHandle.getConnectionHandle());
@@ -95,7 +67,7 @@ public class HardwareCommandInterface extends CommandInterface {
 		RoboxRxPacket receivedPacket = null;
 
 		List<RoboxCommsState> unhandledStates = List.of(RoboxCommsState.FOUND, RoboxCommsState.SHUTTING_DOWN, RoboxCommsState.DISCONNECTED);
-		if (unhandledStates.contains(commsState))
+		if (unhandledStates.contains(getCommsState()))
 			throw new RoboxCommsException("Invalid state for writing data");
 
 		/*

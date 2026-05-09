@@ -24,7 +24,7 @@ import celtech.coreUI.DisplayManager;
 import org.openautomaker.ui.component.snapshot.SnapshotController;
 import celtech.modelcontrol.ProjectifiableThing;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import jakarta.inject.Inject;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -156,7 +156,7 @@ public class TimelapseInsetPanelController extends SnapshotController implements
 
 		currentPrinter = printer;
 		if (currentPrinter != null &&
-				currentPrinter.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+				currentPrinter.getCommandInterface() instanceof IRemotePrinterControl) {
 			connectedServer = ((RemoteDetectedPrinter) currentPrinter.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo();
 			connectedServer.cameraDetectedProperty().addListener(cameraDetectedChangeListener);
 		}

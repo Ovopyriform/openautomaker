@@ -55,8 +55,6 @@
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 		</dependency>
-
-
 		<dependency>
 			<groupId>org.openautomaker</groupId>
 			<artifactId>openautomaker-guice</artifactId>
@@ -78,6 +76,10 @@
 			<groupId>org.testfx</groupId>
 			<artifactId>testfx-junit5</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
 		</dependency>
 	</dependencies>
 

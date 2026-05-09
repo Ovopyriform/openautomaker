@@ -25,7 +25,7 @@ import org.openautomaker.ui.StandardColours;
 import org.openautomaker.ui.component.controls.HideableTooltip;
 import celtech.roboxbase.comms.RemoteDetectedPrinter;
 import celtech.roboxbase.comms.remote.PauseStatus;
-import celtech.roboxbase.comms.remote.RoboxRemoteCommandInterface;
+import celtech.roboxbase.comms.remote.IRemotePrinterControl;
 import celtech.roboxbase.comms.rx.FirmwareError;
 import jakarta.inject.Inject;
 import javafx.beans.property.StringProperty;
@@ -223,7 +223,7 @@ public class PrinterComponent extends GuicedPane {
 		if (printer != null) {
 			printerSVG.setPrinterIcon(printer.printerConfigurationProperty().get().typeCode);
 			nameText = printer.getPrinterIdentity().printerFriendlyNameProperty().get();
-			if (!printer.printerConfigurationProperty().get().typeCode.equalsIgnoreCase("RBX10") && printer.getCommandInterface() instanceof RoboxRemoteCommandInterface) {
+			if (!printer.printerConfigurationProperty().get().typeCode.equalsIgnoreCase("RBX10") && printer.getCommandInterface() instanceof IRemotePrinterControl) {
 				rootName.textProperty().unbind();
 				rootName.textProperty().bind(((RemoteDetectedPrinter) printer.getCommandInterface().getPrinterHandle()).getServerPrinterIsAttachedTo().nameProperty());
 				rootName.setVisible(true);

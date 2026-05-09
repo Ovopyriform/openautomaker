@@ -59,8 +59,6 @@ public class RoboxCommsManager extends Thread implements PrinterStatusConsumer {
 
 	public static final int MAX_ACTIVE_PRINTERS = 9;
 
-	private static RoboxCommsManager instance = null;
-
 	private boolean keepRunning = true;
 
 	private final ObservableMap<DetectedDevice, Printer> activePrinters = FXCollections.observableHashMap();
@@ -179,9 +177,6 @@ public class RoboxCommsManager extends Thread implements PrinterStatusConsumer {
 
 		tooManyRoboxAttachedProperty.set(false);
 
-		// To accommodate statics for the moment.
-		instance = this;
-
 		// Setup the virtual printer
 		virtualPrinterTypePreference.addChangeListener((evt) -> {
 			refreshVirtualPrinter();
@@ -203,7 +198,6 @@ public class RoboxCommsManager extends Thread implements PrinterStatusConsumer {
 			removeAllDummyPrinters();
 		});
 
-		instance = this;
 	}
 
 	/**
@@ -215,50 +209,6 @@ public class RoboxCommsManager extends Thread implements PrinterStatusConsumer {
 			removeDummyPrinter(virtualPrinterHandle.get());
 
 		addVirtualPrinter(true);
-	}
-
-	/**
-	 *
-	 * @return
-	 */
-	@Deprecated
-	public static RoboxCommsManager getInstance() {
-		return instance;
-	}
-
-	/**
-	 *
-	 * @param pathToBinaries
-	 * @param doNotCheckForHeadPresence
-	 * @param detectLoadedFilament
-	 * @param searchForRemoteCameras
-	 * @return
-	 */
-	//	public static RoboxCommsManager getInstance(boolean doNotCheckForHeadPresence,
-	//			boolean detectLoadedFilament,
-	//			boolean searchForRemoteCameras) {
-	//		if (instance == null) {
-	//			instance = new RoboxCommsManager(false, doNotCheckForHeadPresence,
-	//					new SimpleBooleanProperty(detectLoadedFilament), new SimpleBooleanProperty(searchForRemoteCameras));
-	//		}
-	//
-	//		return instance;
-	//	}
-
-	/**
-	 *
-	 * @param pathToBinaries
-	 * @param doNotCheckForHeadPresence
-	 * @param detectLoadedFilamentProperty
-	 * @param searchForRemoteCameras
-	 * @return
-	 */
-	@Deprecated
-	public static RoboxCommsManager getInstance(boolean doNotCheckForHeadPresence,
-			BooleanProperty detectLoadedFilamentProperty,
-			BooleanProperty searchForRemoteCamerasProperty) {
-
-		return instance;
 	}
 
 	// This needs to be synchronized because it is called from both the RoboxCommsManager thread and

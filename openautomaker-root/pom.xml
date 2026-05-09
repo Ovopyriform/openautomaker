@@ -8,7 +8,7 @@
 	<version>4.03.00</version>
 	<packaging>jar</packaging>
 
-	<name>OpenAutoMaker-Root</name>
+	<name>OpenAutomaker Root</name>
 
 	<parent>
 		<artifactId>openautomaker-parent</artifactId>
@@ -149,6 +149,10 @@
 			<groupId>com.github.toastshaman</groupId>
 			<artifactId>dropwizard-auth-jwt</artifactId>
 			<version>1.1.2-0</version>
+		</dependency>
+		<dependency>
+				<groupId>ru.vyarus</groupId>
+				<artifactId>dropwizard-guicey</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>commons-io</groupId>
